@@ -1,0 +1,19 @@
+{
+  "name": "planeats",
+  "version": "1.0.0",
+  "description": "Meal planning app for family and friends",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daftFunc/planEats.git"
+  },
+  "author": "Brittany Starr, Tre Ammatuna, Jordan Mason, Andrew Chung",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daftFunc/planEats/issues"
+  },
+  "homepage": ""
+}
