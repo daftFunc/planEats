@@ -28,7 +28,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "mocha --require ./testSetup.js --compilers babel-core/register ./test/*test.js",
+    "test:watch": "npm test -- -w",
     "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:3001"
