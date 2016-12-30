@@ -3,9 +3,9 @@ import {connectProfile} from '../auth';
 import './EditProfile.css';
 
 class EditProfile extends Component {
-  static propTypes = {
-    ...connectProfile.PropTypes
-  };
+  // static propTypes = {
+  //   ...connectProfile.PropTypes
+  // };
 
   state = {
     error: null,
@@ -74,4 +74,5 @@ class EditProfile extends Component {
   }
 }
 
-export default connectProfile(EditProfile);
+// export default connectProfile(EditProfile);
+export default EditProfile;

@@ -5,10 +5,10 @@ import logo from '../logo.svg';
 import './Site.css';
 
 class Site extends Component {
-  static propTypes = {
-    ...connectProfile.PropTypes,
-    children: PropTypes.any
-  };
+  // static propTypes = {
+  //   ...connectProfile.PropTypes,
+  //   children: PropTypes.any
+  // };
 
   render() {
     return (
@@ -45,4 +45,5 @@ class Site extends Component {
   }
 }
 
-export default connectProfile(Site);
+// export default connectProfile(Site);
+export default Site;
