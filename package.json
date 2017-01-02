@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/daftFunc/planEats/issues"
   },
-  "homepage": ""
+  "homepage": "",
+  "dependencies": {
+    "express": "^4.14.0",
+    "nodemon": "^1.11.0"
+  },
+  "devDependencies": {
+    "morgan": "^1.7.0"
+  }
 }

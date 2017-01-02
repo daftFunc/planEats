@@ -4,6 +4,7 @@ import {requireAuth} from '../auth';
 import Site from './Site';
 import Home from './Home';
 import Login from './Login';
+import Shop from './Shop';
 import EditProfile from './EditProfile';
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Route onEnter={requireAuth}>
             {/* Place all authenticated routes here */}
+            <Route path="/shop" component={Shop}/>
             <Route path="/profile/edit" component={EditProfile} />
           </Route>
         </Route>
