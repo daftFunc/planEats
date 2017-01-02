@@ -5,4 +5,5 @@ node_js:
   - "5.11"
   - "0.6"
   - "iojs"
-  script: cd client && npm install && npm test
+script: 
+  - cd client && npm install && npm test
