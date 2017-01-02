@@ -6,8 +6,15 @@ import fullCalendar from 'fullcalendar';
 import $ from 'jquery';
 import events from '../data/events.js';
 import moment from 'moment';
+import Schedule from './ScheduleMeal';
 
 class Calendar extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      date: null
+    }
+  }
   componentDidMount() {
     const {calendar} = this.refs;
     $(calendar).fullCalendar({
@@ -27,20 +34,27 @@ class Calendar extends React.Component {
       },
       dayClick: function(calEvent, jsEvent, view) {
         //get date clicked for plan
-        var time = moment(calEvent._d).format('YYYY-MM-DD')
+        var dateSelected = moment(calEvent._d).format('YYYY-MM-DD');
+
+        this.setState({date: dateSelected})
+        // console.log(time)
         /*
         to follow moment formatting, will need to add on the time they specifiy. if no time specified, it defaults to 12am.
 
         in meal pop-up, have user select time (24hr under the hood. will append to the date like so):
-          time = time + 'T17:00:00'
+          date = date + 'T17:00:00'
         */
-      }
+      }.bind(this)
     });
   }
 
   render() {
     return (
-      <div ref="calendar"></div>
+      <div>
+        <Link to={{pathname: '/schedule', state:{date: this.state.date}}}> DATE PICKER </Link> {/*pass the selected date on to the ScheduleMeal location state*/}
+        <div ref="calendar"></div>
+      </div>
+
     );
   }
 };

@@ -7,6 +7,7 @@ import Login from './Login';
 import Shop from './Shop';
 import EditProfile from './EditProfile';
 import Calendar from './Calendar';
+import Schedule from './ScheduleMeal';
 
 class App extends Component {
   render() {
@@ -21,6 +22,7 @@ class App extends Component {
             <Route path="/profile/edit" component={EditProfile} />
             <Route path="/profile/edit" component={EditProfile} />
             <Route path="/calendar" component={Calendar} />
+            <Route path="/schedule" component={Schedule} />
           </Route>
         </Route>
       </Router>
