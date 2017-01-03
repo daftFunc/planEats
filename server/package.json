@@ -1,0 +1,21 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "planEats server",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "start": "node server.js"
+  },
+  "author": "daftFunc",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "nodemon": "^1.11.0"
+  },
+  "devDependencies": {
+    "morgan": "^1.7.0"
+  }
+}

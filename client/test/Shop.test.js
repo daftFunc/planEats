@@ -15,7 +15,7 @@ describe('(Component) Shop', () => {
     expect(wrapper.unrendered.props.groceryList.length).to.equal(2);
     expect(wrapper.unrendered.props.groceryList[0]).to.equal('one');
   });
-  it('shoul have a list with the array values', ()=>{
+  it('should have a list with the array values', ()=>{
     const rend = render(<Shop groceryList = {['one','two']} />);
     expect(rend.find('div').length).to.equal(1);
     expect(rend.find('li').length).to.equal(2);
