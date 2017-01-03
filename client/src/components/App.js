@@ -23,7 +23,6 @@ class App extends Component {
             <Route path="/profile/edit" component={EditProfile} />
             <Route path="/calendar" component={Calendar} />
             <Route path="/schedule" component={Schedule} />
-            <Route path="/profile/edit" component={EditProfile} />
             <Route path="/calendar" component={Calendar} />
           </Route>
         </Route>
