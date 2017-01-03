@@ -14,10 +14,11 @@ class App extends Component {
   render() {
     return (
       <Router history={browserHistory}>
-        <Route component={Site}>
-          <Route path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route onEnter={requireAuth}>
+
+        <Route path="/" component={Home} />
+          <Route component={Site}>
+            <Route path="/login" component={Login} />
+            <Route onEnter={requireAuth}>
             {/* Place all authenticated routes here */}
             <Route path="/shop" component={Shop}/>
             <Route path="/profile/edit" component={EditProfile} />

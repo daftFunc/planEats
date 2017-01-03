@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import {connectProfile, logout} from '../auth';
-import logo from '../logo.svg';
+
 import './Site.css';
 
 class Site extends Component {
@@ -14,7 +14,6 @@ class Site extends Component {
     return (
       <div className="Site">
         <div className="Site-header">
-          <img src={logo} className="Site-logo" alt="logo" />
           <h2>Welcome to React + Auth0</h2>
           {this.renderUserControls()}
         </div>
@@ -31,7 +30,10 @@ class Site extends Component {
     if (profile) {
       return (
         <div className="Site-profileControls">
-          <img className="Site-profilePicture" src={profile.picture} alt={profile.nickname} />
+          {this.props.location.pathname==='/profile/edit'
+            && <img className="Site-profilePicture"
+                    src={profile.picture}
+                    alt={profile.nickname} />}
           <Link to="/profile/edit">{profile.nickname}</Link> &middot; <Link to="/calendar">Plan</Link> &middot; <Link to="/shop">Shop</Link> &middot; <a onClick={() => logout()}>Log Out</a>
         </div>
       );
