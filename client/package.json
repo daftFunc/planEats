@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "@kadira/storybook": "^2.21.0",
     "auth0-react-scripts": "0.6.20",
     "chai": "^3.5.0",
     "enzyme": "^2.7.0",
     "jsdom": "^9.9.1",
     "mocha": "^3.2.0",
     "react-addons-test-utils": "^15.4.1",
-    "sinon": "^1.17.6",
-    "@kadira/storybook": "^2.21.0"
+    "sinon": "^1.17.6"
   },
   "dependencies": {
     "auth0-lock": "^10.7.3",
