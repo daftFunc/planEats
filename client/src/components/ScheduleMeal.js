@@ -27,8 +27,8 @@ class Schedule extends Component {
   }
 
   populateSavedMeals() {
-    this.state.meals.forEach((meal) =>
-      this.state.mealNames.push(<option name={meal.name}>{meal.name}</option>)
+    this.state.meals.forEach((meal, i) =>
+      this.state.mealNames.push(<option name={meal.name} key={i}>{meal.name}</option>)
     );
   }
 
@@ -37,7 +37,7 @@ class Schedule extends Component {
     //send update to db showing the date and the meal planned
     var value = document.getElementById('selectedMeal').value; //get selected item to add
     console.log('you selected', value);
-    
+
     this.setState({selectedMeal: {
       name: value
     }}, function(){
