@@ -38,7 +38,7 @@ class Site extends Component {
     } else {
       return (
         <div className="Site-profileControls">
-          <span>Guest</span> &middot; <Link to="/login">Log In</Link>
+          <span>Guest</span> &middot; <Link to="/login">Log In</Link> &middot; <Link to="/calendar">Calendar</Link>
         </div>
       );
     }

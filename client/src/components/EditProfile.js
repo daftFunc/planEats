@@ -75,4 +75,3 @@ class EditProfile extends Component {
 }
 
 export default connectProfile(EditProfile);
-// export default EditProfile;

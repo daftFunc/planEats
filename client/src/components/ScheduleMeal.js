@@ -36,6 +36,8 @@ class Schedule extends Component {
     //save the data in the form
     //send update to db showing the date and the meal planned
     var value = document.getElementById('selectedMeal').value; //get selected item to add
+    console.log('you selected', value);
+    
     this.setState({selectedMeal: {
       name: value
     }}, function(){

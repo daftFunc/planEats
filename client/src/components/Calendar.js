@@ -19,6 +19,7 @@ class Calendar extends React.Component {
       date: null
     }
   }
+
   componentDidMount() {
     const {calendar} = this.refs;
     $(calendar).fullCalendar({
@@ -47,6 +48,7 @@ class Calendar extends React.Component {
           });
         })
         // console.log(time)
+        var time = moment(calEvent._d).format('YYYY-MM-DD')
         /*
         to follow moment formatting, will need to add on the time they specifiy. if no time specified, it defaults to 12am.
 
@@ -59,10 +61,7 @@ class Calendar extends React.Component {
 
   render() {
     return (
-      <div>
-        <div ref="calendar"></div>
-      </div>
-
+      <div ref="calendar"></div>
     );
   }
 };
