@@ -10,7 +10,7 @@ import Schedule from './ScheduleMeal';
 
 class Calendar extends React.Component {
   static contextTypes = {
-    router: React.PropTypes.object.isRequired
+    router: React.PropTypes.object.isRequired //needed to push to the ScheduleMeal page without a <Link>
   }
 
   constructor() {
