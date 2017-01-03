@@ -14,7 +14,7 @@ class Site extends Component {
     return (
       <div className="Site">
         <div className="Site-header">
-          <h2>Welcome to React + Auth0</h2>
+
           {this.renderUserControls()}
         </div>
         <div className="Site-page">
