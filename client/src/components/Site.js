@@ -32,7 +32,7 @@ class Site extends Component {
       return (
         <div className="Site-profileControls">
           <img className="Site-profilePicture" src={profile.picture} alt={profile.nickname} />
-          <Link to="/profile/edit">{profile.nickname}</Link> &middot; <a onClick={() => logout()}>Log Out</a>
+          <Link to="/profile/edit">{profile.nickname}</Link> &middot; <Link to="/calendar">Plan</Link> &middot; <Link to="/shop">Shop</Link> &middot; <a onClick={() => logout()}>Log Out</a>
         </div>
       );
     } else {
