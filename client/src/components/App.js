@@ -20,7 +20,6 @@ class App extends Component {
             {/* Place all authenticated routes here */}
             <Route path="/shop" component={Shop}/>
             <Route path="/profile/edit" component={EditProfile} />
-            <Route path="/profile/edit" component={EditProfile} />
             <Route path="/calendar" component={Calendar} />
             <Route path="/schedule" component={Schedule} />
           </Route>

@@ -1,5 +1,6 @@
 .schedule {
-  height: 200px;
-  width: 200px;
-  background: pink;
+  /*height: 25;*/
+  width: 25%;
+  border: 1px solid cyan;
+  margin: 0 auto;
 }

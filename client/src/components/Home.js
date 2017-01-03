@@ -4,9 +4,9 @@ import {Link} from 'react-router';
 import './Home.css';
 
 class Home extends Component {
-  // static propTypes = {
-  //   ...connectProfile.PropTypes
-  // };
+  static propTypes = {
+    ...connectProfile.PropTypes
+  };
 
   render() {
 
@@ -21,5 +21,4 @@ class Home extends Component {
   }
 }
 
-// export default connectProfile(Home);
-export default Home;
+export default connectProfile(Home);

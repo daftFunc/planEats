@@ -9,6 +9,10 @@ import moment from 'moment';
 import Schedule from './ScheduleMeal';
 
 class Calendar extends React.Component {
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  }
+
   constructor() {
     super();
     this.state = {
@@ -36,7 +40,12 @@ class Calendar extends React.Component {
         //get date clicked for plan
         var dateSelected = moment(calEvent._d).format('YYYY-MM-DD');
 
-        this.setState({date: dateSelected})
+        this.setState({date: dateSelected}, function(){
+          this.context.router.push({
+            pathname: '/schedule',
+            state:{date: this.state.date}
+          });
+        })
         // console.log(time)
         /*
         to follow moment formatting, will need to add on the time they specifiy. if no time specified, it defaults to 12am.
@@ -51,7 +60,6 @@ class Calendar extends React.Component {
   render() {
     return (
       <div>
-        <Link to={{pathname: '/schedule', state:{date: this.state.date}}}> DATE PICKER </Link> {/*pass the selected date on to the ScheduleMeal location state*/}
         <div ref="calendar"></div>
       </div>
 
@@ -59,4 +67,4 @@ class Calendar extends React.Component {
   }
 };
 
-export default Calendar;
+export default connectProfile(Calendar);
