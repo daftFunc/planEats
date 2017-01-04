@@ -23,6 +23,7 @@ class Schedule extends Component {
   }
 
   componentDidMount() {
+    this.state.date = this.props.location.state.date;
     this.populateSavedMeals();
   }
 
@@ -41,7 +42,14 @@ class Schedule extends Component {
     this.setState({selectedMeal: {
       name: value
     }}, function(){
-      this.context.router.push('/calendar');
+      this.context.router.push({
+        pathname: '/calendar',
+        state:{newMeal: {
+          title: value,
+          allDay: false,
+          start: this.state.date + "T12:00:00"
+        }}
+      });
     });
   }
 

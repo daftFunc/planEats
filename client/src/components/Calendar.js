@@ -21,6 +21,10 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
+    if (this.props.location.state) {
+      events.push(this.props.location.state.newMeal)
+      console.log(events)
+    }
     const {calendar} = this.refs;
     $(calendar).fullCalendar({
       header: {
