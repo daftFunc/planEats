@@ -17,7 +17,7 @@ class Schedule extends Component {
       date: this.props.date,
       focused: null,
       meals: meals,
-      mealNames: [<option defaultValue>Select a Meal</option>],
+      mealNames: [<option key="default" defaultValue>Select a Meal</option>],
       selectedMeal: {} //make the meal object to be saved in the db
     }
   }
