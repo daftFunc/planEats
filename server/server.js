@@ -1,8 +1,8 @@
 var express = require('express'),
     morgan = require('morgan'),
     cors = require('cors'),
-    parser = require('body-parser'),
-    router = require('./config/routes');
+    parser = require('bod    router = require('./config/routes');y-parser'),
+
 
 var app = express();
 
