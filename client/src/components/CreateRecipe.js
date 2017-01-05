@@ -5,7 +5,7 @@ import './CreateRecipe.css';
 import recipes from '../data/recipes.js'
 import { FieldGroup, FormGroup, HelpBlock, ControlLabel, FormControl, Button, Checkbox, Radio } from 'react-bootstrap';
 
-
+/* NOT CURRENTLY IN USE - PLACEHOLDER FOR A STANDALONE CREATE RECIPE*/
 class CreateRecipe extends Component {
   constructor() {
     super();
