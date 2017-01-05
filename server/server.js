@@ -17,6 +17,7 @@ app.use(helmet());
 app.use(cors({
   allowedOrigins: ["http://localhost:3001", "http://localhost:3000", "http://www.planEats.xyz/"]
 }));
+app.use(parser.urlencoded({ extended: true }));
 app.use(parser.json());
 
 // Serve static files - not positive which to use here

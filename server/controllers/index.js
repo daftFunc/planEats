@@ -7,6 +7,23 @@ module.exports = {
         .then(function(recipe) {
           res.json(recipe);
         });
+    },
+    post: function(req, res) { 
+      db.Meals.findOrCreate({where: {name: req.body.name}}) 
+        .spread(function(meal, created) {
+          db.Recipe.create({
+            mealid: meal.get('id'), 
+            name: req.body.name,
+            ingredients: req.body.ingredients,
+            time: req.body.time,
+            servings: req.body.servings,
+            directions: req.body.directions,
+            nutrition: req.body.nutrition 
+          }).then(function(recipe) {
+            res.sendStatus(201);
+            console.log('Recipe created!');
+          }); 
+        });
     }
   },
   meals: {
@@ -58,7 +75,7 @@ module.exports = {
         })
     },
     post: function(req, res) {
-      db.User.findOrCreate({where: {username: req.body.username}})
+      db.Users.findOrCreate({where: {username: req.body.username}})
          .spread(function(user, created) {
             res.sendStatus(created ? 201 : 200)
          });

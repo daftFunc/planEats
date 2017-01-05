@@ -30,8 +30,8 @@ var Users = db.define('Users', {
 Recipe.belongsToMany(Meals, {through: 'MealRecipe'});
 Meals.belongsToMany(Recipe, {through: 'MealRecipe'});
 // Meals.hasMany(Recipe);
-Events.hasOne(Meals);
-Users.hasMany(Events);
+Meals.hasMany(Events, {as: 'Meal'});
+Users.hasMany(Events, {as: 'Event'});
 Meals.belongsToMany(Users, {through: 'UsersMeals'});
 Users.belongsToMany(Meals, {through: 'UsersMeals'});
 // Users.hasMany(Meals);

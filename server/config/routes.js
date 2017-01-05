@@ -5,16 +5,20 @@ router.get('/', function(req, res) {
   res.sendfile('../client/build/');
 });
 
-router.get('/recipe', controller.recipe.get);
-// router.post('/recipe', controller.recipe.post);
+router.route('/recipe')
+  .get(controller.recipe.get)
+  .post(controller.recipe.post);
 
-router.get('/meals', controller.meals.get);
-router.post('/meals', controller.meals.post);
+router.route('/meals')
+  .get(controller.meals.get)
+  .post(controller.meals.post);
 
-router.get('/events', controller.events.get);
-router.post('/events', controller.events.post);
+router.route('/events')
+  .get(controller.events.get)
+  .post(controller.events.post);
 
-router.get('/users', controller.users.get);
-router.post('/users', controller.users.post);
+router.route('/events')
+  .get(controller.users.get)
+  .post(controller.users.post);
 
 module.exports = router;
