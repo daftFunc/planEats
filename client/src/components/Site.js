@@ -6,9 +6,9 @@ import calendar from './images/white_calendar.png';
 import cart from './images/white_shop.png';
 import eat from './images/white_cook.png';
 import prof from './images/white_prof.png';
-import {MenuItem} from 'react-bootstrap';
 import {Navbar} from 'react-bootstrap';
 import {Nav} from 'react-bootstrap';
+import logo from './images/planEats_logo.png';
 
 
 import './Site.css';
@@ -38,27 +38,39 @@ class Site extends Component {
       return (
        <div>
 
-         <Navbar className="Site-header Site-profileControls" inverse collapseOnSelect>
-           <Navbar.Header>
+         <Navbar className="Site-header"
+                 inverse collapseOnSelect>
+
+           <Navbar.Header className="menu-header">
              <Link to="/profile/edit">
-            <img id="header-image" src={prof} />
+               <img id="header-image" src={prof} />
              </Link>
            <Navbar.Toggle />
            </Navbar.Header>
 
-           <Navbar.Collapse>
-             <Nav className="row">
+           <Navbar.Collapse className="contain-menu-drop">
+             <Nav >
+               <div className="space-fill left-sideOf" />
               <Link to="/calendar">
-               <img className="col-md-1" src={calendar} />
+               <img className="menu-item-drop" src={calendar} />
+               <div className="space-fill">Plan</div>
+
               </Link>
               <Link to="/recipe">
-               <img className="col-md-1" src={recipe} />
+               <img className="menu-item-drop" src={recipe} />
+               <div className="space-fill">Recipies</div>
+
               </Link>
               <Link to="/shop">
-                <img className="col-md-1" src={cart} />
+                <img className="menu-item-drop" src={cart} />
+               <div className="space-fill">Shop</div>
+
+
               </Link>
                <Link to="/eat">
-                <img className="col-md-1" src={eat} />
+                <img className="menu-item-drop" src={eat} />
+                <div className="space-fill">Eat</div>
+
                </Link>
              </Nav>
            </Navbar.Collapse>
@@ -71,13 +83,15 @@ class Site extends Component {
                     {/*src={profile.picture}*/}
                     {/*alt={profile.nickname} />}*/}
           {/*<Link to="/profile/edit">{profile.nickname}</Link> &middot; <Link to="/calendar">Plan</Link> &middot; <Link to="/shop">Shop</Link> &middot; <a onClick={() => logout()}>Log Out</a>*/}
-
+          {/*<a onClick={() => logout()}>Log Out</a>*/}
           </div>
       );
     } else {
       return (
-        <div className="Site-profileControls">
-          <span>Guest</span> &middot; <Link to="/login">Log In</Link>
+        <div>
+          <Navbar className="Site-header Site-profileControls" inverse collapseOnSelect>
+          </Navbar>
+
         </div>
       );
     }
