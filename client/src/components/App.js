@@ -29,7 +29,7 @@ class App extends Component {
             <Route path="/calendar" component={Calendar} />
             <Route path="/search" component={Search} />
             <Route path="/schedule" component={Schedule} />
-            <Route path="/recipebook" component={Book} />
+            <Route path="/recipe" component={Book} />
             <Route path="/eat" component={Eat} />
             <Route path="/create" component={CreateRecipe} />
           </Route>
