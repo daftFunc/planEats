@@ -32,13 +32,13 @@ export default class Eat extends Component {
 
 var CookingInstruction = ({instructions}) => (
 
-  <ul  style={{listStyleType:'decimal'}}>
+  <ol>
     {instructions.map((element,i)=>(
         <li key={element}>
           <input type='checkbox'/>{element}
         </li>
       )
     )}
-  </ul>
+  </ol>
 
 );
