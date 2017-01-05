@@ -21,6 +21,10 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
+    if (this.props.location.state) {
+      events.push(this.props.location.state.newMeal)
+      console.log(events)
+    }
     const {calendar} = this.refs;
     $(calendar).fullCalendar({
       header: {
@@ -34,9 +38,11 @@ class Calendar extends React.Component {
       drop: function() {
         console.log('dropped', this)
       },
+
       eventClick: function(calEvent, jsEvent, view){
         console.log(calEvent, jsEvent, view)
       },
+
       dayClick: function(calEvent, jsEvent, view) {
         //get date clicked for plan
         var dateSelected = moment(calEvent._d).format('YYYY-MM-DD');

@@ -17,18 +17,19 @@ class Schedule extends Component {
       date: this.props.date,
       focused: null,
       meals: meals,
-      mealNames: [<option defaultValue>Select a Meal</option>],
+      mealNames: [<option key="default" defaultValue>Select a Meal</option>],
       selectedMeal: {} //make the meal object to be saved in the db
     }
   }
 
   componentDidMount() {
+    this.state.date = this.props.location.state.date;
     this.populateSavedMeals();
   }
 
   populateSavedMeals() {
-    this.state.meals.forEach((meal) =>
-      this.state.mealNames.push(<option name={meal.name}>{meal.name}</option>)
+    this.state.meals.forEach((meal, i) =>
+      this.state.mealNames.push(<option name={meal.name} key={i}>{meal.name}</option>)
     );
   }
 
@@ -37,11 +38,18 @@ class Schedule extends Component {
     //send update to db showing the date and the meal planned
     var value = document.getElementById('selectedMeal').value; //get selected item to add
     console.log('you selected', value);
-    
+
     this.setState({selectedMeal: {
       name: value
     }}, function(){
-      this.context.router.push('/calendar');
+      this.context.router.push({
+        pathname: '/calendar',
+        state:{newMeal: {
+          title: value,
+          allDay: false,
+          start: this.state.date + "T12:00:00"
+        }}
+      });
     });
   }
 
