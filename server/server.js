@@ -1,22 +1,34 @@
 var express = require('express'),
     morgan = require('morgan'),
-    cors = require('cors'),
-    parser = require('bod    router = require('./config/routes');y-parser'),
+    cors = require('express-cors'),
+    parser = require('body-parser'),
+    helmet = require('helmet'),
+    router = require('./config/routes');
 
-
+// Create new app
 var app = express();
 
+// Set port to process.env.POR or 3001
 app.set('port', (process.env.PORT || 3001));
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-}
-
-app.use(cors());
+// logging, security, parsing data, allowing cors for dev and prod
 app.use(morgan('dev'));
+app.use(helmet());
+app.use(cors({
+  allowedOrigins: ["http://localhost:3001", "http://localhost:3000", "http://www.planEats.xyz/"]
+}));
 app.use(parser.json());
+
+// Serve static files - not positive which to use here
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static('client/build'));
+// }
 app.use(express.static('../client/build'));
 
+// API route
+app.use('/api', router);
+
+// Confirm server is running
 app.listen(app.get('port'), () => {
   console.log(`Find the server at: http://localhost:${app.get('port')}/`);
 });

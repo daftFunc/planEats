@@ -4,3 +4,6 @@ var router = require('express').Router();
 router.get('/', function(req, res) {
   res.sendfile('../client/build/');
 });
+
+router.get('/recipe', controller.recipe.get);
+
