@@ -8,7 +8,7 @@ var express = require('express'),
 // Create new app
 var app = express();
 
-// Set port to process.env.POR or 3001
+// Set port to process.env.PORT or 3001
 app.set('port', (process.env.PORT || 3001));
 
 // logging, security, parsing data, allowing cors for dev and prod

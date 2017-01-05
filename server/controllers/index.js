@@ -1,6 +1,6 @@
 var db = require('../db');
 
-modules.exports = {
+module.exports = {
   recipe: {
     get: function(req, res) {
       db.Recipe.findAll({include: [db.Meal]})

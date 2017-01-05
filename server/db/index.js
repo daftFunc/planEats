@@ -1,12 +1,12 @@
 var Sequelize = require('sequelize');
-var db = new Sequelize('planeats', 'JPMase', 'thesis', {
+var db = new Sequelize('planeats', 'postgres', 'thesisEats', {
   dialect: 'postgres'
 });
 
 // Model definitions
 var Recipe = db.define('Recipe', {
   name: Sequelize.STRING,
-  ingredients: Sequelize.ARRAY,
+  ingredients: Sequelize.STRING,
   time: Sequelize.INTEGER,
   servings: Sequelize.INTEGER,
   directions: Sequelize.TEXT,
@@ -27,12 +27,14 @@ var Users = db.define('Users', {
 });
 
 // Associations
-Recipe.belongsToMany(Meals);
-Meals.hasMany(Recipe);
+Recipe.belongsToMany(Meals, {through: 'MealRecipe'});
+Meals.belongsToMany(Recipe, {through: 'MealRecipe'});
+// Meals.hasMany(Recipe);
 Events.hasOne(Meals);
 Users.hasMany(Events);
-Meals.belongsToMany(Users);
-Users.hasMany(Meals);
+Meals.belongsToMany(Users, {through: 'UsersMeals'});
+Users.belongsToMany(Meals, {through: 'UsersMeals'});
+// Users.hasMany(Meals);
 
 // Sync database
 Recipe.sync();
