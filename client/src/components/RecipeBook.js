@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {connectProfile} from '../auth';
+import swal from 'sweetalert2';
 import {Link} from 'react-router';
 import './RecipeBook.css';
-import recipes from '../data/recipes.js'
+import recipes from '../data/recipes.js';
 import { FieldGroup, FormGroup, HelpBlock, ControlLabel, FormControl, Button, Checkbox, Radio } from 'react-bootstrap';
 
 class Book extends Component {
