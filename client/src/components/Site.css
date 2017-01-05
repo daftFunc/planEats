@@ -1,5 +1,5 @@
 .Site {
-  text-align: center;
+  /*text-align: center;*/
 }
 
 .Site-logo {
@@ -8,8 +8,8 @@
 }
 
 .Site-header {
-  background-color: #222;
-  padding: 20px;
+  background-color: #393f52;
+  height:10%;
   color: white;
 }
 
@@ -23,11 +23,32 @@
   height: 192px;
   margin: 10px auto;
 }
-
+.col-md-1 {
+  width:25%;
+  height: auto;
+  padding-top:5%;
+  max-width:100px;
+}
+/*.collapse-menu-container {*/
+  /*text-align:justify;*/
+/*}*/
+/*.collapse-menu-container > img {*/
+  /*display:inline-block;*/
+  /*vertical-align:top;*/
+/*}*/
+/*.collaps-menu-container:after {*/
+  /*content:'';*/
+  /*width:100%;*/
+  /*display:inline-block;*/
+/*}*/
 .Site-page {
   padding: 10px;
 }
+#header-image {
 
+  height:auto;
+  width:15%;
+}
 @keyframes Site-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

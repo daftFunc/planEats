@@ -11,7 +11,6 @@ describe('(Component) Shop', () => {
     expect(wrapper).to.have.length(1);
   });
   it('should have an array in props', ()=>{
-    console.log(wrapper.unrendered.props.groceryList);
     expect(wrapper.unrendered.props.groceryList.length).to.equal(2);
     expect(wrapper.unrendered.props.groceryList[0]).to.equal('one');
   });

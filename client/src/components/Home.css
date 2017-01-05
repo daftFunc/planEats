@@ -1,3 +1,36 @@
-.Home-intro {
-  font-size: large;
+.Home {
+  height:100%;
+}
+
+#menu {
+  margin-top:20%;
+  margin-left:auto;
+  margin-right:auto;
+  width:13em;
+  height:13em;
+}
+
+.menu-item {
+  background: #25cbb0;
+  width: 46%;
+  height: 46%;
+  margin: 2%;
+  display: inline-block;
+  border-radius: 1.7em;
+}
+
+#Logo-home {
+  margin-left:auto;
+  margin-right:auto;
+  display:block;
+  text-align:center;
+  width:80%;
+  height:auto;
+  margin-top:10%;
+}
+
+.menu-image {
+  width:50%;
+  height:50%;
+  transform: translate(50%, 50%);
 }

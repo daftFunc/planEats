@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Axios from 'axios'
+import './Shop.css'
 export default class Shop extends Component {
   constructor(props) {
     super(props);
@@ -80,22 +81,31 @@ export default class Shop extends Component {
 
 
 var GroceryList = ({groceryList, freq, addedItems}) => (
+
   <div>
     <ul style={{listStyleType:'none'}}>
-      {groceryList.map((element,i)=>(
-          <li style={ i > freq && {display:'none'} || {} }>
-            <input type='checkbox' />{element}
-          </li>
-        )
-      )}
-      {console.log('items added',addedItems)}
+      {groceryList.map((element,i) => {
+          return i<=freq && (
+            <li className="item">
+              <input type='checkbox' id={element}/>
+                <label htmlFor={element}>
+                  <span></span>{element}
+                </label>
+            </li>
+          );
+        })
+      }
       {addedItems.map((element) => (
-        <li>
-          <input type="checkbox" />{element}
+        <li className="item">
+          <input type="checkbox" id={element} />
+            <label htmlFor={element}>
+              <span></span>{element}
+            </label>
         </li>
       ))}
     </ul>
   </div>
+
 );
 
 var AddItemButtonAndPopup = ({modalActive, toggleAdd, handleAddItem, itemAddedValue,handleInputChange}) => (
