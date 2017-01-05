@@ -8,9 +8,12 @@
 }
 
 .Site-header {
-  background-color: #393f52;
   height:10%;
   color: white;
+}
+
+.navbar-inverse {
+  background-color:#262228 !important;
 }
 
 .Site-profileControls {

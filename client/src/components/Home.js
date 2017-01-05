@@ -23,22 +23,23 @@ class Home extends Component {
           <img id="Logo-home" src={logo} alt="logo" />
         </div>
         <div id="menu">
-          <div className="menu-item top left">
+          <div className="menu-item top-left">
             <Link to="/calendar">
               <img src={calendar} className="menu-image"/>
             </Link>
+
           </div>
-          <div className="menu-item top right">
+          <div className="menu-item top-right">
             <Link to="/recipe">
               <img src={recipe} className="menu-image" />
             </Link>
           </div><br />
-          <div className="menu-item bottom left">
+          <div className="menu-item bottom-left">
             <Link to="/shop">
               <img src={cart} className="menu-image" />
             </Link>
           </div>
-          <div className="menu-item bottom right">
+          <div className="menu-item bottom-right">
             <Link to="/eat">
              <img src={eat} className="menu-image" />
             </Link>

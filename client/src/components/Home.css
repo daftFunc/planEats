@@ -6,19 +6,30 @@
   margin-top:20%;
   margin-left:auto;
   margin-right:auto;
-  width:13em;
-  height:13em;
+  width:17em;
+  height:17em;
 }
 
 .menu-item {
-  background: #25cbb0;
+  background: #0375B4;
   width: 46%;
   height: 46%;
   margin: 2%;
   display: inline-block;
   border-radius: 1.7em;
 }
-
+.top-left {
+  background-color: 0375B4;
+}
+.top-right{
+  background-color: #262228;
+}
+.bottom-left {
+  background-color:#FC4A1A;
+}
+.bottom-right {
+  background-color: #007849;
+}
 #Logo-home {
   margin-left:auto;
   margin-right:auto;
