@@ -45,3 +45,32 @@
   height:50%;
   transform: translate(50%, 50%);
 }
+
+@media screen and (min-width: 768px) {
+
+  #menu {
+    text-align:center;
+    margin-top:5%;
+    margin-left:auto;
+    margin-right:auto;
+    width:100%;
+    height:17em;
+  }
+
+  .menu-item {
+    width: 109.47px;
+    height: 109.47px;
+    margin: 2%;
+    display: inline-block;
+    border-radius: 1.7em;
+  }
+  .menu-image {
+    width:50%;
+    height:50%;
+    transform: translate(5%, 50%);
+  }
+  br {
+    display:none;
+    content:' ';
+  }
+}

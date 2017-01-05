@@ -16,11 +16,12 @@ class Home extends Component {
 
   render() {
 
+
     return (
 
       <div>
         <div className="Home">
-          <img id="Logo-home" src={logo} alt="logo" />
+          {/*<img id="Logo-home" src={logo} alt="logo" />*/}
         </div>
         <div id="menu">
           <div className="menu-item top-left">
@@ -33,7 +34,7 @@ class Home extends Component {
             <Link to="/recipe">
               <img src={recipe} className="menu-image" />
             </Link>
-          </div><br />
+          </div>
           <div className="menu-item bottom-left">
             <Link to="/shop">
               <img src={cart} className="menu-image" />

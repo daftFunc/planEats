@@ -2,22 +2,25 @@
   /*text-align: center;*/
 }
 
-.Site-logo {
-  animation: Site-logo-spin infinite 20s linear;
-  height: 80px;
-}
+/*.Site-logo {*/
+  /*animation: Site-logo-spin infinite 20s linear;*/
+  /*height: 80px;*/
+/*}*/
 
 .Site-header {
   height:10%;
   color: white;
+  padding: 10px;
+  width:100% !important;
+}
+
+#header-logo {
+  width:30%;
+  text-align:center;
 }
 
 .navbar-inverse {
   background-color:#262228 !important;
-}
-
-.Site-profileControls {
-  padding: 10px;
 }
 
 .Site-profilePicture {
@@ -26,24 +29,18 @@
   height: 192px;
   margin: 10px auto;
 }
-.col-md-1 {
-  width:25%;
-  height: auto;
+.menu-item-drop {
+  display:inline;
+  width:7.5%;
   padding-top:5%;
-  max-width:100px;
 }
-/*.collapse-menu-container {*/
-  /*text-align:justify;*/
-/*}*/
-/*.collapse-menu-container > img {*/
-  /*display:inline-block;*/
-  /*vertical-align:top;*/
-/*}*/
-/*.collaps-menu-container:after {*/
-  /*content:'';*/
-  /*width:100%;*/
-  /*display:inline-block;*/
-/*}*/
+.space-fill {
+  display:inline-block;
+  visibility:hidden;
+  width:14%;
+}
+
+
 .Site-page {
   padding: 10px;
 }
@@ -51,8 +48,77 @@
 
   height:auto;
   width:15%;
+  display:inline;
 }
+
 @keyframes Site-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+@media screen and (min-width: 768px) {
+
+  .menu-header{
+    display:none;
+  }
+
+  .space-fill {
+    display:inline-flex;
+    visibility:visible;
+    color:white;
+    width:17%;
+    padding:3px;
+  }
+  .left-sideOf {
+    width:11%
+  }
+
+  a {
+
+    text-decoration:none !important;
+    -webkit-text-decoration:none !important;
+  }
+
+  .menu-item-drop {
+    display:inline;
+    width:30px;
+    padding:0;
+  }
+
+  ul {
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+  }
+
+  .navbar-collapse{
+    padding-right:0;
+    padding-left:0;
+  }
+
+  .container{
+    padding-right:0;
+    padding-left:0;
+    width:100%;
+    margin-right:0;
+    margin-left:0;
+  }
+
+  .navbar-nav{
+    height:50px;
+    width:100%;
+  }
+
+  .Site-header {
+    height:50px;
+    margin-top:70px;
+    color: white;
+    width:100% !important;
+  }
+
+  body{
+    margin:5% !important;
+  }
 }
