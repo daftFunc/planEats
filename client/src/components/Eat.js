@@ -45,7 +45,7 @@ var CookingInstruction = ({instructions}) => (
 
   <ol>
     {instructions.map((element,i)=>(
-        <li key={element}>
+        <li key={element} style={{padding: 5 + 'px'}}>
           <input type='checkbox'/>{element}
         </li>
       )

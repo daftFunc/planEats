@@ -47,7 +47,7 @@ var recipes =
     While the burgers are baking, prepare the peanut sauce. Add all sauce ingredients into a food processor and process until smooth. Adjust ingredients to taste if desired. The sauce will thicken up as it sits.
     After baking, place patties on a cooling rack for 10 minutes to cool slightly. Serve with toasted buns (or lettuce or whole grain wraps), tomato slices, roasted sweet potato, lettuce, and the peanut sauce.
     The peanut sauce will store in the fridge for at least a week. The burgers can be frozen (after baking and cooling) for a couple weeks.
-    
+
     Tips:
 
     Notes: 1) To make the burgers soy-free, use coconut aminos in place of the tamari or simply omit it all together. 2) To make this recipe nut-free, omit the peanuts in the burgers and use sunflower seeds instead. For the peanut sauce, you can probably use sunflower seed butter instead of the peanut butter, but you will likely have to adjust the other ingredients to taste since its more bitter than peanut butter.`
