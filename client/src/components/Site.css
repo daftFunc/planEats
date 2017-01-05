@@ -66,11 +66,11 @@
     display:inline-flex;
     visibility:visible;
     color:white;
-    width:17%;
+    width:18%;
     padding:3px;
   }
   .left-sideOf {
-    width:11%
+    width:10%
   }
 
   a {
@@ -119,6 +119,6 @@
   }
 
   body{
-    margin:5% !important;
+    margin:3% !important;
   }
 }
