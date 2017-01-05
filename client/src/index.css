@@ -1,8 +1,9 @@
 body {
   margin: 0;
   padding: 0;
-  height:100%;
   font-family: sans-serif;
+  height:100%;
+  background: #efefef;
 }
 
 a {
@@ -13,4 +14,10 @@ a {
 
 button {
   cursor: pointer;
+}
+.container-fluid {
+  padding-right:0;
+  padding-left:0;
+  margin-right:auto;
+  margin-left:auto
 }

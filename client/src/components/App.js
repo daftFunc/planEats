@@ -8,25 +8,29 @@ import Shop from './Shop';
 import EditProfile from './EditProfile';
 import Calendar from './Calendar';
 import Schedule from './ScheduleMeal';
-
+import Eat from './Eat.js';
 
 class App extends Component {
   render() {
     return (
+
       <Router history={browserHistory}>
 
-        <Route path="/" component={Home} />
-        <Route component={Site}>
-          <Route path="/login" component={Login} />
+          <Route component={Site}>
           <Route onEnter={requireAuth}>
+            <Route path="/" component={Home} />
             {/* Place all authenticated routes here */}
             <Route path="/shop" component={Shop}/>
             <Route path="/profile/edit" component={EditProfile} />
             <Route path="/calendar" component={Calendar} />
             <Route path="/schedule" component={Schedule} />
+            <Route path="/eat" component={Eat} />
           </Route>
+          <Route path="/login" component={Login} />
         </Route>
+
       </Router>
+
     );
   }
 }
