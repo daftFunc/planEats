@@ -37,7 +37,13 @@ class Site extends Component {
     if (profile) {
       return (
        <div>
+         <div id="desktop-header">
 
+           <img src={logo}/>
+           <Link to="/profile/edit">
+             <img id="header-image" src={prof} />
+           </Link>
+         </div>
          <Navbar className="Site-header"
                  inverse collapseOnSelect>
 
@@ -45,6 +51,8 @@ class Site extends Component {
              <Link to="/profile/edit">
                <img id="header-image" src={prof} />
              </Link>
+             &nbsp;
+             <img id="header-logo" src={logo} alt="Logo"/>
            <Navbar.Toggle />
            </Navbar.Header>
 
@@ -58,7 +66,7 @@ class Site extends Component {
               </Link>
               <Link to="/recipe">
                <img className="menu-item-drop" src={recipe} />
-               <div className="space-fill">Recipies</div>
+               <div className="space-fill">Recipes</div>
 
               </Link>
               <Link to="/shop">
@@ -69,7 +77,7 @@ class Site extends Component {
               </Link>
                <Link to="/eat">
                 <img className="menu-item-drop" src={eat} />
-                <div className="space-fill">Eat</div>
+                <div className="space-fill right-sideOf">Eat</div>
 
                </Link>
              </Nav>
