@@ -24,20 +24,12 @@ class MealPlanner extends Component {
     }
   }
 
-  handleChange(meal) {
+  handleChange(meal, index) {
     if (meal.target) { //meal name has been entered
       this.setState({
         mealName: meal.target.value
-      })
+      });
 
-    } else {
-      //else is a new item to add to array
-      var update = this.state.clicked.slice()
-      update.push(meal)
-
-      this.setState({
-        clicked: update
-      })
     }
   }
 
@@ -55,34 +47,24 @@ class MealPlanner extends Component {
   }
 
   handleSubmit(event) {
-    //name
-    //json data
     event.preventDefault();
     /*on submit, data needs to be updated so that it renders in the recipe book (send to recipes array)*/
     var newMeal = {
-      id: null,
+      username: this.state.username,
       name: this.state.mealName,
-      recipes: this.state.clicked
+      recipe: JSON.stringify(this.state.clicked)
     };
 
-    meals.push(newMeal)
-
-    this.setState({
-      mealName: '',
-      clicked: [],
-      mealTime: ''
-    }, function(){
-      axios.post('/api/meals', {
-        username: 'Brit',
-        name: this.state.mealName,
-        recipes: this.state.clicked,//TODO: how are we handling recipes? hold an array of their IDs?
-        meal_time: this.state.mealTime,
-        favorited: true
-      }).then(function(event){
-        console.log("posted", event)
-      })
-      this.forceUpdate();
+    axios.post('/api/meals', newMeal)
+      .then(function(event){
+      console.log("posted", event)
+      this.setState({
+        mealName: '',
+        clicked: [],
+        mealTime: ''
+      });
     });
+
   }
 
   render() {
