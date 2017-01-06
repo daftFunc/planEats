@@ -6,7 +6,6 @@ import meals from '../data/savedMeals.js';
 // import { FieldGroup, FormGroup, HelpBlock, ControlLabel, FormControl, Button, Checkbox, Radio } from 'react-bootstrap';
 import recipes from '../data/recipes.js'
 
-/* NOT CURRENTLY IN USE - PLACEHOLDER FOR A STANDALONE CREATE RECIPE*/
 class MealPlanner extends Component {
   constructor() {
     super();
@@ -24,13 +23,13 @@ class MealPlanner extends Component {
   }
 
   handleChange(meal) {
-    //value of the text box
-    if (meal.target) {
+
+    if (meal.target) { //meal name has been entered
       this.setState({
         mealName: meal.target.value
       })
     } else {
-      //item to add to array
+      //else is a new item to add to array
       var update = this.state.clicked.slice()
       update.push(meal)
 
@@ -62,11 +61,11 @@ class MealPlanner extends Component {
       recipes: this.state.clicked
     };
 
-    var updatedMeals = meals.concat(newMeal);
+    meals.push(newMeal)
 
     this.setState({
-      meals: updatedMeals,
-      mealName: ''
+      mealName: '',
+      clicked: []
     }, function(){
       this.forceUpdate();
     });
