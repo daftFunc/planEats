@@ -45,7 +45,7 @@ class Calendar extends React.Component {
 
       dayClick: function(calEvent, jsEvent, view) {
         //get date clicked for plan
-        var dateSelected = moment(calEvent._d).format('YYYY-MM-DD');
+        var dateSelected = moment(calEvent._d).add(1, 'day').format('YYYY-MM-DD');
 
         this.setState({date: dateSelected}, function(){
           this.context.router.push({

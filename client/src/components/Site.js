@@ -91,7 +91,7 @@ class Site extends Component {
                     {/*src={profile.picture}*/}
                     {/*alt={profile.nickname} />}*/}
           {/*<Link to="/profile/edit">{profile.nickname}</Link> &middot; <Link to="/calendar">Plan</Link> &middot; <Link to="/shop">Shop</Link> &middot; <a onClick={() => logout()}>Log Out</a>*/}
-          {/*<a onClick={() => logout()}>Log Out</a>*/}
+          <a onClick={() => logout()}>Log Out</a>
           </div>
       );
     } else {
@@ -105,7 +105,11 @@ class Site extends Component {
           </div>
           <Navbar className="Site-header Site-profileControls" inverse collapseOnSelect>
           </Navbar>
-
+            <img src={logo}/>
+            <Link to="/profile/edit">
+              <img id="header-image" src={prof} />
+            </Link>
+          </div>
         </div>
       );
     }
