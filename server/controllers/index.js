@@ -27,7 +27,7 @@ module.exports = {
     }
   },
   meals: {
-    get: function(req, res) {
+    get: function(req, res, data, field) {
       db.Meals.findAll({include: [db.Users]})
         .then(function(meals) {
           res.json(meals);

@@ -98,7 +98,13 @@ class Site extends Component {
       return (
         <div>
           <div id="desktop-header">
-
+            <img src={logo}/>
+            <Link to="/profile/edit">
+              <img id="header-image" src={prof} />
+            </Link>
+          </div>
+          <Navbar className="Site-header Site-profileControls" inverse collapseOnSelect>
+          </Navbar>
             <img src={logo}/>
             <Link to="/profile/edit">
               <img id="header-image" src={prof} />
