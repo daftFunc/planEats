@@ -5,6 +5,7 @@ import './MealPlanner.css';
 import meals from '../data/savedMeals.js';
 // import { FieldGroup, FormGroup, HelpBlock, ControlLabel, FormControl, Button, Checkbox, Radio } from 'react-bootstrap';
 import recipes from '../data/recipes.js'
+import axios from 'axios'
 
 class MealPlanner extends Component {
   constructor() {
@@ -23,11 +24,11 @@ class MealPlanner extends Component {
   }
 
   handleChange(meal) {
-
     if (meal.target) { //meal name has been entered
       this.setState({
         mealName: meal.target.value
       })
+
     } else {
       //else is a new item to add to array
       var update = this.state.clicked.slice()
@@ -67,6 +68,11 @@ class MealPlanner extends Component {
       mealName: '',
       clicked: []
     }, function(){
+      axios.post('/api/users', {
+        username: this.state.mealName
+      }).then(function(event){
+        console.log("posted", event)
+      })
       this.forceUpdate();
     });
   }
