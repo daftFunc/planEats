@@ -2,13 +2,6 @@
   "name": "planeats",
   "version": "1.0.0",
   "description": "Meal planning app for family and friends",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "babel-node server/server.js",
-    "client": "babel-node start-client.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/daftFunc/planEats.git"
@@ -18,16 +11,5 @@
   "bugs": {
     "url": "https://github.com/daftFunc/planEats/issues"
   },
-  "homepage": "",
-  "devDependencies": {
-    "concurrently": "^3.1.0"
-  },
-  "dependencies": {
-    "babel-cli": "^6.18.0",
-    "body-parser": "^1.15.2",
-    "express-cors": "0.0.3",
-    "helmet": "^3.3.0",
-    "pg": "^6.1.2",
-    "sequelize": "^3.28.0"
-  }
+  "homepage": ""
 }
