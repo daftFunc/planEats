@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "babel-node server/server.js",
+    "server": "babel-node server.js",
     "client": "babel-node start-client.js"
   },
   "author": "daftFunc",

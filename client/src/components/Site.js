@@ -110,7 +110,6 @@ class Site extends Component {
               <img id="header-image" src={prof} />
             </Link>
           </div>
-        </div>
       );
     }
   }
