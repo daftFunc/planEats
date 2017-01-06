@@ -3,7 +3,7 @@ import {connectProfile} from '../auth';
 // import {Link} from 'react-router';
 import './MealPlanner.css';
 import meals from '../data/savedMeals.js';
-// import { FieldGroup, FormGroup, HelpBlock, ControlLabel, FormControl, Button, Checkbox, Radio } from 'react-bootstrap';
+import { FieldGroup, FormGroup, HelpBlock, ControlLabel, FormControl, Button, Checkbox, Radio } from 'react-bootstrap';
 import recipes from '../data/recipes.js'
 import axios from 'axios'
 

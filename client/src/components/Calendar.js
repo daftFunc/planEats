@@ -4,9 +4,11 @@ import {connectProfile} from '../auth';
 import './Calendar.css';
 import $ from 'jquery';
 import fullCalendar from 'fullcalendar';
-import events from '../data/events.js';
+// import events from '../data/events.js';
 import moment from 'moment';
-// import Schedule from './ScheduleMeal';
+import swal from 'sweetalert2';
+import axios from 'axios';
+import TimePicker from 'react-bootstrap-time-picker';
 
 class Calendar extends React.Component {
   static contextTypes = {
