@@ -55,6 +55,7 @@ class MealPlanner extends Component {
       recipe: JSON.stringify(this.state.clicked)
     };
 
+<<<<<<< 02d7d03085a60a8d50c3557c6543a17ecab0012f
     axios.post('/api/meals', newMeal)
       .then(function(event){
       console.log("posted", event)
@@ -63,6 +64,15 @@ class MealPlanner extends Component {
         clicked: [],
         mealTime: ''
       });
+=======
+    meals.push(newMeal)
+
+    this.setState({
+      mealName: '',
+      clicked: []
+    }, function(){
+      this.forceUpdate();
+>>>>>>> create a meal with dummy recipe data
     });
 
   }
