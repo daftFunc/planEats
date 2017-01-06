@@ -17,7 +17,7 @@ router.route('/events')
   .get(controller.events.get)
   .post(controller.events.post);
 
-router.route('/events')
+router.route('/users')
   .get(controller.users.get)
   .post(controller.users.post);
 

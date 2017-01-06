@@ -4,12 +4,15 @@
   "description": "planEats server",
   "main": "server.js",
   "scripts": {
-    "test": "test",
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "babel-node server/server.js",
+    "client": "babel-node start-client.js"
   },
   "author": "daftFunc",
   "license": "ISC",
   "dependencies": {
+    "babel-cli": "^6.18.0",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "express-cors": "0.0.3",
