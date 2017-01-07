@@ -6,7 +6,7 @@ module.exports = {
       db.Recipe.findAll({include: [db.Meal]})
         .then(function(recipe) {
           res.json(recipe);
-        }).catch(function(data, error){
+        }).catch(function(error){
 
           res.json({somethingelse:error});
       });
@@ -31,7 +31,6 @@ module.exports = {
   },
   meals: {
     get: function(req, res, data, field) {
-      console.log('see');
       db.Meals.findAll({include: [db.Users]})
         .then(function(meals) {
           res.json(meals);
