@@ -19,7 +19,8 @@ class MealPlanner extends Component {
       ingredients: '',
       prepTime: '',
       cookTime: '',
-      instructions: ''
+      instructions: '',
+      mealTime: ''
     }
   }
 
@@ -54,6 +55,8 @@ class MealPlanner extends Component {
   }
 
   handleSubmit(event) {
+    //name
+    //json data
     event.preventDefault();
     /*on submit, data needs to be updated so that it renders in the recipe book (send to recipes array)*/
     var newMeal = {
@@ -66,10 +69,13 @@ class MealPlanner extends Component {
 
     this.setState({
       mealName: '',
-      clicked: []
+      clicked: [],
+      mealTime: ''
     }, function(){
-      axios.post('/api/users', {
-        username: this.state.mealName
+      axios.post('/api/meals', {
+        name: this.state.mealName,
+        recipes: this.state.clicked,//TODO: how are we handling recipes? hold an array of their IDs?
+        meal_time: this.state.mealTime
       }).then(function(event){
         console.log("posted", event)
       })
