@@ -17,10 +17,6 @@ var Meals = db.define('Meals', {
   favorited: Sequelize.BOOLEAN
 });
 
-var MealRecipe = db.define('MealRecipe', {
-
-});
-
 var Events = db.define('Events', {
   name: Sequelize.STRING,
   meal_time: Sequelize.TIME
