@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Axios from 'axios'
+// import Axios from 'axios'
 import './Shop.css'
 export default class Shop extends Component {
   constructor(props) {
@@ -22,14 +22,14 @@ export default class Shop extends Component {
     //})
   }
 
-  handleInputChange (event) {
+  handleInputChange(event) {
     event.preventDefault();
     this.setState({
       itemAddedValue: event.target.value
     });
   }
 
-  toggleAdd (event) {
+  toggleAdd(event) {
     event.preventDefault();
     this.setState({
       modalActive: !this.state.modalActive
@@ -41,7 +41,7 @@ export default class Shop extends Component {
     this.setState({freq: event.target.value});
   }
 
-  handleAddItem (event) {
+  handleAddItem(event) {
     event.preventDefault();
     var newItems = this.state.addedItems.concat([this.state.itemAddedValue]);
     this.setState({
@@ -68,9 +68,9 @@ export default class Shop extends Component {
                      />
         </div>
         <div>
-          <AddItemButtonAndPopup modalActive = {this.state.modalActive}
-                                 toggleAdd = {this.toggleAdd.bind(this)}
-                                 handleAddItem = {this.handleAddItem.bind(this)}
+          <AddItemButtonAndPopup modalActive={this.state.modalActive}
+                                 toggleAdd={this.toggleAdd.bind(this)}
+                                 handleAddItem={this.handleAddItem.bind(this)}
                                  itemAddedValue={this.state.itemAddedValue}
                                  handleInputChange={this.handleInputChange.bind(this)}/>
         </div>
@@ -123,7 +123,7 @@ var AddItemButtonAndPopup = ({modalActive, toggleAdd, handleAddItem, itemAddedVa
           <input type="text"
                  name="item"
                  placeholder="Add Item"
-                 value = {itemAddedValue}
+                 value={itemAddedValue}
                  onChange={handleInputChange} />
           <input type="submit" value="Add" />
         </div>

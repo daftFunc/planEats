@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import { SingleDatePicker } from 'react-dates';
+// import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import './ScheduleMeal.css'; //for optional CSS styling
 import moment from 'moment';
 import meals from '../data/savedMeals.js';
-import {connectProfile, logout} from '../auth';
+import {connectProfile/*, logout*/} from '../auth';
 
 class Schedule extends Component {
   static contextTypes = {
@@ -23,7 +23,7 @@ class Schedule extends Component {
   }
 
   componentDidMount() {
-    this.state.date = this.props.location.state.date;
+    this.setState({date: this.props.location.state.date});
     this.populateSavedMeals();
   }
 

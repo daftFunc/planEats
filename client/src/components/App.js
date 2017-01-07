@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Router, Route, browserHistory} from 'react-router';
 import {requireAuth} from '../auth';
-import Site from './Site';
+import Nav from './Nav';
 import Home from './Home';
 import Login from './Login';
 import Shop from './Shop';
@@ -19,7 +19,7 @@ class App extends Component {
 
       <Router history={browserHistory}>
 
-          <Route component={Site}>
+          <Route component={Nav}>
           <Route path="/" component={Home} />
           <Route onEnter={requireAuth}>
 
