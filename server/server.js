@@ -4,7 +4,7 @@ var express = require('express'),
     parser = require('body-parser'),
     helmet = require('helmet'),
     router = require('./config/routes');
-
+    bodyParse = require('body-parser');
 // Create new app
 var app = express();
 
@@ -14,6 +14,7 @@ app.set('port', (process.env.PORT || 3001));
 // logging, security, parsing data, allowing cors for dev and prod
 app.use(morgan('dev'));
 app.use(helmet());
+app.use(bodyParse.urlencoded());
 app.use(cors({
   allowedOrigins: ["http://localhost:3001", "http://localhost:3000", "http://www.planEats.xyz/"]
 }));

@@ -7,3 +7,4 @@ server/node_modules/
 client/.storybook/
 client/stories/
 node_modules/
+client/src/components/images/Thumbs.db
