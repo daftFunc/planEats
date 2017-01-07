@@ -6,10 +6,7 @@ router.get('/', function(req, res) {
   res.sendfile('../client/build/');
 });
 router.route('/recipe')
-  .get(function(req, res) {
-    console.log('hi');
-    controller.recipe.get(req,res);
-  })
+  .get(controller.recipe.get)
   .post(controller.recipe.post);
 
 router.route('/meals')
