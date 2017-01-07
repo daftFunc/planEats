@@ -6,7 +6,10 @@ module.exports = {
       db.Recipe.findAll({include: [db.Meal]})
         .then(function(recipe) {
           res.json(recipe);
-        });
+        }).catch(function(data, error){
+
+          res.json({somethingelse:error});
+      });
     },
     post: function(req, res) { 
       db.Meals.findOrCreate({where: {name: req.body.name}}) 
@@ -21,13 +24,14 @@ module.exports = {
             nutrition: req.body.nutrition 
           }).then(function(recipe) {
             res.sendStatus(201);
-            console.log('Recipe created!');
+            console.log('Recipe created!', recipe);
           }); 
         });
     }
   },
   meals: {
     get: function(req, res, data, field) {
+      console.log('see');
       db.Meals.findAll({include: [db.Users]})
         .then(function(meals) {
           res.json(meals);

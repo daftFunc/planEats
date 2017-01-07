@@ -1,12 +1,15 @@
 var controller = require('./../controllers');
 var router = require('express').Router();
 
+
 router.get('/', function(req, res) {
   res.sendfile('../client/build/');
 });
-
 router.route('/recipe')
-  .get(controller.recipe.get)
+  .get(function(req, res) {
+    console.log('hi');
+    controller.recipe.get(req,res);
+  })
   .post(controller.recipe.post);
 
 router.route('/meals')
