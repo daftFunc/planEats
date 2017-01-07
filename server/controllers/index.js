@@ -85,3 +85,11 @@ module.exports = {
     }
   }
 };
+//
+//
+// meal = {
+//   name: 'steak and eggs',
+//   user: userId,
+//   favorited: boolean,
+//   recipesIds: [1, 2, 3, 4, 5]
+// }
