@@ -47,7 +47,7 @@ class Site extends Component {
 
   renderUserControls() {
     const {profile} = this.props;
-    var path=this.props.location.pathname;
+    // var path=this.props.location.pathname;
     if (profile) {
       return (
        <div>
@@ -90,12 +90,10 @@ class Site extends Component {
                  <img className="menu-item-drop" src={cart} alt="Shop"/>
                  <div className="space-fill">Shop</div>
 
-
                </Link>
                <Link to="/eat">
                  <img className="menu-item-drop" src={eat} alt="Eat"/>
                  <div className="space-fill right-sideOf">Eat</div>
-
                </Link>
              </Nav>
            </Navbar.Collapse>
