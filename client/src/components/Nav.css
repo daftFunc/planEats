@@ -1,0 +1,142 @@
+.Site {
+  /*text-align: center;*/
+}
+
+/*.Site-logo {*/
+  /*animation: Site-logo-spin infinite 20s linear;*/
+  /*height: 80px;*/
+/*}*/
+
+#desktop-header {
+  display:none;
+}
+.Site-header {
+  height:10%;
+  color: white;
+  padding: 10px;
+  width:100% !important;
+}
+
+#header-logo {
+   width:65%;
+ }
+.navbar-inverse {
+  background-color:#262228 !important;
+}
+
+.Site-profilePicture {
+  display: block;
+  width: 192px;
+  height: 192px;
+  margin: 10px auto;
+}
+.menu-item-drop {
+  display:inline;
+  width:7.5%;
+  padding-top:5%;
+}
+.space-fill {
+  display:inline-block;
+  visibility:hidden;
+  width:14%;
+}
+
+
+.Site-page {
+  padding: 10px;
+}
+#header-image {
+
+  height:auto;
+  width:15%;
+  display:inline;
+}
+
+@keyframes Site-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media screen and (min-width: 768px) {
+
+  .menu-header{
+    display:none;
+  }
+
+  .space-fill {
+    display:inline-flex;
+    visibility:visible;
+    color:white;
+    width:18%;
+    padding:3px;
+  }
+  .left-sideOf {
+    width:15.5%;
+  }
+  .right-sideOf {
+    width:7%;
+  }
+  a {
+
+    text-decoration:none !important;
+    -webkit-text-decoration:none !important;
+  }
+
+  .menu-item-drop {
+    display:inline;
+    width:30px;
+    padding:0;
+  }
+
+  ul {
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+  }
+
+  .navbar-collapse {
+    padding-right:0;
+    padding-left:0;
+  }
+
+  .container{
+    padding-right:0;
+    padding-left:0;
+    width:100%;
+    margin-right:0;
+    margin-left:0;
+  }
+
+  .navbar-nav{
+    height:50px;
+    width:100%;
+  }
+  .navbar {
+    border-radius:0px;
+  }
+  .Site-header {
+    height:50px;
+    color: white;
+    width:100% !important;
+  }
+  #desktop-header {
+    display:block;
+    height:70px;
+    background-color:#262228;
+  }
+  #desktop-header > img{
+    height:70px;
+    margin-left:auto;
+    margin-right:auto;
+    display:block;
+  }
+  #header-image {
+    position:absolute;
+    top:2px;
+    left:5.5px;
+    height:70px;
+    width:auto;
+  }
+}
