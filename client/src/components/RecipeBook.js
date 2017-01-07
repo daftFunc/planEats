@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {connectProfile} from '../auth';
-import swal from 'sweetalert2';
-import {Link} from 'react-router';
+// import swal from 'sweetalert2';
+// import {Link} from 'react-router';
 import './RecipeBook.css';
 import recipes from '../data/recipes.js';
-import { FieldGroup, FormGroup, HelpBlock, ControlLabel, FormControl, Button, Checkbox, Radio } from 'react-bootstrap';
+import { /*FieldGroup, */FormGroup, /*HelpBlock, ControlLabel, */FormControl, Button/*, Checkbox, Radio */} from 'react-bootstrap';
 
 class Book extends Component {
   constructor() {
@@ -58,15 +58,13 @@ class Book extends Component {
         <div className="recipes">
           <h1>Recipe Book</h1>
           <ul className="recipeList">
-            {this.state.recipes.map((recipe, i) => {return <li className="recipeItem" id={i}>{recipe.title}</li>})}
+            {this.state.recipes.map((recipe, i) => {return <li className="recipeItem" key={i}>{recipe.title}</li>})}
           </ul>
         </div>
         <div className="addNew">
           <h1>Create a New Recipe</h1>
           <form ref="formRef">
-            <FormGroup
-              controlId="formBasicText"
-            >
+            <FormGroup>
               <FormControl
                 id="recipeName"
                 type="text"

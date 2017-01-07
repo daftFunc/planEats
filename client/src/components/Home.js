@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connectProfile} from '../auth';
 import {Link} from 'react-router';
-import logo from './images/planEatsLogo.png'
+// import logo from './images/planEatsLogo.png'
 import recipe from './images/white_notebook.png'
 import calendar from './images/white_calendar.png'
 import cart from './images/white_shop.png'
@@ -26,23 +26,23 @@ class Home extends Component {
         <div id="menu">
           <div className="menu-item top-left">
             <Link to="/calendar">
-              <img src={calendar} className="menu-image"/>
+              <img src={calendar} className="menu-image" alt="Calendar"/>
             </Link>
 
           </div>
           <div className="menu-item top-right">
             <Link to="/recipe">
-              <img src={recipe} className="menu-image" />
+              <img src={recipe} className="menu-image" alt="Recipe"/>
             </Link>
           </div>
           <div className="menu-item bottom-left">
             <Link to="/shop">
-              <img src={cart} className="menu-image" />
+              <img src={cart} className="menu-image" alt="Shop"/>
             </Link>
           </div>
           <div className="menu-item bottom-right">
             <Link to="/eat">
-             <img src={eat} className="menu-image" />
+             <img src={eat} className="menu-image" alt="Eat"/>
             </Link>
           </div>
         </div>

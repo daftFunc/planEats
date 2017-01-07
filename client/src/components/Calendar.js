@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
+import React/*, {Component}*/ from 'react';
 import {connectProfile} from '../auth';
-import {Link} from 'react-router';
+// import {Link} from 'react-router';
 import './Calendar.css';
-import fullCalendar from 'fullcalendar';
+// import fullCalendar from 'fullcalendar';
 import $ from 'jquery';
 import events from '../data/events.js';
 import moment from 'moment';
-import Schedule from './ScheduleMeal';
+// import Schedule from './ScheduleMeal';
 
 class Calendar extends React.Component {
   static contextTypes = {
@@ -54,7 +54,7 @@ class Calendar extends React.Component {
           });
         })
         // console.log(time)
-        var time = moment(calEvent._d).format('YYYY-MM-DD')
+        // var time = moment(calEvent._d).format('YYYY-MM-DD')
         /*
         to follow moment formatting, will need to add on the time they specifiy. if no time specified, it defaults to 12am.
 

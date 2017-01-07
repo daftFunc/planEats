@@ -11,7 +11,7 @@ import {Nav} from 'react-bootstrap';
 import logo from './images/planEats_logo.png';
 
 
-import './Site.css';
+import './Nav.css';
 
 
 class Site extends Component {
@@ -33,15 +33,15 @@ class Site extends Component {
 
   renderUserControls() {
     const {profile} = this.props;
-    var path=this.props.location.pathname;
+    // var path=this.props.location.pathname;
     if (profile) {
       return (
        <div>
          <div id="desktop-header">
 
-           <img src={logo}/>
+           <img src={logo} alt="logo" />
            <Link to="/profile/edit">
-             <img id="header-image" src={prof} />
+             <img id="header-image" src={prof} alt="prof"/>
            </Link>
          </div>
          <Navbar className="Site-header"
@@ -49,10 +49,10 @@ class Site extends Component {
 
            <Navbar.Header className="menu-header">
              <Link to="/profile/edit">
-               <img id="header-image" src={prof} />
+               <img id="header-image" src={prof} alt="prof"/>
              </Link>
              &nbsp;
-             <img id="header-logo" src={logo} alt="Logo"/>
+             <img id="header-logo" src={logo} alt="Logo" />
            <Navbar.Toggle />
            </Navbar.Header>
 
@@ -60,23 +60,23 @@ class Site extends Component {
              <Nav >
                <div className="space-fill left-sideOf" />
               <Link to="/calendar">
-               <img className="menu-item-drop" src={calendar} />
+               <img className="menu-item-drop" src={calendar} alt="Calendar"/>
                <div className="space-fill">Plan</div>
 
               </Link>
               <Link to="/recipe">
-               <img className="menu-item-drop" src={recipe} />
+               <img className="menu-item-drop" src={recipe} alt="recipe"/>
                <div className="space-fill">Recipes</div>
 
               </Link>
               <Link to="/shop">
-                <img className="menu-item-drop" src={cart} />
+                <img className="menu-item-drop" src={cart} alt="Shop"/>
                <div className="space-fill">Shop</div>
 
 
               </Link>
                <Link to="/eat">
-                <img className="menu-item-drop" src={eat} />
+                <img className="menu-item-drop" src={eat} alt="Eat"/>
                 <div className="space-fill right-sideOf">Eat</div>
 
                </Link>
@@ -98,16 +98,16 @@ class Site extends Component {
       return (
         <div>
           <div id="desktop-header">
-            <img src={logo}/>
+            <img src={logo} alt="logo"/>
             <Link to="/profile/edit">
-              <img id="header-image" src={prof} />
+              <img id="header-image" src={prof} alt="prof"/>
             </Link>
           </div>
           <Navbar className="Site-header Site-profileControls" inverse collapseOnSelect>
           </Navbar>
-            <img src={logo}/>
+            <img src={logo} alt="Logo"/>
             <Link to="/profile/edit">
-              <img id="header-image" src={prof} />
+              <img id="header-image" src={prof} alt="prof"/>
             </Link>
           </div>
       );
