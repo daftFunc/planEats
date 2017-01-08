@@ -26,7 +26,7 @@ var Users = db.define('Users', {
 // Join Tables
 var UsersRecipes = db.define('UsersRecipes');
 var UsersEvents = db.define('UsersEvents');
-var MealRecipes = db.define('MealRecipes');
+var MealsRecipes = db.define('MealsRecipes');
 var UsersMeals = db.define('UsersMeals');
 
 // Associations
@@ -42,12 +42,12 @@ Users.sync()
   .then(() => {
     Meals.belongsToMany(Users, {through: UsersMeals, foreignkey: 'MealId'});
     Users.belongsToMany(Meals, {through: UsersMeals, foreignkey: 'UserId'});
-    Recipe.belongsToMany(Meals, {through: MealRecipes, foreignkey: 'RecipeId'});
-    Meals.belongsToMany(Recipe, {through: MealRecipes, foreignkey: 'MealId'});
+    Recipe.belongsToMany(Meals, {through: MealsRecipes, foreignkey: 'RecipeId'});
+    Meals.belongsToMany(Recipe, {through: MealsRecipes, foreignkey: 'MealId'});
     Events.belongsTo(Meals, {foreignkey: 'MealId'});
     Meals.hasMany(Events, {foreignkey: 'MealId'});
     UsersMeals.sync();
-    MealRecipes.sync();
+    MealsRecipes.sync();
     Events.sync();
   })
   .then(() => {
@@ -64,5 +64,5 @@ exports.Events = Events;
 exports.Users = Users;
 exports.UsersRecipes = UsersRecipes;
 exports.UsersEvents = UsersEvents;
-exports.MealRecipes = MealRecipes;
+exports.MealsRecipes = MealsRecipes;
 exports.UsersMeals = UsersMeals;

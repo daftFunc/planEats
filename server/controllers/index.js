@@ -1,56 +1,57 @@
 var db = require('../db');
 
-module.exports = {
-  AddUser: function(req, res) {
-    db.Users.findOrCreate({where: {username: req.body.username}})
-      .spread(function(user, created) {
-        res.sendStatus(created ? 201 : 200)
-      });
+var columns = {
+  Recipe: {
+    col1: 'name',
+    col2: 'recipe'
   },
-  GetRecipes: function(req, res) {
-    db.Recipe.findAll({include:[db.Users]})
-      .then(function(recipe) {
-        res.json(recipe);
-      }).catch(function(error){
-      res.json({somethingelse:error});
+  Meals: {
+    col1: 'name',
+    col2: 'favorited'
+  },
+  Events:{
+    col1: 'name',
+    col2: 'meal_time'
+  }
+}
+
+module.exports = {
+
+  findUser: function(username) {
+    return db.Users.findOne({where: {username:username}});
+  },
+
+  addUser: function(user) {
+    return db.Users.findOrCreate({where: {username:user}});
+  },
+
+  getAll: function(username,type) {
+    var col1 = columns[type].col1;
+    var col2 = columns[type].col2;
+    return db.Users.findAll({where:{username:username},
+      include: [{
+        model: db[type],
+        through: {
+          attributes: [col1,col2]
+        }
+      }]
     });
   },
-  AddRecipe: function(req, res) {
-    var userI;
 
-    console.log('hihih',req.body.data);
-    db.Users.findOne({where: {username: req.body.username}})
-      .then(function(user) {
-        userI = user.dataValues.id;
-        return db.Recipe.create({
-          name: req.body.name,
-          recipe: req.body.data
-        });
-
-        })
-        .then(function(meal) {
-          console.log('string',meal);
-          return db.UsersRecipes.create({
-            UserId: userI,
-            RecipeId: meal.get('id')
-          })
-        })
-        .then(function(join){
-          res.sendStatus(201);
-          console.log('Recipe created!', join);
-        }).catch(function(error){
-          console.error(error);
-          console.error('recipe error',error);
-          res.sendStatus(404);
-        });
-
+  addRecipe: function(name,recipe) {
+    return db.Recipe.create({
+      name: name,
+      recipe: recipe
+    });
   },
+
   GetMeals: function(req, res, data, field) {
     db.Meals.findAll({include: [db.Users]})
       .then(function(meals) {
         res.json(meals);
       });
   },
+
   AddMeal: function(req, res) {
     db.User.findOrCreate({where: {username: req.body.username}})
       .spread(function(user, created) {
@@ -64,12 +65,14 @@ module.exports = {
         });
       });
   },
+
   GetEvents: function(req, res) {
     db.Events.findAll({include: [db.Users]})
       .then(function(events) {
         res.json(events);
       });
   },
+
   AddEvent: function(req, res) {
     db.User.findOrCreate({where: {username: req.body.username}})
       .spread(function(user, created) {
@@ -81,6 +84,13 @@ module.exports = {
           console.log('Event created!');
         })
       })
+  },
+
+  addJoinTable(Join1, Join2, id1, id2) {
+    return db[Join1+'s'+Join2+'s'].create({
+      [Join1+'Id']: id1,
+      [Join2+'Id']: id2
+    })
   }
 };
 
