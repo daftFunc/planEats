@@ -10,6 +10,7 @@ module.exports = {
 
           res.json({somethingelse:error});
       });
+
     },
     post: function(req, res) { 
       db.Meals.findOrCreate({where: {name: req.body.name}}) 
@@ -27,6 +28,7 @@ module.exports = {
             console.log('Recipe created!', recipe);
           }); 
         });
+
     }
   },
   meals: {
