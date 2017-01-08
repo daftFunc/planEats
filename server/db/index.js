@@ -1,16 +1,12 @@
 var Sequelize = require('sequelize');
-var db = new Sequelize('planeats', 'postgres', 'thesisEats', {
+var db = new Sequelize('planeats', 'postgres', 'sorry1', {
   dialect: 'postgres'
 });
 
 // Model definitions
 var Recipe = db.define('Recipe', {
   name: Sequelize.STRING,
-  ingredients: Sequelize.STRING,
-  time: Sequelize.INTEGER,
-  servings: Sequelize.INTEGER,
-  directions: Sequelize.TEXT,
-  nutrition: Sequelize.INTEGER
+  recipe: Sequelize.JSONB
 });
 
 var Meals = db.define('Meals', {
@@ -19,6 +15,7 @@ var Meals = db.define('Meals', {
 });
 
 var Events = db.define('Events', {
+  name: Sequelize.STRING,
   meal_time: Sequelize.TIME
 });
 
@@ -26,10 +23,9 @@ var Users = db.define('Users', {
   username: Sequelize.CHAR(10)
 });
 
-var UsersEvents = db.define('UsersEvents', {
-  username: Sequelize.CHAR(10)
-});
-
+// Join Tables
+var UsersRecipes = db.define('UsersRecipes');
+var UsersEvents = db.define('UsersEvents');
 var MealRecipes = db.define('MealRecipes');
 var UsersMeals = db.define('UsersMeals');
 
@@ -38,22 +34,25 @@ var UsersMeals = db.define('UsersMeals');
 Recipe.sync();
 Users.sync()
   .then(() => {
-    Meals.sync()
+    Users.belongsToMany(Recipe, {through: UsersRecipes, foreignkey: "MealID"});
+    Recipe.belongsToMany(Users, {through: UsersRecipes, foreignkey: "UserId"});
+    UsersRecipes.sync();
+    Meals.sync();
   })
   .then(() => {
-    Meals.belongsToMany(Users, {through: UsersMeals, foreignkey: 'MealsId'});
-    Users.belongsToMany(Meals, {through: UsersMeals, foreignkey: 'UsersId'});
+    Meals.belongsToMany(Users, {through: UsersMeals, foreignkey: 'MealId'});
+    Users.belongsToMany(Meals, {through: UsersMeals, foreignkey: 'UserId'});
     Recipe.belongsToMany(Meals, {through: MealRecipes, foreignkey: 'RecipeId'});
-    Meals.belongsToMany(Recipe, {through: MealRecipes, foreignkey: 'MealsId'});
-    Events.belongsTo(Meals, {foreignkey: 'MealsId'});
-    Meals.hasMany(Events, {foreignkey: 'MealsId'});
+    Meals.belongsToMany(Recipe, {through: MealRecipes, foreignkey: 'MealId'});
+    Events.belongsTo(Meals, {foreignkey: 'MealId'});
+    Meals.hasMany(Events, {foreignkey: 'MealId'});
     UsersMeals.sync();
     MealRecipes.sync();
-    Events.sync()
+    Events.sync();
   })
   .then(() => {
-    Events.belongsToMany(Users, {through: UsersEvents, foreignkey: 'EventsId'});
-    Users.belongsToMany(Events, {through: UsersEvents, foreignkey: 'UsersId'});
+    Events.belongsToMany(Users, {through: UsersEvents, foreignkey: 'EventId'});
+    Users.belongsToMany(Events, {through: UsersEvents, foreignkey: 'UserId'});
     UsersEvents.sync();
   });
 
@@ -63,4 +62,7 @@ exports.Recipe = Recipe;
 exports.Meals = Meals;
 exports.Events = Events;
 exports.Users = Users;
-
+exports.UsersRecipes = UsersRecipes;
+exports.UsersEvents = UsersEvents;
+exports.MealRecipes = MealRecipes;
+exports.UsersMeals = UsersMeals;

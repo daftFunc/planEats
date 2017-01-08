@@ -6,19 +6,18 @@ router.get('/', function(req, res) {
   res.sendfile('../client/build/');
 });
 router.route('/recipe')
-  .get(controller.recipe.get)
-  .post(controller.recipe.post);
+  .get(controller.GetRecipes)
+  .post(controller.AddRecipe);
 
 router.route('/meals')
-  .get(controller.meals.get)
-  .post(controller.meals.post);
+  .get(controller.GetMeals)
+  .post(controller.AddMeal);
 
 router.route('/events')
-  .get(controller.events.get)
-  .post(controller.events.post);
+  .get(controller.GetEvents)
+  .post(controller.AddEvent);
 
 router.route('/users')
-  .get(controller.users.get)
-  .post(controller.users.post);
+  .post(controller.AddUser);
 
 module.exports = router;
