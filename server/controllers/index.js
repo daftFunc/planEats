@@ -52,18 +52,11 @@ module.exports = {
       });
   },
 
-  AddMeal: function(req, res) {
-    db.User.findOrCreate({where: {username: req.body.username}})
-      .spread(function(user, created) {
-        db.Meals.create({
-          userid: user.get('id'),
-          name: req.body.name,
-          favorited: req.body.favorited
-        }).then(function(meal) {
-          res.sendStatus(201);
-          console.log('Meal created!');
-        });
-      });
+  addMeal: function(name) {
+    return db.Meals.findOrCreate({where:{name:name}, defaults:{
+      name: name,
+      favorited: false
+    }});
   },
 
   GetEvents: function(req, res) {
