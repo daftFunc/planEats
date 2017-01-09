@@ -1,4 +1,5 @@
 var controller = require('./../controllers');
+var model = require('./../model')
 var router = require('express').Router();
 
 
@@ -6,19 +7,20 @@ router.get('/', function(req, res) {
   res.sendfile('../client/build/');
 });
 router.route('/recipe')
-  .get(controller.recipe.get)
-  .post(controller.recipe.post);
+  .get(model.recipe.get)
+  .post(model.recipe.post);
+router.route('/getEventMeal')
+  .get(model.meals.getEventMeal);
 
 router.route('/meals')
-  .get(controller.meals.get)
-  .post(controller.meals.post);
+  .get(model.meals.get)
+  .post(model.meals.post);
 
 router.route('/events')
-  .get(controller.events.get)
-  .post(controller.events.post);
+  .get(model.event.get)
+  .post(model.event.post);
 
 router.route('/users')
-  .get(controller.users.get)
-  .post(controller.users.post);
+  .post(model.user.post);
 
 module.exports = router;
