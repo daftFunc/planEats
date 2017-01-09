@@ -11,6 +11,7 @@
 #desktop-header {
   display:none;
 }
+
 .Site-header {
   height:10%;
   color: white;
@@ -20,6 +21,7 @@
 
 #header-logo {
    width:65%;
+
 }
 
 .navbar-inverse {
@@ -52,7 +54,8 @@
   padding: 10px;
 }
 #header-image {
-
+  position:relative;
+  float:right;
   height:auto;
   width:15%;
   display:inline;
@@ -73,9 +76,7 @@
 @media screen and (min-width: 768px) {
 
   #header-logo {
-    display:flex;
-    margin-left:auto;
-    margin-right:auto;
+    display:none;
   }
   .space-fill {
     display:flex-inline;
@@ -148,7 +149,7 @@
     display:block;
   }
   .menu-header {
-    height:70px;
+    display:none;
   }
   #header-image {
     position:absolute;

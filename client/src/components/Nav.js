@@ -64,9 +64,9 @@ class Site extends Component {
                  inverse collapseOnSelect>
 
            <Navbar.Header className="menu-header">
-
+             &nbsp;
             <Link to="/">
-               <img id="header-logo" src={logo} alt="Logo" />
+              <img id="header-logo" src={logo} alt="Logo" />
             </Link>
              <Link to="/profile/edit">
                <img id="header-image" src={prof} alt="prof"/>
@@ -120,37 +120,10 @@ class Site extends Component {
             {/*</Link>*/}
           </div>
           {!((path ==="/" || path !== '/login') && this.state.width>767) && (<Navbar className="Site-header Site-profileControls" inverse collapseOnSelect>
-            <Navbar.Toggle />
 
-              <Navbar.Collapse className="contain-menu-drop">
-                <Nav >
-                  <div className="space-fill left-sideOf"/>
-                  <Link to="/calendar">
-                    <img className="menu-item-drop" src={calendar} alt="Calendar"/>
-                    <div className="space-fill">Plan</div>
-
-                  </Link>
-                  <Link to="/recipe">
-                    <img className="menu-item-drop" src={recipe} alt="recipe"/>
-                    <div className="space-fill">Recipes</div>
-
-                  </Link>
-                  <Link to="/shop">
-                    <img className="menu-item-drop" src={cart} alt="Shop"/>
-                    <div className="space-fill">Shop</div>
-
-
-                  </Link>
-                  <Link to="/eat">
-                    <img className="menu-item-drop" src={eat} alt="Eat"/>
-                    <div className="space-fill right-sideOf">Eat</div>
-
-                  </Link>
-                </Nav>
-              </Navbar.Collapse>
           </Navbar>)}
             <Link to="/">
-              <img id="header-logo" src={logo} alt="Logo" />
+              <img id="header-logo" src={logo} alt="Logo" style={{marginLeft:'auto' ,marginRight:"auto",display:'block'}}/>
             </Link>
           </div>
       );
