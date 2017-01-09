@@ -17,8 +17,8 @@ router.route('/meals')
   .post(model.meals.post);
 
 router.route('/events')
-  .get()
-  .post(controller.AddEvent);
+  .get(model.event.get)
+  .post(model.event.post);
 
 router.route('/users')
   .post(model.user.post);

@@ -64,17 +64,12 @@ module.exports = {
 
   },
 
-  AddEvent: function(req, res) {
-    db.User.findOrCreate({where: {username: req.body.username}})
-      .spread(function(user, created) {
-        db.Events.create({
-          userid: user.get('id'),
-          meal_time: req.body.meal_time
-        }).then(function(event) {
-          res.sendStatus(201);
-          console.log('Event created!');
-        })
-      })
+  addEvent: function(name, meal_time, meal_id) {
+    return db.Events.create({
+      name: name,
+      meal_time: meal_time,
+      meal_id: meal_id
+    })
   },
 
   addJoinTable(Join1, Join2, id1, id2) {

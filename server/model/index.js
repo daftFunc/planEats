@@ -68,13 +68,13 @@ module.exports = {
             //  console.log(join);
             if (counter === recipeArr.length - 1) {
               res.sendStatus(201);
-              console.log('Recipe created!', join);
+              console.log('Meal created!', join);
             } else {
               addMultipleRecipes(counter + 1);
             }
           }).catch(function (error) {
           console.error(error);
-          console.error('recipe error', error);
+          console.error('Meal error', error);
           res.sendStatus(404);
         });
       }
@@ -95,9 +95,34 @@ module.exports = {
         });
     }
   },
-  events: {
-    post: {
-
+  event: {
+    post: function (req,res) {
+      var UserId;
+      var EventId;
+      controller.findUser(req.body.username)
+        .then(function (user) {
+          UserId = user.dataValues.id;
+          return controller.addEvent(req.body.name, req.body.meal_time)
+        })
+        .then(function (events) {
+          EventId = events.get('id');
+          return controller.addJoinTable('User', 'Event', UserId, EventId)
+        })
+        .then(function (join) {
+          res.sendStatus(201);
+          console.log('Event created!', join);
+        }).catch(function (error) {
+        console.error(error);
+        console.error('Event error', error);
+        res.sendStatus(404);
+      });
+    },
+    get: function(req,res) {
+      controller.getAll(req.headers.username,'Events').then(function(events) {
+        res.json(events);
+      }).catch(function(error){
+        res.json({somethingelse:error});
+      });
     }
   }
 }
