@@ -19,7 +19,21 @@ class Site extends Component {
     ...connectProfile.PropTypes,
     children: PropTypes.any
   };
+  constructor(){
+    super();
+    this.state = {
+      width:window.innerWidth
+    }
+  }
 
+  componentDidMount () {
+    var app = this;
+    window.addEventListener("resize", function(event) {
+      app.setState({
+        width:window.innerWidth
+      })
+    })
+  }
   render() {
     return (
       <div className="Site">
@@ -33,57 +47,59 @@ class Site extends Component {
 
   renderUserControls() {
     const {profile} = this.props;
-    // var path=this.props.location.pathname;
+    var path=this.props.location.pathname;
     if (profile) {
       return (
        <div>
          <div id="desktop-header">
-
-           <img src={logo} alt="logo" />
+          <Link to='/'>
+           <img src={logo} id="desktop-header-logo" alt="logo" />
+          </Link>
            <Link to="/profile/edit">
              <img id="header-image" src={prof} alt="prof"/>
            </Link>
          </div>
-         <Navbar className="Site-header"
+
+         {!(path === '/' && this.state.width>767) && (<Navbar className="Site-header"
                  inverse collapseOnSelect>
 
            <Navbar.Header className="menu-header">
+             &nbsp;
+            <Link to="/">
+              <img id="header-logo" src={logo} alt="Logo" />
+            </Link>
              <Link to="/profile/edit">
                <img id="header-image" src={prof} alt="prof"/>
              </Link>
-             &nbsp;
-             <img id="header-logo" src={logo} alt="Logo" />
            <Navbar.Toggle />
            </Navbar.Header>
-
-           <Navbar.Collapse className="contain-menu-drop">
+          <Navbar.Collapse className="contain-menu-drop">
              <Nav >
-               <div className="space-fill left-sideOf" />
-              <Link to="/calendar">
-               <img className="menu-item-drop" src={calendar} alt="Calendar"/>
-               <div className="space-fill">Plan</div>
+               <div className="space-fill left-sideOf"/>
+               <Link to="/calendar">
+                 <img className="menu-item-drop" src={calendar} alt="Calendar"/>
+                 <div className="space-fill">Plan</div>
 
-              </Link>
-              <Link to="/recipe">
-               <img className="menu-item-drop" src={recipe} alt="recipe"/>
-               <div className="space-fill">Recipes</div>
+               </Link>
+               <Link to="/recipe">
+                 <img className="menu-item-drop" src={recipe} alt="recipe"/>
+                 <div className="space-fill">Recipes</div>
 
-              </Link>
-              <Link to="/shop">
-                <img className="menu-item-drop" src={cart} alt="Shop"/>
-               <div className="space-fill">Shop</div>
+               </Link>
+               <Link to="/shop">
+                 <img className="menu-item-drop" src={cart} alt="Shop"/>
+                 <div className="space-fill">Shop</div>
 
 
-              </Link>
+               </Link>
                <Link to="/eat">
-                <img className="menu-item-drop" src={eat} alt="Eat"/>
-                <div className="space-fill right-sideOf">Eat</div>
+                 <img className="menu-item-drop" src={eat} alt="Eat"/>
+                 <div className="space-fill right-sideOf">Eat</div>
 
                </Link>
              </Nav>
            </Navbar.Collapse>
-
-         </Navbar>
+         </Navbar>)}
 
 
           {/*{path==='/profile/edit'*/}
@@ -98,16 +114,16 @@ class Site extends Component {
       return (
         <div>
           <div id="desktop-header">
-            <img src={logo} alt="logo"/>
-            <Link to="/profile/edit">
-              <img id="header-image" src={prof} alt="prof"/>
-            </Link>
+            {/*<img src={logo} alt="logo"/>*/}
+            {/*<Link to="/profile/edit">*/}
+              {/*<img id="header-image" src={prof} alt="prof"/>*/}
+            {/*</Link>*/}
           </div>
-          <Navbar className="Site-header Site-profileControls" inverse collapseOnSelect>
-          </Navbar>
-            <img src={logo} alt="Logo"/>
-            <Link to="/profile/edit">
-              <img id="header-image" src={prof} alt="prof"/>
+          {!((path ==="/" || path !== '/login') && this.state.width>767) && (<Navbar className="Site-header Site-profileControls" inverse collapseOnSelect>
+
+          </Navbar>)}
+            <Link to="/">
+              <img id="header-logo" src={logo} alt="Logo" style={{marginLeft:'auto' ,marginRight:"auto",display:'block'}}/>
             </Link>
           </div>
       );
