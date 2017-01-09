@@ -81,12 +81,23 @@ module.exports = {
 
       addMultipleRecipes(0);
     },
-    get: function(req,res) {;
+    get: function(req,res) {
       controller.getAll(req.headers.username,'Meals').then(function(meals) {
         res.json(meals);
       }).catch(function(error) {
         res.json({somethingelse:error});
       });
+    },
+    getEventMeal: function(req,res) {
+      controller.getEventMeal(1)
+        .then(function(events) {
+          res.json(events);
+        });
+    }
+  },
+  events: {
+    post: {
+
     }
   }
 }

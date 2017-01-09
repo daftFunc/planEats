@@ -59,11 +59,9 @@ module.exports = {
     }});
   },
 
-  GetEvents: function(req, res) {
-    db.Events.findAll({include: [db.Users]})
-      .then(function(events) {
-        res.json(events);
-      });
+  getEventMeal: function(id) {
+    return db.Meals.findAll({where:{id:id}})
+
   },
 
   AddEvent: function(req, res) {

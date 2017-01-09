@@ -9,13 +9,15 @@ router.get('/', function(req, res) {
 router.route('/recipe')
   .get(model.recipe.get)
   .post(model.recipe.post);
+router.route('/getEventMeal')
+  .get(model.meals.getEventMeal);
 
 router.route('/meals')
   .get(model.meals.get)
   .post(model.meals.post);
 
 router.route('/events')
-  .get(controller.GetEvents)
+  .get()
   .post(controller.AddEvent);
 
 router.route('/users')
