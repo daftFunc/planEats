@@ -86,11 +86,12 @@
     margin-left:1em;
   }
   .left-sideOf{
-    width:14%;
+    width: 7%;
   }
   .right-sideOf{
     width:4%;
   }
+
   a {
     text-decoration:none !important;
     -webkit-text-decoration:none !important;

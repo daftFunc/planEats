@@ -42,22 +42,14 @@ class Home extends Component {
           </div>
           <div className="menu-item bottom-right">
             <Link to="/eat">
-             <img src={eat} className="menu-image" alt="Eat"/>
+             <img src={eat} className="menu-image cook-pic" alt="Eat"/>
             </Link>
           </div><br />
           <div id="menu-text-span">
-            <div className="menu-text planA">
-              Plan
-            </div>
-            <div className="menu-text recipeA">
-              Recipes
-            </div>
-            <div className="menu-text shopA">
-              Shop
-            </div>
-            <div className="menu-text eatA">
-              Cook
-            </div>
+            <div className="menu-text planA">Plan</div>
+            <div className="menu-text recipeA">Recipes</div>
+            <div className="menu-text shopA">Shop</div>
+            <div className="menu-text eatA">Cook</div>
           </div>
         </div>
 

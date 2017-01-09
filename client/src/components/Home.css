@@ -72,8 +72,12 @@
   .menu-image {
     width:50%;
     height:50%;
-    transform: translate(5%, 50%);
+    transform: translate(-1%, 53%);
   }
+  .cook-pic {
+    transform: translate(11%, 53%);
+  }
+
   br {
     display:none;
     content:' ';
