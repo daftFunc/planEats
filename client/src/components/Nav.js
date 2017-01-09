@@ -38,8 +38,9 @@ class Site extends Component {
       return (
        <div>
          <div id="desktop-header">
-
-           <img src={logo} alt="logo" />
+          <Link to ='/'>
+           <img src={logo} id="desktop-header-logo" alt="logo" />
+          </Link>
            <Link to="/profile/edit">
              <img id="header-image" src={prof} alt="prof"/>
            </Link>
@@ -48,11 +49,13 @@ class Site extends Component {
                  inverse collapseOnSelect>
 
            <Navbar.Header className="menu-header">
+
+            <Link to="/">
+               <img id="header-logo" src={logo} alt="Logo" />
+            </Link>
              <Link to="/profile/edit">
                <img id="header-image" src={prof} alt="prof"/>
              </Link>
-             &nbsp;
-             <img id="header-logo" src={logo} alt="Logo" />
            <Navbar.Toggle />
            </Navbar.Header>
 
@@ -105,7 +108,9 @@ class Site extends Component {
           </div>
           <Navbar className="Site-header Site-profileControls" inverse collapseOnSelect>
           </Navbar>
-            <img src={logo} alt="Logo"/>
+            <Link to="/">
+              <img id="header-logo" src={logo} alt="Logo" />
+            </Link>
             <Link to="/profile/edit">
               <img id="header-image" src={prof} alt="prof"/>
             </Link>
