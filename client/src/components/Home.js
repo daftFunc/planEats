@@ -44,7 +44,7 @@ class Home extends Component {
             <Link to="/eat">
              <img src={eat} className="menu-image cook-pic" alt="Eat"/>
             </Link>
-          </div><br />
+         </div><br />
           <div id="menu-text-span">
             <div className="menu-text planA">Plan</div>
             <div className="menu-text recipeA">Recipes</div>
