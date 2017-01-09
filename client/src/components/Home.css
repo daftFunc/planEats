@@ -1,7 +1,11 @@
+@font-face { font-family: Ailerons; src: url('font/Ailerons-Typeface.otf'); }
+
 .Home {
   height:100%;
 }
-
+#menu-text-span {
+  display:none;
+}
 #menu {
   margin-top:20%;
   margin-left:auto;
@@ -63,6 +67,7 @@
     margin: 2%;
     display: inline-block;
     border-radius: 1.7em;
+    margin-bottom:0%;
   }
   .menu-image {
     width:50%;
@@ -72,5 +77,19 @@
   br {
     display:none;
     content:' ';
+  }
+  #menu-text-span{
+    text-align:center;
+    width:100%;
+    display:inherit;
+  }
+  .menu-text {
+    display: inline-block;
+    width: 140px;
+    font-size:170%;
+    text-align:center;
+    font-family:Ailerons;
+    margin: 2%;
+
   }
 }
