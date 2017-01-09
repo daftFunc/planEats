@@ -73,9 +73,11 @@ class MealPlanner extends Component {
       mealTime: ''
     }, function(){
       axios.post('/api/meals', {
+        username: 'Brit',
         name: this.state.mealName,
         recipes: this.state.clicked,//TODO: how are we handling recipes? hold an array of their IDs?
-        meal_time: this.state.mealTime
+        meal_time: this.state.mealTime,
+        favorited: true
       }).then(function(event){
         console.log("posted", event)
       })
