@@ -37,7 +37,7 @@ class Site extends Component {
   render() {
     return (
       <div className="Site">
-          {this.renderUserControls()}
+        {this.renderUserControls()}
         <div className="Site-page">
           {this.props.children}
         </div>
@@ -50,65 +50,65 @@ class Site extends Component {
     var path=this.props.location.pathname;
     if (profile) {
       return (
-       <div>
-         <div id="desktop-header">
-          <Link to='/'>
-           <img src={logo} id="desktop-header-logo" alt="logo" />
-          </Link>
-           <Link to="/profile/edit">
-             <img id="header-image" src={prof} alt="prof"/>
-           </Link>
-         </div>
-
-         {!(path === '/' && this.state.width>767) && (<Navbar className="Site-header"
-                 inverse collapseOnSelect>
-
-           <Navbar.Header className="menu-header">
-             &nbsp;
-            <Link to="/">
-              <img id="header-logo" src={logo} alt="Logo" />
+        <div>
+          <div id="desktop-header">
+            <Link to='/'>
+              <img src={logo} id="desktop-header-logo" alt="logo" />
             </Link>
-             <Link to="/profile/edit">
-               <img id="header-image" src={prof} alt="prof"/>
-             </Link>
-           <Navbar.Toggle />
-           </Navbar.Header>
-          <Navbar.Collapse className="contain-menu-drop">
-             <Nav >
-               <div className="space-fill left-sideOf"/>
-               <Link to="/calendar">
-                 <img className="menu-item-drop" src={calendar} alt="Calendar"/>
-                 <div className="space-fill">Plan</div>
+            <Link to="/profile/edit">
+              <img id="header-image" src={prof} alt="prof"/>
+            </Link>
+          </div>
 
-               </Link>
-               <Link to="/recipe">
-                 <img className="menu-item-drop" src={recipe} alt="recipe"/>
-                 <div className="space-fill">Recipes</div>
+          {!(path === '/' && this.state.width>767) && (<Navbar className="Site-header"
+                                                               inverse collapseOnSelect>
 
-               </Link>
-               <Link to="/shop">
-                 <img className="menu-item-drop" src={cart} alt="Shop"/>
-                 <div className="space-fill">Shop</div>
+            <Navbar.Header className="menu-header">
+              &nbsp;
+              <Link to="/">
+                <img id="header-logo" src={logo} alt="Logo" />
+              </Link>
+              <Link to="/profile/edit">
+                <img id="header-image" src={prof} alt="prof"/>
+              </Link>
+              <Navbar.Toggle />
+            </Navbar.Header>
+            <Navbar.Collapse className="contain-menu-drop">
+              <Nav >
+                <div className="space-fill left-sideOf"/>
+                <Link to="/calendar">
+                  <img className="menu-item-drop" src={calendar} alt="Calendar"/>
+                  <div className="space-fill">Plan</div>
+
+                </Link>
+                <Link to="/recipe">
+                  <img className="menu-item-drop" src={recipe} alt="recipe"/>
+                  <div className="space-fill">Recipes</div>
+
+                </Link>
+                <Link to="/shop">
+                  <img className="menu-item-drop" src={cart} alt="Shop"/>
+                  <div className="space-fill">Shop</div>
 
 
-               </Link>
-               <Link to="/eat">
-                 <img className="menu-item-drop" src={eat} alt="Eat"/>
-                 <div className="space-fill right-sideOf">Eat</div>
+                </Link>
+                <Link to="/eat">
+                  <img className="menu-item-drop" src={eat} alt="Eat"/>
+                  <div className="space-fill right-sideOf">Eat</div>
 
-               </Link>
-             </Nav>
-           </Navbar.Collapse>
-         </Navbar>)}
+                </Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>)}
 
 
           {/*{path==='/profile/edit'*/}
-            {/*&& <img className="Site-profilePicture"*/}
-                    {/*src={profile.picture}*/}
-                    {/*alt={profile.nickname} />}*/}
+          {/*&& <img className="Site-profilePicture"*/}
+          {/*src={profile.picture}*/}
+          {/*alt={profile.nickname} />}*/}
           {/*<Link to="/profile/edit">{profile.nickname}</Link> &middot; <Link to="/calendar">Plan</Link> &middot; <Link to="/shop">Shop</Link> &middot; <a onClick={() => logout()}>Log Out</a>*/}
           <a onClick={() => logout()}>Log Out</a>
-          </div>
+        </div>
       );
     } else {
       return (
@@ -116,16 +116,16 @@ class Site extends Component {
           <div id="desktop-header">
             {/*<img src={logo} alt="logo"/>*/}
             {/*<Link to="/profile/edit">*/}
-              {/*<img id="header-image" src={prof} alt="prof"/>*/}
+            {/*<img id="header-image" src={prof} alt="prof"/>*/}
             {/*</Link>*/}
           </div>
           {!((path ==="/" || path !== '/login') && this.state.width>767) && (<Navbar className="Site-header Site-profileControls" inverse collapseOnSelect>
 
           </Navbar>)}
-            <Link to="/">
-              <img id="header-logo" src={logo} alt="Logo" style={{marginLeft:'auto' ,marginRight:"auto",display:'block'}}/>
-            </Link>
-          </div>
+          <Link to="/">
+            <img id="header-logo" src={logo} alt="Logo" style={{marginLeft:'auto' ,marginRight:"auto",display:'block'}}/>
+          </Link>
+        </div>
       );
     }
   }

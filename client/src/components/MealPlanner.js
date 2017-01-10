@@ -4,7 +4,6 @@ import {Link} from 'react-router';
 import './MealPlanner.css';
 import { FieldGroup, FormGroup, HelpBlock, ControlLabel, FormControl, Button, Checkbox, Radio } from 'react-bootstrap';
 import axios from 'axios'
-
 class MealPlanner extends Component {
   constructor() {
     super();

@@ -10,7 +10,6 @@ import swal from 'sweetalert2';
 import axios from 'axios';
 import TimePicker from 'react-bootstrap-time-picker';
 
-
 class Calendar extends React.Component {
   static contextTypes = {
     router: React.PropTypes.object.isRequired //needed to push to the ScheduleMeal page without a <Link>

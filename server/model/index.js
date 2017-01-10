@@ -98,11 +98,11 @@ module.exports = {
       controller.findUser(req.body.username)
         .then(function (user) {
           UserId = user.dataValues.id;
-          return controller.addEvent(req.body.name, req.body.meal_time,req.body.meal_id)
+          return controller.addEvent(req.body.title, req.body.start,req.body.meal_id)
         })
         .then(function (events) {
           EventId = events.get('id');
-          return controller.addJoinTable('User', 'Event', UserId, EventId)
+          return controller.addJoinTable('User', 'Event', UserId, EventId);
         })
         .then(function (join) {
           res.sendStatus(201);

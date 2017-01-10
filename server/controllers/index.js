@@ -11,8 +11,8 @@ var columns = {
     col2: 'favorited'
   },
   Events:{
-    col1: 'name',
-    col2: 'meal_time'
+    col1: 'title',
+    col2: 'start'
   }
 }
 
@@ -59,8 +59,8 @@ module.exports = {
 
   addEvent: function(name, meal_time, meal_id) {
     return db.Events.create({
-      name: name,
-      meal_time: meal_time,
+      title: name,
+      start: meal_time,
       MealId: meal_id
     })
   },
