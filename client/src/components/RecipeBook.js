@@ -4,8 +4,9 @@ import {connectProfile} from '../auth';
 // import {Link} from 'react-router';
 import './RecipeBook.css';
 import recipes from '../data/recipes.js';
-import { /*FieldGroup, */FormGroup, /*HelpBlock, ControlLabel, */FormControl, Button/*, Checkbox, Radio */} from 'react-bootstrap';
+import { /*FieldGroup, */FormGroup, HelpBlock, ControlLabel, FormControl, Button/*, Checkbox, Radio */} from 'react-bootstrap';
 import axios from 'axios';
+import FontAwesome from 'react-fontawesome';
 
 class Book extends Component {
   constructor() {
@@ -13,11 +14,13 @@ class Book extends Component {
     this.state = {
       username: 'Brit', //TODO: getting logged in username
       recipes: [],
-      recipeName: '',
-      ingredients: [],
+      recipeName: null,
+      ingredients: null,
       prepTime: null,
       cookTime: null,
-      instructions: []
+      instructions: null,
+      ingredientArr: [],
+      instructionArr: []
     }
   }
 
@@ -34,21 +37,17 @@ class Book extends Component {
     })
   }
 
-  handleChange(event, toPush) {
-    //TODO: handle ingredients and instructions so they can be pushed into array
-    // if (toPush) {
-    //   this.setState({
-    //     [toPush]: this.state.toPush.concat(toPush)
-    //   })
-    // } else {
-      var changedId = event.target.id;
-      var changedVal = event.target.value;
+  handleChange(ignore, toPush) {
+    var context = this;
+    //toPush.target.id = value of the updated Id field (recipeName, etc)
+    //toPush.target.value = value of the text box on change
 
-      this.setState({
-        [changedId]: changedVal //[] around var name lets it be used as key in ES6
-      })
-    // }
+    var changedId = toPush.target.id;
+    var changedVal = toPush.target.value;
 
+    context.setState({
+      [changedId]: changedVal //[] around var name lets it be used as key in ES6
+    })
   }
 
   handleSubmit(event) {
@@ -67,15 +66,39 @@ class Book extends Component {
     })
 
     this.setState({
-      recipeName: '',
-      ingredients: [],
-      prepTime: '',
-      cookTime: '',
-      instructions: []
+      recipeName: null,
+      ingredients: null,
+      prepTime: null,
+      cookTime: null,
+      instructions: null,
+      ingredientArr: [],
+      instructionArr: []
     }, function() {
       this.forceUpdate();
     });
 
+  }
+
+  handleDynamicAdd(option) {
+    var context = this;
+
+    if (option === 'ingredients') {
+      var updateIng = context.state.ingredientArr.slice();
+      updateIng.push(context.state.ingredients);
+
+      context.setState({
+        ingredientArr: updateIng,
+        ingredients: null
+      });
+    } else if (option === 'instructions') {
+      var updateInst = context.state.instructionArr.slice();
+      updateInst.push(context.state.instructions);
+
+      context.setState({
+        instructionArr: updateInst,
+        instructions: null
+      });
+    }
   }
 
   render() {
@@ -91,34 +114,45 @@ class Book extends Component {
           <h1>Create a New Recipe</h1>
           <form ref="formRef">
             <FormGroup>
+              <ControlLabel htmlFor="recipeName" >Recipe Name</ControlLabel>
               <FormControl
                 id="recipeName"
                 type="text"
                 value={this.state.recipeName}
-                onChange={this.handleChange.bind(this)}
+                onChange={this.handleChange.bind(this, 'recipeName')}
                 placeholder="Recipe Name"
               />
+
+              <span onClick={this.handleDynamicAdd.bind(this, 'ingredients')}><FontAwesome name="plus-circle" className="plusSign" /></span>
+              <ControlLabel htmlFor="ingredients" >Ingredients</ControlLabel>
               <FormControl
                 id="ingredients"
                 type="text"
                 value={this.state.ingredients}
-                onChange={this.handleChange.bind(this, 'ingredients')} //TODO: handling multiple inputs
+                onChange={this.handleChange.bind(this, 'ingredients')}
                 placeholder="Ingredients"
               />
+
+              <ControlLabel htmlFor="prepTime" >Prep-Time</ControlLabel>
               <FormControl
                 id="prepTime"
                 type="text"
                 value={this.state.prepTime}
-                onChange={this.handleChange.bind(this)}
+                onChange={this.handleChange.bind(this, 'prepTime')}
                 placeholder="Prep-Time in Minutes"
               />
+
+              <ControlLabel htmlFor="cookTime" >Cook-Time</ControlLabel>
               <FormControl
                 id="cookTime"
                 type="text"
                 value={this.state.cookTime}
-                onChange={this.handleChange.bind(this)}
+                onChange={this.handleChange.bind(this, 'cookTime')}
                 placeholder="Cook-Time in Minutes"
               />
+
+              <span onClick={this.handleDynamicAdd.bind(this, 'instructions')}><FontAwesome name="plus-circle" className="plusSign" /></span>
+              <ControlLabel htmlFor="instructions" >Instructions</ControlLabel>
               <FormControl
                 id="instructions"
                 type="text"
