@@ -171,8 +171,8 @@ describe('Database Queries', function()  {
     it('should add an Event to the database with a meal id', function(done) {
       controller.addEvent(eventName,mealTime,1)
         .then(function (events) {
-          expect(events.get('name')).to.equal(eventName);
-          expect(events.get('meal_time')).to.equal(mealTime);
+          expect(events.get('title')).to.equal(eventName);
+          expect(events.get('start')).to.equal(mealTime);
           var EventId = events.get('id');
           expect(EventId).to.equal(1);
           return controller.addJoinTable('User', 'Event', 1, EventId)
