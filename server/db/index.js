@@ -20,7 +20,7 @@ var Events = db.define('Events', {
 });
 
 var Users = db.define('Users', {
-  username: Sequelize.CHAR(10)
+  username: {type: Sequelize.STRING, unique: true},
 });
 
 // Join Tables

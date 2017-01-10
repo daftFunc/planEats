@@ -25,11 +25,9 @@ class EditProfile extends Component {
           <p><strong>Nickname:</strong> {profile.nickname}</p>
           <p><strong>Name:</strong> {profile.name}</p>
           <p><strong>Email:</strong> {profile.email}</p>
-          <p><strong>Created At:</strong> {profile.created_at}</p>
-          <p><strong>Updated At:</strong> {profile.updated_at}</p>
-          <p><strong>Location:</strong> {user_metadata.location || 'unknown'}</p>
+          {/*<p><strong>Location:</strong> {user_metadata.location || 'unknown'}</p>*/}
         </div>
-        <div className="EditProfile-heading">Edit Profile</div>
+{/*        <div className="EditProfile-heading">Edit Profile</div>
         <form className="EditProfile-form" onSubmit={this.onSubmit} onChange={this.onClearSaved}>
           <fieldset className="EditProfile-fieldset" disabled={saving}>
             <label className="EditProfile-locationLabel" htmlFor="location">Location</label>
@@ -50,12 +48,12 @@ class EditProfile extends Component {
               )}
             </div>
           </fieldset>
-        </form>
+        </form>*/}
       </div>
     );
   }
 
-  onSubmit = (event) => {
+/*  onSubmit = (event) => {
     event.preventDefault();
 
     this.setState({saving: true}, async () => {
@@ -71,7 +69,7 @@ class EditProfile extends Component {
 
   onClearSaved = (event) => {
     this.setState({saved: false});
-  }
+  }*/
 }
 
 export default connectProfile(EditProfile);

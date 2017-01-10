@@ -3,6 +3,7 @@ import {EventEmitter} from 'events';
 import React, {Component, PropTypes} from 'react';
 import {browserHistory} from 'react-router';
 import Auth0Lock from 'auth0-lock';
+import axios from 'axios';
 
 const NEXT_PATH_KEY = 'next_path';
 const ID_TOKEN_KEY = 'id_token';
@@ -35,6 +36,8 @@ lock.on('authenticated', authResult => {
     setProfile(profile);
     browserHistory.push(getNextPath());
     clearNextPath();
+    console.log(JSON.parse(localStorage.profile));
+    axios.post('/api/users', {username: JSON.parse(localStorage.profile).email});
   });
 });
 
