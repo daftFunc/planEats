@@ -183,51 +183,9 @@ describe('Database Queries', function()  {
         })
     });
   })
-
-  //describe("")
-  //  if('should retrieve that user')
-  //  return db.Users.findOne({where: {username: username}})
-  //
-  //
-  //})
-  });
-  //var col1 = columns[type].col1;
-  //var col2 = columns[type].col2;
-  //return db.Users.findAll({where:{username:username},
-  //  include: [{
-  //    model: db[type],
-  //    through: {
-  //      attributes: [col1,col2]
-  //    }
-  //  }]
-  //});
-  //
-  //
-  //return db.Recipe.create({
-  //  name: name,
-  //  recipe: recipe
-  //});
-  //
-  //
-  //return db.Meals.findOrCreate({where:{name:name}, defaults:{
-  //  name: name,
-  //  favorited: false
-  //}});
-  //
-  //
-  //return db.Meals.findAll({where:{id:id}});
-  //
-  //
-  //return db.Events.create({
-  //  name: name,
-  //  meal_time: meal_time,
-  //  meal_id: meal_id
-  //})
-  //
-  //
-  //
-  //return db[Join1+'s'+Join2+'s'].create({
-  //  [Join1+'Id']: id1,
-  //  [Join2+'Id']: id2
-  //})git a
+  after(function(done){
+    database.pathName = '../db';
+    done();
+  })
+});
 
