@@ -25,3 +25,8 @@
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
 } /*needed to prevent the autofill yellow-background when resetting the form fields*/
+
+.swal2-show{
+  margin: 0 auto;
+  z-index: 1;
+}
