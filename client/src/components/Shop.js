@@ -86,8 +86,8 @@ var GroceryList = ({groceryList, freq, addedItems}) => (
     <ul style={{listStyleType:'none'}}>
       {groceryList.map((element,i) => {
           return i<=freq && (
-            <li className="item">
-              <input type='checkbox' id={element}/>
+            <li className="item" id={element}>
+              <input type='checkbox'/>
                 <label htmlFor={element}>
                   <span></span>{element}
                 </label>

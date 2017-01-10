@@ -22,7 +22,6 @@ class App extends Component {
           <Route component={Nav}>
           <Route path="/" component={Home} />
           <Route onEnter={requireAuth}>
-
             {/* Place all authenticated routes here */}
             <Route path="/shop" component={Shop}/>
             <Route path="/profile/edit" component={EditProfile} />
@@ -35,7 +34,6 @@ class App extends Component {
           </Route>
           <Route path="/login" component={Login} />
         </Route>
-
       </Router>
 
     );

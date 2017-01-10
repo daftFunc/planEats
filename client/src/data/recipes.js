@@ -2,7 +2,7 @@ var recipes =
 [
   {
     "id": 262682,
-    "title": "Thai Sweet Potato Veggie Burgers with Spicy Peanut Sauce",
+    "name": "Thai Sweet Potato Veggie Burgers with Spicy Peanut Sauce",
     "readyInMinutes": 75,
     "image": "http://cdn.ohsheglows.com/wp-content/uploads/2013/10/thaiveggieburger-2353.jpg",
     "ingredients": `Ingredients:
@@ -54,7 +54,7 @@ var recipes =
   },
   {
     "id": 227961,
-    "title": "Cajun Spiced Black Bean and Sweet Potato Burgers",
+    "name": "Cajun Spiced Black Bean and Sweet Potato Burgers",
     "readyInMinutes": 20,
     "image": "Cajun-Spiced-Black-Bean-and-Sweet-Potato-Burgers-227961.jpg",
     "imageUrls": [
@@ -63,7 +63,7 @@ var recipes =
   },
   {
     "id": 602708,
-    "title": "Meatless Monday: Grilled Portobello Mushroom Burgers with Romesco and Arugula",
+    "name": "Meatless Monday: Grilled Portobello Mushroom Burgers with Romesco and Arugula",
     "readyInMinutes": 15,
     "image": "Meatless-Monday--Grilled-Portobello-Mushroom-Burgers-with-Romesco-and-Arugula-602708.jpg",
     "imageUrls": [
@@ -72,7 +72,7 @@ var recipes =
   },
   {
     "id": 759739,
-    "title": "Gluten-Free Veggie Burger",
+    "name": "Gluten-Free Veggie Burger",
     "readyInMinutes": 45,
     "image": "gluten-free-veggie-burger-759739.jpg",
     "imageUrls": [
@@ -81,7 +81,7 @@ var recipes =
   },
   {
     "id": 630255,
-    "title": "Protein Powerhouse Veggie Burgers",
+    "name": "Protein Powerhouse Veggie Burgers",
     "readyInMinutes": 95,
     "image": "Protein-Powerhouse-Veggie-Burgers-630255.jpg",
     "imageUrls": [
@@ -90,7 +90,7 @@ var recipes =
   },
   {
     "id": 479732,
-    "title": "Meatless Monday: Curried Veggie Burgers with Zucchini, Lentils, and Quinoa",
+    "name": "Meatless Monday: Curried Veggie Burgers with Zucchini, Lentils, and Quinoa",
     "readyInMinutes": 15,
     "image": "Meatless-Monday--Curried-Veggie-Burgers-with-Zucchini--Lentils--and-Quinoa-479732.jpg",
     "imageUrls": [
@@ -99,7 +99,7 @@ var recipes =
   },
   {
     "id": 541691,
-    "title": "Black Bean Mole Burgers",
+    "name": "Black Bean Mole Burgers",
     "readyInMinutes": 45,
     "image": "black-bean-mole-burgers-541691.jpg",
     "imageUrls": [
@@ -108,7 +108,7 @@ var recipes =
   },
   {
     "id": 34035,
-    "title": "Sprouted Lentil Veggie Burger",
+    "name": "Sprouted Lentil Veggie Burger",
     "readyInMinutes": 30,
     "image": "sprouted_lentil_veggie_burger-34035.jpg",
     "imageUrls": [
@@ -118,7 +118,7 @@ var recipes =
   },
   {
     "id": 766301,
-    "title": "Queso Cheese Burgers",
+    "name": "Queso Cheese Burgers",
     "readyInMinutes": 60,
     "image": "queso-cheese-burgers-766301.jpg",
     "imageUrls": [
@@ -127,7 +127,7 @@ var recipes =
   },
   {
     "id": 761774,
-    "title": "Simple Soybean Burgers",
+    "name": "Simple Soybean Burgers",
     "readyInMinutes": 45,
     "image": "simple-soybean-burgers-761774.jpg",
     "imageUrls": [
