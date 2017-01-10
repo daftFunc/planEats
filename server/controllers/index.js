@@ -1,5 +1,4 @@
 var database = require('../DatabaseName');
-console.log('hihihih',database)
 var db = require(database.pathName);
 
 var columns = {
