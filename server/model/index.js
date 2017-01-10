@@ -51,17 +51,13 @@ module.exports = {
         controller.findUser(req.body.username)
           .then(function (user) {
             UserId = user.dataValues.id;
-            console.log("USERID", UserId);
             return controller.addMeal(req.body.name)
           })
           .then(function (meal) {
-            console.log("THIS IS MEAL ID", meal[0].dataValues.id)
             MealId = meal[0].dataValues.id;
-            console.log("USER MEAL JOIN", MealId, UserId)
             return controller.addJoinTable('User', 'Meal', UserId, MealId)
           })
           .then(function (joinTable) {
-            console.log("MEAL RECIPS JOIN", MealId, recipeArr, counter);
             return controller.addJoinTable('Meal', 'Recipe', MealId, recipeArr[counter].id)
           })
           .then(function (join) {
@@ -102,7 +98,7 @@ module.exports = {
       controller.findUser(req.body.username)
         .then(function (user) {
           UserId = user.dataValues.id;
-          return controller.addEvent(req.body.name, req.body.meal_time)
+          return controller.addEvent(req.body.name, req.body.meal_time,req.body.meal_id)
         })
         .then(function (events) {
           EventId = events.get('id');

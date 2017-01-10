@@ -1,4 +1,5 @@
-var db = require('../db');
+var database = require('../DatabaseName');
+var db = require(database.pathName);
 
 var columns = {
   Recipe: {
@@ -45,13 +46,6 @@ module.exports = {
     });
   },
 
-  GetMeals: function(req, res, data, field) {
-    db.Meals.findAll({include: [db.Users]})
-      .then(function(meals) {
-        res.json(meals);
-      });
-  },
-
   addMeal: function(name) {
     return db.Meals.findOrCreate({where:{name:name}, defaults:{
       name: name,
@@ -60,15 +54,14 @@ module.exports = {
   },
 
   getEventMeal: function(id) {
-    return db.Meals.findAll({where:{id:id}})
-
+    return db.Meals.findAll({where:{id:id}});
   },
 
   addEvent: function(name, meal_time, meal_id) {
     return db.Events.create({
       name: name,
       meal_time: meal_time,
-      meal_id: meal_id
+      MealId: meal_id
     })
   },
 
@@ -80,11 +73,3 @@ module.exports = {
   }
 };
 
-//
-//
-// meal = {
-//   name: 'steak and eggs',
-//   user: userId,
-//   favorited: boolean,
-//   recipesIds: [1, 2, 3, 4, 5]
-// }
