@@ -140,11 +140,12 @@ describe('Database Queries', function()  {
 
   });
   describe ( "Meals", function() {
-    it('should add a meal to the database', function(done){
+    it('should add a meal to the database with a recipe', function(done){
       controller.addMeal("Sausage and Chips")
         .then(function (meal) {
           expect(meal[0].dataValues.name).to.equal('Sausage and Chips');
           MealId = meal[0].dataValues.id;
+          expect(MealId).to.equal(1);
           return controller.addJoinTable('User', 'Meal', MealId, 1)
         })
         .then(function (join) {
@@ -156,13 +157,31 @@ describe('Database Queries', function()  {
           done();
         })
     })
-    it('should retrieve the meal from the database', function(done){
+    it ('should retrieve the meal from the database', function(done){
       controller.getAll(username,'Meals')
         .then(function(mealData){
           expect(mealData[0].Meals[0].name).to.equal('Sausage and Chips')
           done();
         })
     })
+  });
+  describe ('Events',function() {
+    var eventName = 'Lunch Time';
+    var mealTime = '07:15:00';
+    it('should add an Event to the database with a meal id', function(done) {
+      controller.addEvent(eventName,mealTime,1)
+        .then(function (events) {
+          expect(events.get('name')).to.equal(eventName);
+          expect(events.get('meal_time')).to.equal(mealTime);
+          var EventId = events.get('id');
+          expect(EventId).to.equal(1);
+          return controller.addJoinTable('User', 'Event', 1, EventId)
+        })
+        .then(function(join) {
+          expect(join).to.be.an('object');
+          done();
+        })
+    });
   })
 
   //describe("")
@@ -210,5 +229,5 @@ describe('Database Queries', function()  {
   //return db[Join1+'s'+Join2+'s'].create({
   //  [Join1+'Id']: id1,
   //  [Join2+'Id']: id2
-  //})
+  //})git a
 

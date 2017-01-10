@@ -62,7 +62,7 @@ module.exports = {
     return db.Events.create({
       name: name,
       meal_time: meal_time,
-      meal_id: meal_id
+      MealId: meal_id
     })
   },
 
