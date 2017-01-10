@@ -15,8 +15,8 @@ var Meals = db.define('Meals', {
 });
 
 var Events = db.define('Events', {
-  name: Sequelize.STRING,
-  meal_time: Sequelize.TIME
+  title: Sequelize.STRING,
+  start: Sequelize.TIME
 });
 
 var Users = db.define('Users', {
