@@ -139,6 +139,31 @@ describe('Database Queries', function()  {
     })
 
   });
+  describe ( "Meals", function() {
+    it('should add a meal to the database', function(done){
+      controller.addMeal("Sausage and Chips")
+        .then(function (meal) {
+          expect(meal[0].dataValues.name).to.equal('Sausage and Chips');
+          MealId = meal[0].dataValues.id;
+          return controller.addJoinTable('User', 'Meal', MealId, 1)
+        })
+        .then(function (join) {
+          expect(join).to.be.an('object');
+          return controller.addJoinTable('Meal', 'Recipe', 1, 2)
+        })
+        .then(function(join){
+          expect(join).to.be.an('object');
+          done();
+        })
+    })
+    it('should retrieve the meal from the database', function(done){
+      controller.getAll(username,'Meals')
+        .then(function(mealData){
+          expect(mealData[0].Meals[0].name).to.equal('Sausage and Chips')
+          done();
+        })
+    })
+  })
 
   //describe("")
   //  if('should retrieve that user')
