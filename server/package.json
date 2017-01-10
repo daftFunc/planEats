@@ -4,7 +4,7 @@
   "description": "planEats server",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --compilers js:babel-core/register ./spec/*test.js",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "babel-watch server.js",
     "client": "babel-node start-client.js"
@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "babel-watch": "^2.0.5",
+    "chai": "^3.5.0",
     "concurrently": "^3.1.0",
     "morgan": "^1.7.0"
   }

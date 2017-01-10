@@ -1,7 +1,10 @@
+
 var Sequelize = require('sequelize');
-var db = new Sequelize('planeats', 'postgres', 'thesisEats', {
+var db = new Sequelize('planeats', 'postgres', 'sorry1', {
   dialect: 'postgres'
 });
+
+
 
 // Model definitions
 var Recipe = db.define('Recipe', {
@@ -30,7 +33,6 @@ var MealsRecipes = db.define('MealsRecipes');
 var UsersMeals = db.define('UsersMeals');
 
 // Associations
-
 Recipe.sync();
 Users.sync()
   .then(() => {
