@@ -8,4 +8,4 @@ client/.storybook/
 client/stories/
 node_modules/
 client/src/components/images/Thumbs.db
-../.DS_Store\
+../.DS_Store
