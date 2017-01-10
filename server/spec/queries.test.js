@@ -63,17 +63,19 @@ describe('Database Queries', function()  {
    //    db.UsersEvents.sync({force:true});
       });
   var username = 'testUsername';
-  var recipeName = 'Lasagna';
-  var recipe = {
+  var recipeName = ['Hot Chocolate','Sausages'];
+  var recipe = [{
                   name:'Hot Chocolate',
                   ingredients:'1) 3 bars of milk chocolate 2) 1 cup of hot water 3) 3 tps of marshmellow'
-                };
+                },{
+                  name:'Jalapeno Sausage',
+                  ingredients: '1) 2 Bell-peppers 2) 2 packs of hot-dogs'
+                }]
   describe("Users", function() {
-    it('should add one user', function (done) {
+    it ( 'should add one user', function (done) {
       controller.addUser(username)
         .spread(function (user, created) {
           if (created) {
-            console.log('this is user',user)
             expect(user.username).to.equal(username)
             done();
           } else {
@@ -84,7 +86,7 @@ describe('Database Queries', function()  {
           done(error);
         });
     });
-    it('should retrieve one user using username', function(done) {
+    it ( 'should retrieve one user using username', function(done) {
       controller.findUser(username)
         .then(function(user) {
             expect(user.username).to.equal(username);
@@ -95,14 +97,50 @@ describe('Database Queries', function()  {
         })
     });
   });
-  describe("Recipes", function() {
-    it ('should add one recipe by username', function(done){
-      controller.addRecipe(recipeName, recipe)
-        .then(function(recipe) {
+  describe ( "Recipes", function() {
+    it ( 'should add recipe', function(done){
+      controller.addRecipe(recipeName[0], recipe[0])
+        .then(function ( recipeData ) {
+          expect(recipeData.name).to.equal(recipeName[0]);
+          expect(recipeData.recipe.ingredients).to.equal(recipe[0].ingredients);
+          console.log("THIS IS ID",recipeData.id)
+          return controller.addJoinTable('User','Recipe', 1, recipeData.id);
+        })
+        .then(function ( join ) {
+
+          expect(join).to.be.an('object');
+          return controller.addRecipe(recipeName[1], recipe[1]);
+
+        })
+        .then(function ( recipeData ) {
+          expect(recipeData.name).to.equal(recipeName[1]);
+          expect(recipeData.recipe.ingredients).to.equal(recipe[1].ingredients);
+          return controller.addJoinTable('User','Recipe', 1, recipeData.id);
+        })
+        .then(function ( join ) {
+          expect(join).to.be.an('object');
+          done();
+        })
+        .catch(function(error){
+          done(error);
+        });
+
+    });
+    it ( 'should retrieve all recipes for a user', function(done){
+      controller.getAll(username,'Recipe')
+        .then(function( recipeData ) {
+          expect(recipeData[0].Recipes[0].name).to.equal(recipeName[0]);
+          expect(recipeData[0].Recipes[1].name).to.equal(recipeName[1]);
+          done();
+        })
+        .catch(function(error){
+          done(error);
         })
     })
 
   });
+
+  //describe("")
   //  if('should retrieve that user')
   //  return db.Users.findOne({where: {username: username}})
   //
