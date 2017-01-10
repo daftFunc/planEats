@@ -1,0 +1,11 @@
+# logs
+*.log
+
+server/node_modules/
+
+.idea/
+client/.storybook/
+client/stories/
+node_modules/
+client/src/components/images/Thumbs.db
+../.DS_Store

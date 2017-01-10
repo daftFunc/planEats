@@ -1,0 +1,167 @@
+@font-face { font-family: Ailerons; src: url('font/Ailerons-Typeface.otf'); }
+.Site {
+  /*text-align: center;*/
+}
+
+/*.Site-logo {*/
+  /*animation: Site-logo-spin infinite 20s linear;*/
+  /*height: 80px;*/
+/*}*/
+
+#desktop-header {
+  display:none;
+}
+
+.Site-header {
+  height:10%;
+  color: white;
+  padding: 10px;
+  width:100% !important;
+}
+
+#header-logo {
+   width:65%;
+
+}
+
+.navbar-inverse {
+  background-color:#262228 !important;
+}
+
+.Site-profilePicture {
+  display: block;
+  width: 192px;
+  height: 192px;
+  margin: 10px auto;
+}
+.menu-item-drop {
+  display:inline;
+  width:7.5%;
+  padding-top:5%;
+}
+.space-fill {
+  display:inline-block;
+  visibility:hidden;
+  width:14%;
+}
+
+.contain-menu-drop {
+  font-family: Ailerons;
+  font-size: 160%;
+}
+
+.Site-page {
+  padding: 10px;
+}
+#header-image {
+  position:relative;
+  float:right;
+  height:auto;
+  width:15%;
+  display:inline;
+}
+.icon-bar{
+  width:5em;
+  height:.45em;
+}
+@keyframes Site-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.navbar-toggle {
+  float:left !important;
+}
+
+@media screen and (min-width: 768px) {
+
+  #header-logo {
+    display:none;
+  }
+  .space-fill {
+    display:flex-inline;
+    visibility:visible;
+    color:white;
+    width:18%;
+    margin-left:1em;
+  }
+  .left-sideOf{
+    width: 7%;
+  }
+  .right-sideOf{
+    width:4%;
+  }
+
+  a {
+    text-decoration:none !important;
+    -webkit-text-decoration:none !important;
+  }
+
+  .menu-item-drop {
+    display:flex-inline;
+    width:30px;
+    padding:0;
+  }
+
+  ul {
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+  }
+
+  .navbar-collapse {
+    padding-right:0;
+    padding-left:0;
+  }
+
+  .container{
+    padding-right:0;
+    padding-left:0;
+    width:100%;
+    margin-right:0;
+    margin-left:0;
+  }
+
+  .navbar-nav{
+    height:50px;
+    width:100%;
+  }
+  .navbar {
+    border-radius:0px;
+  }
+  .Site-header {
+    height:50px;
+    color: white;
+    padding:7px;
+    width:100% !important;
+  }
+  #desktop-header {
+    display:block;
+    height:70px;
+    background-color:#262228;
+    width:100%;
+  }
+  #desktop-header-logo {
+    height: 100%;
+    margin-left:auto;
+    margin-right:auto;
+    display:block;
+  }
+  .menu-header {
+    display:none;
+  }
+  #header-image {
+    position:absolute;
+    top:2px;
+    right:5.5px;
+    height:70px;
+    width:auto;
+  }
+  #header-logo {
+    display:flex;
+    margin-left:auto;
+    margin-right:auto;
+  }
+}

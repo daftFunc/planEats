@@ -1,0 +1,32 @@
+.recipeList {
+  padding-left: 0px;
+}
+
+.recipeItem {
+  list-style: none;
+  padding: 5px;
+  text-decoration: underline;
+  color: blue;
+}
+
+.recipes, .addNew {
+  display: inline-block;
+  text-align: left;
+}
+
+.addNew {
+  float: right;
+}
+
+.recipes {
+  float: left;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+} /*needed to prevent the autofill yellow-background when resetting the form fields*/
+
+.swal2-show{
+  margin: 0 auto;
+  z-index: 1;
+}

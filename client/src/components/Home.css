@@ -1,0 +1,99 @@
+@font-face { font-family: Ailerons; src: url('font/Ailerons-Typeface.otf'); }
+
+.Home {
+  height:100%;
+}
+#menu-text-span {
+  display:none;
+}
+#menu {
+  margin-top:20%;
+  margin-left:auto;
+  margin-right:auto;
+  width:17em;
+  height:17em;
+}
+
+.menu-item {
+  background: #0375B4;
+  width: 46%;
+  height: 46%;
+  margin: 2%;
+  display: inline-block;
+  border-radius: 1.7em;
+}
+.top-left {
+  background-color: 0375B4;
+}
+.top-right{
+  background-color: #262228;
+}
+.bottom-left {
+  background-color:#FC4A1A;
+}
+.bottom-right {
+  background-color: #007849;
+}
+#Logo-home {
+  margin-left:auto;
+  margin-right:auto;
+  display:block;
+  text-align:center;
+  width:80%;
+  height:auto;
+  margin-top:10%;
+}
+
+.menu-image {
+  width:50%;
+  height:50%;
+  transform: translate(50%, 50%);
+}
+
+@media screen and (min-width: 768px) {
+
+  #menu {
+    text-align:center;
+    margin-top:5%;
+    margin-left:auto;
+    margin-right:auto;
+    width:100%;
+    height:17em;
+  }
+
+  .menu-item {
+    width: 140px;
+    height: 140px;
+    margin: 2%;
+    display: inline-block;
+    border-radius: 1.7em;
+    margin-bottom:0%;
+  }
+  .menu-image {
+    width:50%;
+    height:50%;
+    transform: translate(-1%, 53%);
+  }
+  .cook-pic {
+    transform: translate(11%, 53%);
+  }
+
+  br {
+    display:none;
+    content:' ';
+  }
+  #menu-text-span{
+    text-align:center;
+    width:100%;
+    display:inherit;
+  }
+  .menu-text {
+    display: inline-block;
+    width: 140px;
+    font-size:170%;
+    text-align:center;
+    font-family:Ailerons;
+    margin: 2%;
+
+  }
+}
