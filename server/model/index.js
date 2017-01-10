@@ -102,7 +102,7 @@ module.exports = {
         })
         .then(function (events) {
           EventId = events.get('id');
-          return controller.addJoinTable('User', 'Event', UserId, EventId)
+          return controller.addJoinTable('User', 'Event', UserId, EventId);
         })
         .then(function (join) {
           res.sendStatus(201);
