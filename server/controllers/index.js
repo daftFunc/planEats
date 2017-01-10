@@ -1,87 +1,81 @@
 var db = require('../db');
 
-module.exports = {
-  recipe: {
-    get: function(req, res) {
-      db.Recipe.findAll({include: [db.Meal]})
-        .then(function(recipe) {
-          res.json(recipe);
-        }).catch(function(error){
+var columns = {
+  Recipe: {
+    col1: 'name',
+    col2: 'recipe'
+  },
+  Meals: {
+    col1: 'name',
+    col2: 'favorited'
+  },
+  Events:{
+    col1: 'name',
+    col2: 'meal_time'
+  }
+}
 
-          res.json({somethingelse:error});
+module.exports = {
+
+  findUser: function(username) {
+    return db.Users.findOne({where: {username:username}});
+  },
+
+  addUser: function(user) {
+    return db.Users.findOrCreate({where: {username:user}});
+  },
+
+  getAll: function(username,type) {
+    var col1 = columns[type].col1;
+    var col2 = columns[type].col2;
+    return db.Users.findAll({where:{username:username},
+      include: [{
+        model: db[type],
+        through: {
+          attributes: [col1,col2]
+        }
+      }]
+    });
+  },
+
+  addRecipe: function(name,recipe) {
+    return db.Recipe.create({
+      name: name,
+      recipe: recipe
+    });
+  },
+
+  GetMeals: function(req, res, data, field) {
+    db.Meals.findAll({include: [db.Users]})
+      .then(function(meals) {
+        res.json(meals);
       });
-    },
-    post: function(req, res) { 
-      db.Meals.findOrCreate({where: {name: req.body.name}}) 
-        .spread(function(meal, created) {
-          db.Recipe.create({
-            mealid: meal.get('id'), 
-            name: req.body.name,
-            ingredients: req.body.ingredients,
-            time: req.body.time,
-            servings: req.body.servings,
-            directions: req.body.directions,
-            nutrition: req.body.nutrition 
-          }).then(function(recipe) {
-            res.sendStatus(201);
-            console.log('Recipe created!', recipe);
-          }); 
-        });
-    }
   },
-  meals: {
-    get: function(req, res, data, field) {
-      db.Meals.findAll({include: [db.Users]})
-        .then(function(meals) {
-          res.json(meals);
-        });
-    },
-    post: function(req, res) {
-      db.User.findOrCreate({where: {username: req.body.username}})
-        .spread(function(user, created) {
-          db.Meals.create({
-          userid: user.get('id'),
-          name: req.body.name,
-          favorited: req.body.favorited
-          }).then(function(meal) {
-            res.sendStatus(201);
-            console.log('Meal created!');
-          });
-        });
-    }
+
+  addMeal: function(name) {
+    return db.Meals.findOrCreate({where:{name:name}, defaults:{
+      name: name,
+      favorited: false
+    }});
   },
-  events: {
-    get: function(req, res) {
-      db.Events.findAll({include: [db.Users]})
-        .then(function(events) {
-          res.json(events);
-        });
-    },
-    post: function(req, res) {
-      db.User.findOrCreate({where: {username: req.body.username}})
-        .spread(function(user, created) {
-          db.Events.create({
-            userid: user.get('id'),
-            meal_time: req.body.meal_time
-          }).then(function(event) {
-            res.sendStatus(201);
-            console.log('Event created!');
-          })
-        })
-    }
+
+  getEventMeal: function(id) {
+    return db.Meals.findAll({where:{id:id}})
+
   },
-  users: {
-    get: function(req, res) {
-      db.Users.findAll()
-        .then(function(users) {
-          res.json(users);
-        })
-    },
-    post: function(req, res) {
-      db.Users.findOrCreate({where: {username: req.body.username}})
-         .spread(function(user, created) {
-            res.sendStatus(created ? 201 : 200)
-         });
-    }
+
+  addEvent: function(name, meal_time, meal_id) {
+    return db.Events.create({
+      name: name,
+      meal_time: meal_time,
+      meal_id: meal_id
+    })
+  },
+
+  addJoinTable(Join1, Join2, id1, id2) {
+    return db[Join1+'s'+Join2+'s'].create({
+      [Join1+'Id']: id1,
+      [Join2+'Id']: id2
+    })
   }
 };
