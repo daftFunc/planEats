@@ -62,13 +62,19 @@ describe('Database Queries', function()  {
    //    db.Users.belongsToMany(db.Events, {through: db.UsersEvents, foreignkey: 'UserId'});
    //    db.UsersEvents.sync({force:true});
       });
+  var username = 'testUsername';
+  var recipeName = 'Lasagna';
+  var recipe = {
+                  name:'Hot Chocolate',
+                  ingredients:'1) 3 bars of milk chocolate 2) 1 cup of hot water 3) 3 tps of marshmellow'
+                };
   describe("Users", function() {
     it('should add one user', function (done) {
-      controller.addUser('hahahoho')
+      controller.addUser(username)
         .spread(function (user, created) {
           if (created) {
             console.log('this is user',user)
-            expect(user.username).to.equal("hahahoho")
+            expect(user.username).to.equal(username)
             done();
           } else {
             done(created);
@@ -78,6 +84,24 @@ describe('Database Queries', function()  {
           done(error);
         });
     });
+    it('should retrieve one user using username', function(done) {
+      controller.findUser(username)
+        .then(function(user) {
+            expect(user.username).to.equal(username);
+            done();
+        })
+        .catch(function(error){
+          done(error);
+        })
+    });
+  });
+  describe("Recipes", function() {
+    it ('should add one recipe by username', function(done){
+      controller.addRecipe(recipeName, recipe)
+        .then(function(recipe) {
+        })
+    })
+
   });
   //  if('should retrieve that user')
   //  return db.Users.findOne({where: {username: username}})
