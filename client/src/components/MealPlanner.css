@@ -1,0 +1,15 @@
+li {
+  list-style: none;
+}
+
+.addNew {
+  width: 30%;
+}
+
+.recipes {
+  width: 50%;
+}
+
+.mealItems {
+  padding: 5px;
+}
