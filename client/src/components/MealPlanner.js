@@ -30,7 +30,9 @@ class MealPlanner extends Component {
     axios.get('/api/recipe')
       .then(function(recipes) {
       //recipes.data[0] is an object holding a Recipes array. Recipes array has all of the user's recipe objects
-      context.state.recipes = recipes.data[0].Recipes
+      context.setState({
+        recipes: recipes.data[0].Recipes
+      })
     })
       .then(function(val) {
         console.log(context.state.recipes)

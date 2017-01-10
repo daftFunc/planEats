@@ -1,10 +1,8 @@
-import React/*, {Component}*/ from 'react';
+import React from 'react';
 import {connectProfile} from '../auth';
-// import {Link} from 'react-router';
 import './Calendar.css';
 import $ from 'jquery';
 import fullCalendar from 'fullcalendar';
-// import events from '../data/events.js';
 import moment from 'moment';
 import swal from 'sweetalert2';
 import axios from 'axios';
@@ -21,7 +19,15 @@ class Calendar extends React.Component {
     this.state = {
       username: 'Brit', //TODO: update to get user's ID in location
       date: null,
-      events: null,
+      events: [{
+              "id": 4,
+              "title": "Lentil Burgers!",
+              "start": "2017-01-09T16:30:00",
+              "createdAt": "2017-01-10T19:07:28.673Z",
+              "updatedAt": "2017-01-10T19:07:28.673Z",
+              "MealId": null,
+              "UsersEvents": {}
+      }], //TODO: update when db is reformatted
       meals: null,
       inputs: null
     }
@@ -36,10 +42,6 @@ class Calendar extends React.Component {
       .then(function(events) {
         context.setState({
           events: events.data[0].Events
-        }, function(){
-          //TODO: fix this mess - db update needed?
-          var timeHack = "2017-01-09T" + context.state.events[1].meal_time
-          context.state.events[1].meal_time = timeHack;
         })
       })
 
