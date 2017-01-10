@@ -20,7 +20,7 @@ class Book extends Component {
   }
 
   handleChange(event) {
-
+    console.log(event.target)
     var changedId = event.target.id;
     var changedVal = event.target.value;
 
@@ -58,7 +58,7 @@ class Book extends Component {
         <div className="recipes">
           <h1>Recipe Book</h1>
           <ul className="recipeList">
-            {this.state.recipes.map((recipe, i) => {return <li className="recipeItem" key={i}>{recipe.title}</li>})}
+            {this.state.recipes.map((recipe, i) => {return <li className="recipeItem" key={i}>{recipe.name}</li>})}
           </ul>
         </div>
         <div className="addNew">

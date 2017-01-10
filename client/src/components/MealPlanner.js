@@ -1,27 +1,40 @@
 import React, {Component} from 'react';
 import {connectProfile} from '../auth';
-// import {Link} from 'react-router';
+import {Link} from 'react-router';
 import './MealPlanner.css';
-import meals from '../data/savedMeals.js';
 import { FieldGroup, FormGroup, HelpBlock, ControlLabel, FormControl, Button, Checkbox, Radio } from 'react-bootstrap';
-import recipes from '../data/recipes.js'
 import axios from 'axios'
 
 class MealPlanner extends Component {
   constructor() {
     super();
     this.state = {
-      meals: meals,
-      mealName: null,
-      recipes: recipes,
+      username: 'Brit', //TODO: update to get user's ID in location
+      mealName: '',
+      recipes: [],
       clicked: [],
       recipeName: '',
       ingredients: '',
       prepTime: '',
       cookTime: '',
       instructions: '',
-      mealTime: ''
+      mealTime: '',
+      clickedName: []
     }
+  }
+
+  componentDidMount() {
+    var context = this;
+    axios.defaults.headers.username = this.state.username;
+
+    axios.get('/api/recipe')
+      .then(function(recipes) {
+      //recipes.data[0] is an object holding a Recipes array. Recipes array has all of the user's recipe objects
+      context.state.recipes = recipes.data[0].Recipes
+    })
+      .then(function(val) {
+        console.log(context.state.recipes)
+      })
   }
 
   handleChange(meal, index) {
@@ -33,15 +46,32 @@ class MealPlanner extends Component {
     }
   }
 
-  handleRemove(item) {
+  handleAddRecipe(name, index) {
+    var updateIds = this.state.clicked.slice();
+    updateIds.push(index) //push clicked recipe's index to state
 
-    var update = this.state.clicked.slice()
-    update.splice(item, 1)
+    var updatedNames = this.state.clickedName.slice();
+    updatedNames.push(name) //push clicked recipe's name to state for rendering
 
     this.setState({
-      clicked: update
+      clicked: updateIds,
+      clickedName: updatedNames
+    })
+  }
+
+  handleRemove(item) {
+    var context = this;
+    var updateIds = this.state.clicked.slice();
+    updateIds.splice(item, 1);
+
+    var updatedName = this.state.clickedName.slice();
+    updatedName.splice(item, 1);
+
+    this.setState({
+      clicked: updateIds,
+      clickedName: updatedName
     }, function() {
-      this.forceUpdate()
+      context.forceUpdate();
     })
 
   }
@@ -55,7 +85,6 @@ class MealPlanner extends Component {
       recipe: JSON.stringify(this.state.clicked)
     };
 
-<<<<<<< 02d7d03085a60a8d50c3557c6543a17ecab0012f
     axios.post('/api/meals', newMeal)
       .then(function(event){
       console.log("posted", event)
@@ -64,20 +93,6 @@ class MealPlanner extends Component {
         clicked: [],
         mealTime: ''
       });
-=======
-    meals.push(newMeal)
-
-    this.setState({
-      mealName: '',
-      clicked: []
-    }, function(){
-      axios.post('/api/users', {
-        username: this.state.mealName
-      }).then(function(event){
-        console.log("posted", event)
-      })
-      this.forceUpdate();
->>>>>>> create a meal with dummy recipe data
     });
 
   }
@@ -88,7 +103,8 @@ class MealPlanner extends Component {
         <div className="recipes">
           <h3>Click to add a recipe to your new meal</h3>
           <ul className="recipeList">
-            {this.state.recipes.map((recipe, i) => {return <li className="recipeItem" id={i} onClick={this.handleChange.bind(this, recipe.title)}>{recipe.title}</li>})}
+            {this.state.recipes.map((recipe, i) => {
+              return <li className="recipeItem" key={recipe.id} onClick={this.handleAddRecipe.bind(this, recipe.name, recipe.id)}>{recipe.name}</li>})}
           </ul>
         </div>
         <div className="addNew">
@@ -101,8 +117,8 @@ class MealPlanner extends Component {
               placeholder="Meal Name"
             />
             <ul>
-              {this.state.clicked.map((val, i) => {
-                return <li className="mealItems" id={i} onClick={this.handleRemove.bind(this, i)}>{val}</li>
+              {this.state.clickedName.map((val, i) => {
+                return <li className="mealItems" key={i} onClick={this.handleRemove.bind(this, i)}>{val}</li>
               })}
             </ul>
             <Button type="submit" onClick={this.handleSubmit.bind(this)}>Add Meal</Button>
