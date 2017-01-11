@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 // import Axios from 'axios'
-import './Shop.css'
+import './Shop.css';
+import Convert from 'convert-units';
+import spoonRecipes from '../data/shop.js'
 export default class Shop extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      groceryList: ['celery','3lbs steak', 'sauce', 'milk','eggs','cabbage','chicken','limabeans','cauliflower','sweet and sour'],
+      groceryList: {},
       addedItems: [],
       freq: '7',
       modalActive: false,
@@ -16,38 +18,69 @@ export default class Shop extends Component {
   componentDidMount() {
 
     console.log('spoons',spoonRecipes[0].extendedIngredients,spoonRecipes[1].extendedIngredients,spoonRecipes[2].extendedIngredients);
-    var abbrev = {
-    }
+    var amountOrder = { 'ml':1,'l':2,'tsp':3,'Tbs':4,'fl-oz':5,'cup':6,'pnt':7,'qt':8 };
     var groceryList = {};
-
+    var abbrev = {
+      milliliter:'ml',
+      liter: 'l',
+      teaspoon:'tsp',
+      tablespoon:'Tbs',
+      'fluid ounce': 'fl-oz',
+      quart:'qt',
+      pint:'pnt',
+      T:'Tbs',
+      'tbl':'Tbs',
+      t: 'tsp',
+      tbsp:'Tbs'
+    }
     for ( var i = 0; i < spoonRecipes.length; i++ ) {
       var ingredients = spoonRecipes[i].extendedIngredients;
 
       for ( var j = 0; j < ingredients.length; j++ ) {
-        var ingredient = ingredients[j];
-        var itemInList = groceryList[ingredient.name];
-
+        var ingredientMaster = ingredients[j];
+        var itemInList = groceryList[ingredientMaster.name];
+        ingredientMaster.unit = ingredientMaster.unit.replace(/s$/g,"");
+        if(abbrev[ingredientMaster.unit]) {
+          ingredientMaster.unit = abbrev[ingredientMaster.unit];
+        }
         if ( !itemInList ) {
-          groceryList[ingredient.name] = [[ingredient.amount,ingredient.unit]];
+          groceryList[ingredientMaster.name] = [[ingredientMaster.amount,ingredientMaster.unit]];
         } else {
           var itemAdded = false;
 
-          for ( var k = 0; k < groceryList[ingredient.name].length; k++ ) {
-            if ( itemInList[k].unit === ingredient.unit ) {
-              itemInList[k].amount += ingredient.amount;
+          for ( var k = 0; k < itemInList.length; k++ ) {
+            console.log('hihihi');
+            console.log(itemInList[k]);
+            if ( itemInList[k][1] === ingredientMaster.unit ) {
+              itemInList[k][0] += ingredientMaster.amount;
+              console.log(groceryList[ingredientMaster.amount], itemInList[k][0]);
               itemAdded = true;
-            } else {
-
+            } else if(amountOrder[ingredientMaster.unit] && amountOrder[itemInList[k][1]]) {
+              console.log("Converting",ingredientMaster.amount, itemInList[k][0]);
+              if(amountOrder[ingredientMaster.unit] > amountOrder[itemInList[k][1]]) {
+                itemInList[k][0] = ingredientMaster.amount + Convert(itemInList[k][0])
+                                                            .from(itemInList[k][1])
+                                                            .to(ingredientMaster.unit);
+              } else {
+                itemInList[k][0] = itemInList[k][0] + Convert(ingredientMaster.amount)
+                                                              .from(ingredientMaster.unit)
+                                                              .to(itemInList[k][1]);
+              }
+              console.log("Conversion",itemInList[k][0]);
+              itemAdded = true;
             }
           }
 
           if ( !itemAdded ) {
-            itemInList.push ( [ingredient.amount,ingredient.unit] );
+            itemInList.push ( [ingredientMaster.amount,ingredientMaster.unit] );
           }
         }
       }
     }
     console.log('test list',groceryList);
+    this.setState({
+      groceryList: groceryList
+    })
     //axios.get('/api/recipe', {
       //  username:JSON.parse(localStorage.profile).email
       //  })
@@ -61,7 +94,6 @@ export default class Shop extends Component {
       //    console.log("Error getting recipe:", error);
       //  })
 
->>>>>>> pre rebase 2
   }
 
   handleInputChange(event) {
@@ -126,16 +158,29 @@ var GroceryList = ({groceryList, freq, addedItems}) => (
 
   <div>
     <ul style={{listStyleType:'none'}}>
-      {groceryList.map((element,i) => {
-          return i<=freq && (
-            <li className="item" id={element}>
-              <input type='checkbox'/>
-                <label htmlFor={element}>
-                  <span></span>{element}
-                </label>
-            </li>
-          );
-        })
+
+      {Object.keys(groceryList).map((key) => {
+        var amount = '';
+
+        if (groceryList[key].length > 1) {
+
+          groceryList[key].map((element,i)=> {
+            amount += ' and ' + element[i][0] + ' ' + groceryList[key][i][1];
+          })
+          amount = amount.substring(6,amount.length);
+        } else {
+          amount = amount = groceryList[key][0][0] + ' ' + groceryList[key][0][1];
+        }
+
+        return (
+          <li className="item" id={key}>
+          <input type='checkbox'/>
+          <label htmlFor={key}>
+          <span></span> {amount + ' of ' + key}
+          </label>
+          </li>
+        );
+      })
       }
       {addedItems.map((element) => (
         <li className="item">
