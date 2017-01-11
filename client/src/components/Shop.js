@@ -31,8 +31,10 @@ export default class Shop extends Component {
       T:'Tbs',
       'tbl':'Tbs',
       t: 'tsp',
-      tbsp:'Tbs'
+      tbsp:'Tbs',
+      C: 'cup'
     }
+
     for ( var i = 0; i < spoonRecipes.length; i++ ) {
       var ingredients = spoonRecipes[i].extendedIngredients;
 
@@ -40,33 +42,37 @@ export default class Shop extends Component {
         var ingredientMaster = ingredients[j];
         var itemInList = groceryList[ingredientMaster.name];
         ingredientMaster.unit = ingredientMaster.unit.replace(/s$/g,"");
+
         if(abbrev[ingredientMaster.unit]) {
           ingredientMaster.unit = abbrev[ingredientMaster.unit];
         }
+
         if ( !itemInList ) {
           groceryList[ingredientMaster.name] = [[ingredientMaster.amount,ingredientMaster.unit]];
         } else {
           var itemAdded = false;
 
           for ( var k = 0; k < itemInList.length; k++ ) {
-            console.log('hihihi');
-            console.log(itemInList[k]);
+            //console.log('hihihi');
+            //console.log(itemInList[k]);
             if ( itemInList[k][1] === ingredientMaster.unit ) {
               itemInList[k][0] += ingredientMaster.amount;
               console.log(groceryList[ingredientMaster.amount], itemInList[k][0]);
               itemAdded = true;
+
             } else if(amountOrder[ingredientMaster.unit] && amountOrder[itemInList[k][1]]) {
               console.log("Converting",ingredientMaster.amount, itemInList[k][0]);
               if(amountOrder[ingredientMaster.unit] > amountOrder[itemInList[k][1]]) {
                 itemInList[k][0] = ingredientMaster.amount + Convert(itemInList[k][0])
                                                             .from(itemInList[k][1])
                                                             .to(ingredientMaster.unit);
+
               } else {
                 itemInList[k][0] = itemInList[k][0] + Convert(ingredientMaster.amount)
                                                               .from(ingredientMaster.unit)
                                                               .to(itemInList[k][1]);
               }
-              console.log("Conversion",itemInList[k][0]);
+              //console.log("Conversion",itemInList[k][0]);
               itemAdded = true;
             }
           }
@@ -165,9 +171,10 @@ var GroceryList = ({groceryList, freq, addedItems}) => (
         if (groceryList[key].length > 1) {
 
           groceryList[key].map((element,i)=> {
-            amount += ' and ' + element[i][0] + ' ' + groceryList[key][i][1];
+            console.log ( element );
+            amount += ' and ' + groceryList[key][i][0] + ' ' + groceryList[key][i][1];
           })
-          amount = amount.substring(6,amount.length);
+          amount = amount.substring(5,amount.length);
         } else {
           amount = amount = groceryList[key][0][0] + ' ' + groceryList[key][0][1];
         }
@@ -176,7 +183,7 @@ var GroceryList = ({groceryList, freq, addedItems}) => (
           <li className="item" id={key}>
           <input type='checkbox'/>
           <label htmlFor={key}>
-          <span></span> {amount + ' of ' + key}
+            <span></span>{amount + ' ' + key}
           </label>
           </li>
         );
@@ -186,7 +193,7 @@ var GroceryList = ({groceryList, freq, addedItems}) => (
         <li className="item">
           <input type="checkbox" id={element} />
             <label htmlFor={element}>
-              <span></span>{element}
+              <input type="checkbox" /><span />{element}
             </label>
         </li>
       ))}

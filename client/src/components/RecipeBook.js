@@ -13,7 +13,7 @@ class Book extends Component {
   constructor() {
     super();
     this.state = {
-      username: 'Brit', //TODO: getting logged in username
+      username: JSON.parse(localStorage.profile).email, //TODO: getting logged in username
       recipes: [],
       recipeName: null,
       ingredients: null,
