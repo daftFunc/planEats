@@ -1,6 +1,8 @@
 language: node_js
 node_js:
   - "6"
+addons:
+  postgresql: "9.4"
 services:
   - postgresql
 before_script:
@@ -8,4 +10,3 @@ before_script:
 script:
   - cd client && npm install && npm test
   - cd ../server && npm install && npm test
-
