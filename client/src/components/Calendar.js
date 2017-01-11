@@ -68,11 +68,21 @@ class Calendar extends React.Component {
       droppable: true,
       defaultTimedEventDuration: '01:00:00', //default length of event is an hour on the cal. can update this based on the total prep+cook time of each recipe in the meal
       drop: function() {
-        console.log('dropped', this)
+        console.log('dropped', this);
       },
 
       eventClick: function(calEvent, jsEvent, view){
-        console.log(calEvent, jsEvent, view)
+        // console.log(calEvent, jsEvent, view)
+        $('.fc-unthemed').css({display:'none'}); //hide calendar
+        var mealDate = moment(calEvent.start._d).format('MMMM Do [,]YYYY');
+        swal({
+          title: 'Meal for ' + mealDate + ':',
+          text: calEvent.title,
+          confirmButtonText: 'Okay'
+        }).then(function(){
+          $('.fc-unthemed').css({display:'block'}); //show calendar
+          swal.closeModal();
+        })
       },
 
       dayClick: function(calEvent, jsEvent, view) { //TODO: this is not a finished feature!
@@ -84,14 +94,14 @@ class Calendar extends React.Component {
           inputValidator: function (mealClicked) {
             return new Promise(function (resolve, reject) {
               if (mealClicked) {
-                resolve()
+                resolve();
               } else {
-                reject('Please select a meal for this date')
+                reject('Please select a meal for this date');
               }
             })
           }
         }).then(function(clickedMeal) {
-          console.log(clickedMeal)
+          console.log(clickedMeal);
           swal.closeModal();
         });
 
