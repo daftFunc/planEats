@@ -80,14 +80,14 @@ class Calendar extends React.Component {
           text: calEvent.title,
           confirmButtonText: 'Back'
         }).then(function(){
-          $('.fc-unthemed').css({display:'block'}); //show calendar
-          $('.swal2-modal').css({display:'none'}); //hide modal. closeModal() not working
+            $('.fc-unthemed').css({display:'block'}); //show calendar
+            $('.swal2-modal').css({display:'none'}); //hide modal. closeModal() not working
           // swal.closeModal();
         })
       },
 
       dayClick: function(calEvent, jsEvent, view) { //TODO: this is not a finished feature!
-
+        $('.fc-unthemed').css({display:'none'}); //hide calendar
         swal({
           input: 'select',
           inputOptions: context.state.inputs,
@@ -103,12 +103,14 @@ class Calendar extends React.Component {
             })
           }
         }).then(function(clickedMeal) {
-          console.log(clickedMeal);
+          // console.log(clickedMeal);
+          $('.fc-unthemed').css({display:'block'}); //show calendar
           $('.swal2-modal').css({display:'none'}); //hide modal. closeModal() not working
           // swal.close();
         }, function(dismiss){
           if (dismiss === 'cancel') {
             $('.swal2-modal').css({display:'none'});
+            $('.fc-unthemed').css({display:'block'});
           }
         });
 

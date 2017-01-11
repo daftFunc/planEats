@@ -90,7 +90,9 @@ class Book extends Component {
 
       context.setState({
         ingredientArr: updateIng,
-        ingredients: null
+        ingredients: ''
+      }, function(){
+        console.log(context.state.ingredients)
       });
     }
 
@@ -100,7 +102,7 @@ class Book extends Component {
 
       context.setState({
         instructionArr: updateInst,
-        instructions: null
+        instructions: ''
       });
     }
   }
