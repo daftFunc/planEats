@@ -14,12 +14,54 @@ export default class Shop extends Component {
   }
 
   componentDidMount() {
-    //axios.get('/getRecipes').then((list) => {
-    //  this.setState({
-    //    groceryList: list,
-    //    freq:'week'
-    //  });
-    //})
+
+    console.log('spoons',spoonRecipes[0].extendedIngredients,spoonRecipes[1].extendedIngredients,spoonRecipes[2].extendedIngredients);
+    var abbrev = {
+    }
+    var groceryList = {};
+
+    for ( var i = 0; i < spoonRecipes.length; i++ ) {
+      var ingredients = spoonRecipes[i].extendedIngredients;
+
+      for ( var j = 0; j < ingredients.length; j++ ) {
+        var ingredient = ingredients[j];
+        var itemInList = groceryList[ingredient.name];
+
+        if ( !itemInList ) {
+          groceryList[ingredient.name] = [[ingredient.amount,ingredient.unit]];
+        } else {
+          var itemAdded = false;
+
+          for ( var k = 0; k < groceryList[ingredient.name].length; k++ ) {
+            if ( itemInList[k].unit === ingredient.unit ) {
+              itemInList[k].amount += ingredient.amount;
+              itemAdded = true;
+            } else {
+
+            }
+          }
+
+          if ( !itemAdded ) {
+            itemInList.push ( [ingredient.amount,ingredient.unit] );
+          }
+        }
+      }
+    }
+    console.log('test list',groceryList);
+    //axios.get('/api/recipe', {
+      //  username:JSON.parse(localStorage.profile).email
+      //  })
+      //  .then((list) => {
+      //    this.setState({
+      //      groceryList: list,
+      //      freq:'week'
+      //    });
+      //    console.log('RECIPES', this.state.groceryList);})
+      //  .catch((error)=>{
+      //    console.log("Error getting recipe:", error);
+      //  })
+
+>>>>>>> pre rebase 2
   }
 
   handleInputChange(event) {
