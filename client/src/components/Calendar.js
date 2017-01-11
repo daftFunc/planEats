@@ -74,14 +74,15 @@ class Calendar extends React.Component {
       eventClick: function(calEvent, jsEvent, view){
         // console.log(calEvent, jsEvent, view)
         $('.fc-unthemed').css({display:'none'}); //hide calendar
-        var mealDate = moment(calEvent.start._d).format('MMMM Do [,]YYYY');
+        var mealDate = moment(calEvent.start._d).format('MMMM Do[,] YYYY');
         swal({
           title: 'Meal for ' + mealDate + ':',
           text: calEvent.title,
-          confirmButtonText: 'Okay'
+          confirmButtonText: 'Back'
         }).then(function(){
           $('.fc-unthemed').css({display:'block'}); //show calendar
-          swal.closeModal();
+          $('.swal2-modal').css({display:'none'}); //hide modal. closeModal() not working
+          // swal.closeModal();
         })
       },
 
@@ -91,6 +92,7 @@ class Calendar extends React.Component {
           input: 'select',
           inputOptions: context.state.inputs,
           confirmButtonText: 'Add to Plan',
+          showCancelButton: true,
           inputValidator: function (mealClicked) {
             return new Promise(function (resolve, reject) {
               if (mealClicked) {
@@ -102,7 +104,12 @@ class Calendar extends React.Component {
           }
         }).then(function(clickedMeal) {
           console.log(clickedMeal);
-          swal.closeModal();
+          $('.swal2-modal').css({display:'none'}); //hide modal. closeModal() not working
+          // swal.close();
+        }, function(dismiss){
+          if (dismiss === 'cancel') {
+            $('.swal2-modal').css({display:'none'});
+          }
         });
 
         //get date clicked for plan
