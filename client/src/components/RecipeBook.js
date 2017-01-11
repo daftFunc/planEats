@@ -13,6 +13,7 @@ class Book extends Component {
   constructor() {
     super();
     this.state = {
+
       username: JSON.parse(localStorage.profile).email,
       recipes: [],
       recipeName: null,

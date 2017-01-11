@@ -16,7 +16,7 @@ class Calendar extends React.Component {
   constructor() {
     super();
     this.state = {
-      username: 'Brit', //TODO: update to get user's ID in location
+      username: JSON.parse(localStorage.profile).email, //TODO: update to get user's ID in location
       date: null,
       events: [{
               "id": 4,
