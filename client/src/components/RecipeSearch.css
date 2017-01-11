@@ -1,0 +1,51 @@
+.recipeList {
+  padding-left: 0px;
+}
+
+.recipeItem {
+  list-style: none;
+  padding: 5px;
+  text-decoration: underline;
+  color: blue;
+}
+
+.recipes, .addNew {
+  display: inline-block;
+  text-align: left;
+}
+
+.addNew {
+  float: right;
+}
+
+.recipes {
+  float: left;
+  overflow: auto; /*show scroll bar whe*/
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+} /*needed to prevent the autofill yellow-background when resetting the form fields*/
+
+.swal2-show{
+  margin: 0 auto;
+  z-index: 1;
+}
+
+/*#ingredients{
+  float: left;
+}*/
+
+.plusSign{
+  font-size: 20px;
+  margin: 5px;
+  padding: 0px;
+  /*float: right;*/
+}
+
+.plusSign:active{
+  color: red;
+}
+.form-control{
+  width: 80%;
+}
