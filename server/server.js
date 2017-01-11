@@ -20,11 +20,6 @@ app.use(cors({
 }));
 app.use(parser.urlencoded({ extended: true }));
 app.use(parser.json());
-
-// Serve static files - not positive which to use here
-// if (process.env.NODE_ENV === 'production') {
-//   app.use(express.static('client/build'));
-// }
 app.use(express.static('../client/build'));
 
 // API route
