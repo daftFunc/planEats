@@ -34,9 +34,6 @@ class MealPlanner extends Component {
         recipes: recipes.data[0].Recipes
       })
     })
-      .then(function(val) {
-        console.log(context.state.recipes)
-      })
   }
 
   handleChange(meal, index) {
@@ -87,6 +84,7 @@ class MealPlanner extends Component {
       recipe: JSON.stringify(this.state.clicked)
     };
 
+    axios.defaults.headers.username = this.state.username;
     axios.post('/api/meals', newMeal)
       .then(function(event){
       console.log("posted", event)

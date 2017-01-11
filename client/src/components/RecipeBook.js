@@ -51,16 +51,19 @@ class Book extends Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
+    // var context = this;
+    // event.preventDefault();
     /*on submit, data needs to be updated so that it renders in the recipe book (send to recipes array)*/
     var newRecipe = {
-      ingredients: this.state.recipeName,
-      prepTime: 10,
-      cookTime: 20,
-      instructions: []
+      ingredients: this.state.ingredientArr,
+      prepTime: this.state.prepTime,
+      cookTime: this.state.cookTime,
+      instructions: this.state.instructionArr
     }
 
+    axios.defaults.headers.username = this.state.username;
     axios.post('/api/recipe', {
+      username: this.state.username,
       name: this.state.recipeName,
       recipe: newRecipe
     })
@@ -73,8 +76,6 @@ class Book extends Component {
       instructions: null,
       ingredientArr: [],
       instructionArr: []
-    }, function() {
-      this.forceUpdate();
     });
 
   }
