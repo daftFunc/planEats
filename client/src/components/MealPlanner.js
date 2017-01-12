@@ -8,7 +8,7 @@ class MealPlanner extends Component {
   constructor() {
     super();
     this.state = {
-      username: JSON.parse(localStorage.profile).email,
+      username: JSON.parse(localStorage.profile).email, //TODO: update to get user's ID in location
       mealName: '',
       recipes: [],
       clicked: [],

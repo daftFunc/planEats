@@ -4,9 +4,9 @@ import './Calendar.css';
 import $ from 'jquery';
 import fullCalendar from 'fullcalendar';
 import moment from 'moment';
-import swal from 'sweetalert2';
+import { default as swal } from 'sweetalert2'
 import axios from 'axios';
-import TimePicker from 'react-bootstrap-time-picker';
+import time from '../data/timeConversion.js';
 
 class Calendar extends React.Component {
   static contextTypes = {
@@ -16,17 +16,9 @@ class Calendar extends React.Component {
   constructor() {
     super();
     this.state = {
-      username: JSON.parse(localStorage.profile).email, //TODO: update to get user's ID in location
+      username: JSON.parse(localStorage.profile).email,
       date: null,
-      events: [{
-              "id": 4,
-              "title": "Lentil Burgers!",
-              "start": "2017-01-09T16:30:00",
-              "createdAt": "2017-01-10T19:07:28.673Z",
-              "updatedAt": "2017-01-10T19:07:28.673Z",
-              "MealId": null,
-              "UsersEvents": {}
-      }], //TODO: update when db is reformatted
+      events: null,
       meals: null,
       inputs: null
     }
@@ -35,16 +27,24 @@ class Calendar extends React.Component {
   componentDidMount() {
     var context = this;
 
-    axios.defaults.headers.username = this.state.username;
+    axios.defaults.headers.username = context.state.username;
 
-    axios.get('/api/events') //get user's events for calendars
+    axios.get('/api/events', {username: context.state.username})
       .then(function(events) {
+        console.log('events', events.data[0].Events);
+        var holder = []
+        events.data[0].Events.forEach((val) => {
+          holder.push(val)
+        })
         context.setState({
-          events: events.data[0].Events
+          events: holder
+        }, function(){
+          console.log('state set to: ', context.state.events);
+          this.calendarSettings();
         })
       })
 
-    axios.get('/api/meals') //get user's recipes
+    axios.get('/api/meals')
       .then(function(meals) {
         var options = {}
         meals.data[0].Meals.map(function(obj){
@@ -53,9 +53,11 @@ class Calendar extends React.Component {
         context.setState({
           inputs: options
         })
-        // loop through and get their .name property
       })
+  }
 
+  calendarSettings() {
+    var context = this;
     const {calendar} = this.refs;
     $(calendar).fullCalendar({
       header: {
@@ -63,7 +65,7 @@ class Calendar extends React.Component {
 				center: 'title',
 				right: 'month,basicWeek,agendaDay'
 			},
-      events: this.state.events,
+      events: context.state.events,
       droppable: true,
       defaultTimedEventDuration: '01:00:00', //default length of event is an hour on the cal. can update this based on the total prep+cook time of each recipe in the meal
       drop: function() {
@@ -71,8 +73,8 @@ class Calendar extends React.Component {
       },
 
       eventClick: function(calEvent, jsEvent, view){
-        // console.log(calEvent, jsEvent, view)
         $('.fc-unthemed').css({display:'none'}); //hide calendar
+
         var mealDate = moment(calEvent.start._d).format('MMMM Do[,] YYYY');
         swal({
           title: 'Meal for ' + mealDate + ':',
@@ -81,40 +83,83 @@ class Calendar extends React.Component {
         }).then(function(){
             $('.fc-unthemed').css({display:'block'}); //show calendar
             $('.swal2-modal').css({display:'none'}); //hide modal. closeModal() not working
-          // swal.closeModal();
         })
       },
 
-      dayClick: function(calEvent, jsEvent, view) { //TODO: this is not a finished feature!
+      dayClick: function(calEvent, jsEvent, view) {
         $('.fc-unthemed').css({display:'none'}); //hide calendar
-        swal({
-          input: 'select',
-          inputOptions: context.state.inputs,
-          confirmButtonText: 'Add to Plan',
-          showCancelButton: true,
-          inputValidator: function (mealClicked) {
-            return new Promise(function (resolve, reject) {
-              if (mealClicked) {
-                resolve();
-              } else {
-                reject('Please select a meal for this date');
-              }
-            })
-          }
-        }).then(function(clickedMeal) {
-          // console.log(clickedMeal);
-          $('.fc-unthemed').css({display:'block'}); //show calendar
-          $('.swal2-modal').css({display:'none'}); //hide modal. closeModal() not working
-          // swal.close();
-        }, function(dismiss){
-          if (dismiss === 'cancel') {
-            $('.swal2-modal').css({display:'none'});
-            $('.fc-unthemed').css({display:'block'});
-          }
-        });
-
         //get date clicked for plan
-        var dateSelected = moment(calEvent._d).add(1, 'day').format('YYYY-MM-DD');
+        var dateSelected = moment(calEvent._d).add(1, 'day').format('MMMM Do');
+
+        swal.setDefaults({
+
+          confirmButtonText: 'Select Meal Time &rarr;',
+          showCancelButton: true,
+          animation: false,
+          // progressSteps: ['Plan', 'Schedule'] //TODO: progress steps not working, why?
+        })
+
+        var steps = [
+          {
+            title: 'Select a meal for ' + dateSelected + ':',
+            input: 'select',
+            inputOptions: context.state.inputs
+          },
+          {
+            title: 'What time would you like to eat?',
+            input: 'select',
+            inputOptions: time //half hour count
+          }
+        ]
+
+        swal.queue(steps).then(function (result) {
+          swal.resetDefaults()
+          swal({
+            title: 'All done!',
+            html:
+              '<pre> You want to have: ' +
+                result[0] + ' at ' + time[result[1]] +
+              '</pre>',
+            confirmButtonText: 'Lovely!',
+            showCancelButton: false
+          }).then(function() {
+            //result[0] = name of the meal
+            //result[1] = time selected for the meal
+            $('.fc-unthemed').css({display:'block'}); //show calendar
+            $('.swal2-modal').css({display:'none'}); //hide modal. closeModal() not working
+            context.forceUpdate();
+          })
+        }, function () {
+          swal.resetDefaults()
+        })
+
+        // swal({
+        //   title: 'Select a meal for ' + dateSelected + ':',
+        //   input: 'select',
+        //   inputOptions: context.state.inputs,
+        //   confirmButtonText: 'Add to Plan',
+        //   showCancelButton: true,
+        //   inputValidator: function (mealClicked) {
+        //     return new Promise(function (resolve, reject) {
+        //       if (mealClicked) {
+        //         resolve();
+        //       } else {
+        //         reject('Please select a meal for this date');
+        //       }
+        //     })
+        //   }
+        // }).then(function(clickedMeal) {
+        //   // console.log(clickedMeal);
+        //   $('.fc-unthemed').css({display:'block'}); //show calendar
+        //   $('.swal2-modal').css({display:'none'}); //hide modal. closeModal() not working
+        //   // swal.close();
+        // }, function(dismiss){
+        //   if (dismiss === 'cancel') {
+        //     $('.swal2-modal').css({display:'none'});
+        //     $('.fc-unthemed').css({display:'block'});
+        //   }
+        // });
+
 
         // this.setState({date: dateSelected}, function(){
         //   this.context.router.push({
@@ -133,7 +178,6 @@ class Calendar extends React.Component {
       }.bind(this)
     });
   }
-
   handleTimeChange(time) {
    this.convertTime(time);
 
