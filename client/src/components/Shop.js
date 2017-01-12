@@ -3,6 +3,7 @@ import Axios from 'axios'
 import './Shop.css';
 import Convert from 'convert-units';
 import spoonRecipes from '../data/shop.js'
+import moment from 'moment';
 export default class Shop extends Component {
   constructor(props) {
     super(props);
@@ -23,37 +24,52 @@ export default class Shop extends Component {
                               })
       .then((events) => {
         console.log('Here"s the List',events.data[0].Events);
-        var oneWeek = this.eventsInDays(7, events.data[0].Events);
+        var oneWeek = this.eventsInDays(events.data[0].Events, 7);
         return Axios.get('/api/getEventRecipes',
                           {
                             headers: {
-                              events: JSON.stringify(events.data[0].Events)
+                              events: JSON.stringify(oneWeek)
                             }
                           })
       })
       .then((recipes) => {
-        console.log("Heres the recipes",recipes);
+        console.log("Heres the recipes",recipes.data);
+        var groceryList = {};
+        this.parseList(recipes.data, groceryList);
+        this.setState({
+          groceryList: groceryList
+        })
       })
       .catch((error)=>{
         console.log("Error getting recipe:", error);
       })
     console.log('spoons',spoonRecipes[0].extendedIngredients,spoonRecipes[1].extendedIngredients,spoonRecipes[2].extendedIngredients);
-    var amountOrder = { 'ml':1,'l':2,'tsp':3,'Tbs':4,'fl-oz':5,'cup':6,'pnt':7,'qt':8 };
-    var groceryList = {};
 
-    this.parseList(spoonRecipes,groceryList)
 
-    console.log('test list',groceryList);
-    this.setState({
-      groceryList: groceryList
-    })
 
   }
-  eventsInDays ( daysFromNow, events ) {
+  eventsInDays ( events, daysFromNow ) {
+    var parsedEvent = events[0].start.substring(1,events[0].start.length-1);
+    console.log("momentTest", parsedEvent, moment(parsedEvent), moment().to(moment(parsedEvent)));
+    return events.filter(function(element){
+      var parsedEvent = element.start.substring(1,events[0].start.length-1);
 
+      var difference = moment(parsedEvent).diff(moment(),'days');
+      console.log('log',parsedEvent, difference);
+      return difference > 0 && difference < daysFromNow;
+    });
   }
+
   parseList (masterList, groceryList) {
 
+    var masterList = masterList.reduce((a,b) => {
+      return a.concat(b[0].Recipes.reduce((c,d) => {
+        console.log('what',c);
+        c.push(JSON.parse(d.recipe));
+        return c;
+      },[]));
+    },[]);
+    console.log('final list',masterList);
     var abbrev = {
       milliliter:'ml',
       liter: 'l',
@@ -117,22 +133,9 @@ export default class Shop extends Component {
         }
       }
     }
-    console.log('test list',groceryList);
-    this.setState({
-      groceryList: groceryList
-    })
-    //axios.get('/api/recipe', {
-      //  username:JSON.parse(localStorage.profile).email
-      //  })
-      //  .then((list) => {
-      //    this.setState({
-      //      groceryList: list,
-      //      freq:'week'
-      //    });
-      //    console.log('RECIPES', this.state.groceryList);})
-      //  .catch((error)=>{
-      //    console.log("Error getting recipe:", error);
-      //  })
+
+    console.log("shoppingList",groceryList)
+  }
 
   }
 
