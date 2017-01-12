@@ -8,7 +8,7 @@ class MealPlanner extends Component {
   constructor() {
     super();
     this.state = {
-      username: JSON.parse(localStorage.profile).email,
+      username: JSON.parse(localStorage.profile).email, //TODO: update to get user's ID in location
       mealName: '',
       recipes: [],
       clicked: [],
@@ -36,9 +36,8 @@ class MealPlanner extends Component {
   }
 
   handleChange(meal, index) {
-    var context = this;
     if (meal.target) { //meal name has been entered
-      this.context({
+      this.setState({
         mealName: meal.target.value
       });
 
@@ -76,7 +75,6 @@ class MealPlanner extends Component {
   }
 
   handleSubmit(event) {
-    var context = this;
     event.preventDefault();
     /*on submit, data needs to be updated so that it renders in the recipe book (send to recipes array)*/
     var newMeal = {
@@ -101,32 +99,35 @@ class MealPlanner extends Component {
 
   render() {
     return (
-      <div className="containerMP">
+      <div>
         <div className="recipeBookML">
-          <h3 id="mealPlanner">Click to add a recipe to your new meal</h3>
-          <ul className="recipe">
-            {this.state.recipes.map((recipe, i) => {
-              return <li className="recipeLi" key={recipe.id} onClick={this.handleAddRecipe.bind(this, recipe.name, recipe.id)}>{recipe.name}</li>})}
-          </ul>
-          <form id="newMealForm">
-            <FormControl
-              id="recipeName"
-              type="text"
-              value={this.state.mealName}
-              onChange={this.handleChange.bind(this)}
-              placeholder="Meal Name"
-            />
-            <ul>
-              {this.state.clickedName.map((val, i) => {
-                return <li className="mealItems" key={i} onClick={this.handleRemove.bind(this, i)}>{val}</li>
-              })}
-            </ul>
-            <Button type="submit" onClick={this.handleSubmit.bind(this)}>Add Meal</Button>
-          </form>
-        </div>
-        {/* <div id="addNew"> */}
+          <div className="headerMP">
+            <h3>Click to add a recipe to your new meal</h3>
+            <form>
+              <FormControl
+                id="recipeName"
+                type="text"
+                value={this.state.mealName}
+                onChange={this.handleChange.bind(this)}
+                placeholder="Meal Name"
+              />
+              <Button type="submit" onClick={this.handleSubmit.bind(this)}>Add Meal</Button>
+            </form>
+          </div>
 
-        {/* </div> */}
+          <ul className="recipeList">
+            {this.state.recipes.map((recipe, i) => {
+              return <li className="recipeItem" key={recipe.id} onClick={this.handleAddRecipe.bind(this, recipe.name, recipe.id)}>{recipe.name}</li>})}
+          </ul>
+        </div>
+        <div className="addNew">
+
+          <ul>
+            {this.state.clickedName.map((val, i) => {
+              return <li className="mealItems" key={i} onClick={this.handleRemove.bind(this, i)}>{val}</li>
+            })}
+          </ul>
+        </div>
       </div>
     )
   }

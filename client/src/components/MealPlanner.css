@@ -25,10 +25,11 @@ li {
 }
 
 .recipeBookML {
+  float: left;
   overflow: auto;
   background: white;
   border-radius: 10px;
-  /*margin: 0 auto;*/
+  margin: 0 auto;
   height: 600px;
   width: 400px;
 }
