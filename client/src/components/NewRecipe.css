@@ -1,43 +1,12 @@
-html::-webkit-scrollbar {
-    width: 1em; /*BUG: not showing up with scroll overflow...*/
-}
-
-html::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-}
-
-html::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
-}
-
-.recipeList {
-  padding-left: 0px;
-}
-
-.recipeLi {
-  list-style: none;
-  padding: 10px;
-  text-decoration: underline;
-  color: #5e79a5;
-}
-
-.recipeList>li:nth-child(odd){
-  background: #F5F6F4;
-}​
-
-.recipeBook {
-  display: inline-block;
-  text-align: left;
-}
-
-.recipeBook {
+#addRecipe {
   overflow: auto;
   background: white;
   border-radius: 10px;
   margin: 0 auto;
   height: 600px;
   width: 400px;
+  background: white;
+  display: block;
 }
 
 input:-webkit-autofill {
