@@ -82,14 +82,14 @@
         display:flex-inline;
         visibility:visible;
         color:white;
-        width:18%;
+        width:16%;
         margin-left:1em;
     }
     .left-sideOf{
-        width: 7%;
+        width: 1%;
     }
     .right-sideOf{
-        width:4%;
+        width:0%;
     }
 
     a {

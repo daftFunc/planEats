@@ -6,6 +6,7 @@ import calendar from './images/white_calendar.png';
 import cart from './images/white_shop.png';
 import eat from './images/white_cook.png';
 import prof from './images/white_prof.png';
+import meals from './images/white_meals.png';
 import {Navbar} from 'react-bootstrap';
 import {Nav} from 'react-bootstrap';
 import logo from './images/planEats_logo.png';
@@ -80,6 +81,10 @@ class Site extends Component {
                   <img className="menu-item-drop" src={calendar} alt="Calendar"/>
                   <div className="space-fill">Plan</div>
 
+                </Link>
+                <Link to="/meals">
+                  <img className="menu-item-drop" src={meals} alt="Calendar"/>
+                  <div className="space-fill">Meals</div>
                 </Link>
                 <Link to="/recipe">
                   <img className="menu-item-drop" src={recipe} alt="recipe"/>
