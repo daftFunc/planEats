@@ -4,6 +4,7 @@ import './RecipeBook.css';
 import { FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
 import axios from 'axios';
 import FontAwesome from 'react-fontawesome';
+import Visible from 'visible-react';
 
 
 class Book extends Component {
@@ -173,4 +174,4 @@ class Book extends Component {
   }
 }
 
-export default connectProfile(Book);
+export default connectProfile(Visible()(Book));

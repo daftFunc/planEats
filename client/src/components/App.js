@@ -12,6 +12,7 @@ import Book from './RecipeBook';
 import Cook from './Cook';
 import MealPlanner from './MealPlanner';
 import RecipeSearch from './RecipeSearch';
+import RecipeSearchResult from './RecipeSearchResult';
 
 class App extends Component {
   render() {
@@ -29,6 +30,7 @@ class App extends Component {
             <Route path="/schedule" component={Schedule} />
             <Route path="/recipe" component={Book} />
             <Route path="/recipeSearch" component={RecipeSearch} />
+            <Route path="/recipeSearchResult" component={RecipeSearchResult} />
             <Route path="/meals" component={MealPlanner} />
             <Route path="/eat" component={Cook} />
           </Route>

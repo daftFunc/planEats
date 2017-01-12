@@ -15,8 +15,8 @@ class EditProfile extends Component {
 
   render() {
     const {profile} = this.props;
-    const {saving, saved} = this.state;
-    const user_metadata = profile.user_metadata || {};
+    // const {saving, saved} = this.state;
+    // const user_metadata = profile.user_metadata || {};
 
     return (
       <div className="EditProfile">

@@ -1,0 +1,9 @@
+.container {
+    display: flex-inline;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+
+
