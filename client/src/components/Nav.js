@@ -7,6 +7,7 @@ import cart from './images/white_shop.png';
 import eat from './images/white_cook.png';
 import prof from './images/white_prof.png';
 import meals from './images/white_meals.png';
+import search from './images/white_search.png';
 import {Navbar} from 'react-bootstrap';
 import {Nav} from 'react-bootstrap';
 import logo from './images/planEats_logo.png';
@@ -89,7 +90,10 @@ class Site extends Component {
                 <Link to="/recipe">
                   <img className="menu-item-drop" src={recipe} alt="recipe"/>
                   <div className="space-fill">Recipes</div>
-
+                </Link>
+                <Link to="/recipeSearch">
+                  <img className="menu-item-drop" src={search} alt="Shop"/>
+                  <div className="space-fill">Search</div>
                 </Link>
                 <Link to="/shop">
                   <img className="menu-item-drop" src={cart} alt="Shop"/>
@@ -100,7 +104,6 @@ class Site extends Component {
                 <Link to="/eat">
                   <img className="menu-item-drop" src={eat} alt="Eat"/>
                   <div className="space-fill right-sideOf">Cook</div>
-
                 </Link>
               </Nav>
             </Navbar.Collapse>

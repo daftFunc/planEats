@@ -145,8 +145,8 @@ module.exports = {
       });
   },
   joinRecipesToMeal: function (recipeArr, count, MealId) {
-    console.log(recipeArr[count].id);
-    return controller.addJoinTable('Meal', 'Recipe', MealId, recipeArr[count].id)
+    //console.log("RECIPE ID",recipeArr[count]);
+    return controller.addJoinTable('Meal', 'Recipe', MealId, recipeArr[count])
       .then(function (join) {
         console.log(join);
         if (count === 0) {
