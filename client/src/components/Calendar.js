@@ -157,20 +157,6 @@ class Calendar extends React.Component {
           swal.resetDefaults()
         })
 
-<<<<<<< HEAD
-=======
-        //get date clicked for plan
-        // var dateSelected = moment(calEvent._d).add(1, 'day').format('YYYY-MM-DD');
-
-        // this.setState({date: dateSelected}, function(){
-        //   this.context.router.push({
-        //     pathname: '/schedule',
-        //     state:{date: this.state.date}
-        //   });
-        // })
-        // console.log(time)
-        // var time = moment(calEvent._d).format('YYYY-MM-DD')
->>>>>>> recipeSearch now grabs recipes and can add to recipe book. however, there's a bug with recipe card
         /*
         var time = moment(calEvent._d).format('YYYY-MM-DD')
 
@@ -191,7 +177,6 @@ class Calendar extends React.Component {
    });
   }
 
-<<<<<<< HEAD
   handleNewEvent() {
     var context = this;
     axios.defaults.headers.username = this.state.username;
@@ -208,10 +193,6 @@ class Calendar extends React.Component {
 
   convertTime(secs) {
     var sec_num = parseInt(secs, 10);
-=======
-  convertTime(timeInSeconds) {
-    var sec_num = parseInt(timeInSeconds, 10); // don't forget the second param
->>>>>>> recipeSearch now grabs recipes and can add to recipe book. however, there's a bug with recipe card
     var hours   = Math.floor(sec_num / 3600);
     var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
     var seconds = sec_num - (hours * 3600) - (minutes * 60);
