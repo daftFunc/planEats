@@ -159,6 +159,15 @@ module.exports = {
                 return module.exports.joinRecipesToMeal(recipeArr , count - 1, MealId );
               }
             })
+
+  },
+  //parameters: 1) array that we turn into '$or' object for query
+  //            2) field that we want to check in the database
+  //            3) field in the request object that we compare the databse value to
+  populate$orObject: function (array,field1,field2) {
+    return JSON.parse(array).map(function(element) {
+      return {[field1]:{'$eq':element[field2]}};
+    });
   }
 }
 //userI = user.dataValues.id;

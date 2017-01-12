@@ -9,7 +9,7 @@ import EditProfile from './EditProfile';
 import Calendar from './Calendar';
 import Schedule from './ScheduleMeal';
 import Book from './RecipeBook';
-import Eat from './Eat';
+import Cook from './Cook';
 import MealPlanner from './MealPlanner';
 import RecipeSearch from './RecipeSearch';
 
@@ -30,7 +30,7 @@ class App extends Component {
             <Route path="/recipe" component={Book} />
             <Route path="/recipeSearch" component={RecipeSearch} />
             <Route path="/meals" component={MealPlanner} />
-            <Route path="/eat" component={Eat} />
+            <Route path="/eat" component={Cook} />
           </Route>
         </Route>
       </Router>

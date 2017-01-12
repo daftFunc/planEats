@@ -50,7 +50,6 @@ export default class Shop extends Component {
   }
   eventsInDays ( events, daysFromNow ) {
     var parsedEvent = events[0].start.substring(1,events[0].start.length-1);
-    console.log("momentTest", parsedEvent, moment(parsedEvent), moment().to(moment(parsedEvent)));
     return events.filter(function(element){
       var parsedEvent = element.start.substring(1,events[0].start.length-1);
 
@@ -166,7 +165,6 @@ export default class Shop extends Component {
       itemAddedValue:'',
       modalActive: !this.state.modalActive
     });
-
   }
 
   render() {
