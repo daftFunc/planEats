@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-// import Axios from 'axios'
+import Axios from 'axios'
 import './Shop.css';
 import Convert from 'convert-units';
 import spoonRecipes from '../data/shop.js'
+import moment from 'moment';
 export default class Shop extends Component {
   constructor(props) {
     super(props);
@@ -16,10 +17,59 @@ export default class Shop extends Component {
   }
 
   componentDidMount() {
-
+    Axios.get('/api/events', {
+                                headers: {
+                                  username: JSON.parse(localStorage.profile).email
+                                }
+                              })
+      .then((events) => {
+        console.log('Here"s the List',events.data[0].Events);
+        var oneWeek = this.eventsInDays(events.data[0].Events, 7);
+        return Axios.get('/api/getEventRecipes',
+                          {
+                            headers: {
+                              events: JSON.stringify(oneWeek)
+                            }
+                          })
+      })
+      .then((recipes) => {
+        console.log("Heres the recipes",recipes.data);
+        var groceryList = {};
+        this.parseList(recipes.data, groceryList);
+        this.setState({
+          groceryList: groceryList
+        })
+      })
+      .catch((error)=>{
+        console.log("Error getting recipe:", error);
+      })
     console.log('spoons',spoonRecipes[0].extendedIngredients,spoonRecipes[1].extendedIngredients,spoonRecipes[2].extendedIngredients);
-    var amountOrder = { 'ml':1,'l':2,'tsp':3,'Tbs':4,'fl-oz':5,'cup':6,'pnt':7,'qt':8 };
-    var groceryList = {};
+
+
+
+  }
+  eventsInDays ( events, daysFromNow ) {
+    var parsedEvent = events[0].start.substring(1,events[0].start.length-1);
+    return events.filter(function(element){
+      var parsedEvent = element.start.substring(1,events[0].start.length-1);
+
+      var difference = moment(parsedEvent).diff(moment(),'days');
+      console.log('log',parsedEvent, difference);
+      return difference > 0 && difference < daysFromNow;
+    });
+  }
+
+  parseList (masterList, groceryList) {
+
+    var masterList = masterList.reduce((a,b) => {
+      return a.concat(b[0].Recipes.reduce((c,d) => {
+        console.log('what',c);
+        c.push(JSON.parse(d.recipe));
+        return c;
+      },[]));
+    },[]);
+    var amountOrder = ['ml','tsp','Tbs','fl-oz','cup','l','pnt'];
+    console.log('final list',masterList);
     var abbrev = {
       milliliter:'ml',
       liter: 'l',
@@ -32,11 +82,12 @@ export default class Shop extends Component {
       'tbl':'Tbs',
       t: 'tsp',
       tbsp:'Tbs',
-      C: 'cup'
+      C: 'cup',
+      ounce:'oz'
     }
 
-    for ( var i = 0; i < spoonRecipes.length; i++ ) {
-      var ingredients = spoonRecipes[i].extendedIngredients;
+    for ( var i = 0; i < masterList.length; i++ ) {
+      var ingredients = masterList[i].extendedIngredients;
 
       for ( var j = 0; j < ingredients.length; j++ ) {
         var ingredientMaster = ingredients[j];
@@ -83,23 +134,8 @@ export default class Shop extends Component {
         }
       }
     }
-    console.log('test list',groceryList);
-    this.setState({
-      groceryList: groceryList
-    })
-    //axios.get('/api/recipe', {
-      //  username:JSON.parse(localStorage.profile).email
-      //  })
-      //  .then((list) => {
-      //    this.setState({
-      //      groceryList: list,
-      //      freq:'week'
-      //    });
-      //    console.log('RECIPES', this.state.groceryList);})
-      //  .catch((error)=>{
-      //    console.log("Error getting recipe:", error);
-      //  })
 
+    console.log("shoppingList",groceryList)
   }
 
   handleInputChange(event) {
@@ -129,19 +165,18 @@ export default class Shop extends Component {
       itemAddedValue:'',
       modalActive: !this.state.modalActive
     });
-
   }
 
   render() {
     return (
 
       <div>
-        <div>Shop</div>
+        <h1 style={{textAlign:'center'}}>Shop</h1>
         <select value={this.state.freq} onChange={this.dropdownChange.bind(this)}>
           <option value='7'>For next week</option>
           <option value='31'>For next month</option>
         </select>
-        <div style={{overflow:'auto',height:200+'px'}}>
+        <div id="grocerylist-box">
         <GroceryList groceryList={this.state.groceryList}
                      freq={this.state.freq}
                      addedItems={this.state.addedItems}

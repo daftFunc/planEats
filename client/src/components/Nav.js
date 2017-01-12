@@ -94,7 +94,7 @@ class Site extends Component {
                 </Link>
                 <Link to="/eat">
                   <img className="menu-item-drop" src={eat} alt="Eat"/>
-                  <div className="space-fill right-sideOf">Eat</div>
+                  <div className="space-fill right-sideOf">Cook</div>
 
                 </Link>
               </Nav>

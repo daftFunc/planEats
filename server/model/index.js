@@ -6,8 +6,8 @@ module.exports = {
     post: function(req,res) {
       controller.addUser(req.body.username)
         .spread(function(user, created) {
-        res.sendStatus(created ? 201 : 200)
-      });
+          res.sendStatus(created ? 201 : 200)
+        });
     }
   },
   recipe: {
@@ -27,13 +27,13 @@ module.exports = {
           res.sendStatus(201);
           console.log('Recipe created!', join);
         }).catch(function(error){
-          console.error(error);
-          console.error('recipe error',error);
-          res.sendStatus(404);
-        });
+        console.error(error);
+        console.error('recipe error',error);
+        res.sendStatus(404);
+      });
     },
     get: function(req,res) {
-      controller.getAll(req.headers.username,'Recipe').then(function(recipe) {
+      controller.getAll('Users',req.headers.username,'Recipe').then(function(recipe) {
         res.json(recipe);
       }).catch(function(error){
         res.json({somethingelse:error});
@@ -68,7 +68,7 @@ module.exports = {
         });
     },
     get: function (req, res) {
-      controller.getAll(req.headers.username, 'Meals').then(function (meals) {
+      controller.getAll('Users', req.headers.username, 'Meals').then(function (meals) {
         res.json(meals);
       }).catch(function (error) {
         res.json({somethingelse: error});
@@ -104,24 +104,65 @@ module.exports = {
       });
     },
     get: function(req,res) {
-      controller.getAll(req.headers.username,'Events').then(function(events) {
+      console.log("HEADERS",req.headers.username);
+      controller.getAll('Users',req.headers.username,'Events').then(function(events) {
         res.json(events);
       }).catch(function(error){
         res.json({somethingelse:error});
       });
     }
   },
+  getRecipesFromEvents: function(req,res) {
+    console.log('object',req.headers.events);
+    var parameterObj = module.exports.populate$orObject(req.headers.events,'id','MealId');
+
+    controller.getAll('Meals',parameterObj,'Events')
+      .then(function(results){
+        return module.exports.getRecipesFromMeals(results, 0);
+      })
+      .then(function(results){
+        console.log("Recipe Sent!", results);
+        res.json(results);
+      })
+      .catch(function(error){
+        console.log("Error", error)
+        res.send(error);
+      })
+  },
+  getRecipesFromMeals: function(mealsToRecipe, index) {
+    return controller.getAll('Meals', mealsToRecipe[index].dataValues.name, 'Recipe')
+      .then(function(result){
+        mealsToRecipe[index] = result;
+        console.log(result, mealsToRecipe)
+        if(index === mealsToRecipe.length-1) {
+          return mealsToRecipe;
+        } else {
+          return module.exports.getRecipesFromMeals(mealsToRecipe, index+1);
+        }
+      })
+      .catch(function(error){
+        console.log("ERROR",error);
+      });
+  },
   joinRecipesToMeal: function (recipeArr, count, MealId) {
     console.log(recipeArr[count].id);
     return controller.addJoinTable('Meal', 'Recipe', MealId, recipeArr[count].id)
-            .then(function (join) {
-              console.log(join);
-              if (count === 0) {
-                return join;
-              } else {
-                return module.exports.joinRecipesToMeal(recipeArr , count - 1, MealId );
-              }
-            })
+      .then(function (join) {
+        console.log(join);
+        if (count === 0) {
+          return join;
+        } else {
+          return module.exports.joinRecipesToMeal(recipeArr , count - 1, MealId );
+        }
+      })
+  },
+  //parameters: 1) array that we turn into '$or' object for query
+  //            2) field that we want to check in the database
+  //            3) field in the request object that we compare the databse value to
+  populate$orObject: function (array,field1,field2) {
+    return JSON.parse(array).map(function(element) {
+      return {[field1]:{'$eq':element[field2]}};
+    });
   }
 }
 //userI = user.dataValues.id;

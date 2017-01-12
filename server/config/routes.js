@@ -22,5 +22,7 @@ router.route('/events')
 
 router.route('/users')
   .post(model.user.post);
+router.route('/getEventRecipes')
+  .get(model.getRecipesFromEvents);
 
 module.exports = router;
