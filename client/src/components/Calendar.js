@@ -211,13 +211,13 @@ class Calendar extends React.Component {
     });
   }
 
-  handleTimeChange(time) {
-    this.convertTime(time);
-
-    this.setState({
-      date: this.state.date + 'T' + time
-    });
-  }
+  // handleTimeChange(time) {
+  //  this.convertTime(time);
+  //
+  //  this.setState({
+  //    date: this.state.date + 'T' + time
+  //  });
+  // }
 
   insertEvent() {
     var endTime = function (time) {

@@ -36,8 +36,9 @@ class MealPlanner extends Component {
   }
 
   handleChange(meal, index) {
+    var context = this;
     if (meal.target) { //meal name has been entered
-      this.setState({
+      this.context({
         mealName: meal.target.value
       });
 
@@ -75,6 +76,7 @@ class MealPlanner extends Component {
   }
 
   handleSubmit(event) {
+    var context = this;
     event.preventDefault();
     /*on submit, data needs to be updated so that it renders in the recipe book (send to recipes array)*/
     var newMeal = {
@@ -99,16 +101,14 @@ class MealPlanner extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="recipes">
-          <h3>Click to add a recipe to your new meal</h3>
-          <ul className="recipeList">
+      <div className="containerMP">
+        <div className="recipeBookML">
+          <h3 id="mealPlanner">Click to add a recipe to your new meal</h3>
+          <ul className="recipe">
             {this.state.recipes.map((recipe, i) => {
-              return <li className="recipeItem" key={recipe.id} onClick={this.handleAddRecipe.bind(this, recipe.name, recipe.id)}>{recipe.name}</li>})}
+              return <li className="recipeLi" key={recipe.id} onClick={this.handleAddRecipe.bind(this, recipe.name, recipe.id)}>{recipe.name}</li>})}
           </ul>
-        </div>
-        <div className="addNew">
-          <form>
+          <form id="newMealForm">
             <FormControl
               id="recipeName"
               type="text"
@@ -124,6 +124,9 @@ class MealPlanner extends Component {
             <Button type="submit" onClick={this.handleSubmit.bind(this)}>Add Meal</Button>
           </form>
         </div>
+        {/* <div id="addNew"> */}
+
+        {/* </div> */}
       </div>
     )
   }

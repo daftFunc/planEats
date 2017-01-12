@@ -2,14 +2,33 @@ li {
   list-style: none;
 }
 
-.addNew {
+#newMealForm {
   width: 30%;
-}
-
-.recipes {
-  width: 50%;
+  display: inline-block;
+  float: right;
 }
 
 .mealItems {
   padding: 5px;
+}
+
+.mealItems {
+  list-style: none;
+  padding: 10px;
+  text-decoration: underline;
+  color: #5e79a5;
+}
+
+#mealPlanner {
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+.recipeBookML {
+  overflow: auto;
+  background: white;
+  border-radius: 10px;
+  /*margin: 0 auto;*/
+  height: 600px;
+  width: 400px;
 }
