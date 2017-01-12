@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-// import Axios from 'axios'
+import Axios from 'axios'
 import './Shop.css';
 import Convert from 'convert-units';
 import spoonRecipes from '../data/shop.js'
@@ -16,10 +16,44 @@ export default class Shop extends Component {
   }
 
   componentDidMount() {
-
+    Axios.get('/api/events', {
+                                headers: {
+                                  username: JSON.parse(localStorage.profile).email
+                                }
+                              })
+      .then((events) => {
+        console.log('Here"s the List',events.data[0].Events);
+        var oneWeek = this.eventsInDays(7, events.data[0].Events);
+        return Axios.get('/api/getEventRecipes',
+                          {
+                            headers: {
+                              events: JSON.stringify(events.data[0].Events)
+                            }
+                          })
+      })
+      .then((recipes) => {
+        console.log("Heres the recipes",recipes);
+      })
+      .catch((error)=>{
+        console.log("Error getting recipe:", error);
+      })
     console.log('spoons',spoonRecipes[0].extendedIngredients,spoonRecipes[1].extendedIngredients,spoonRecipes[2].extendedIngredients);
     var amountOrder = { 'ml':1,'l':2,'tsp':3,'Tbs':4,'fl-oz':5,'cup':6,'pnt':7,'qt':8 };
     var groceryList = {};
+
+    this.parseList(spoonRecipes,groceryList)
+
+    console.log('test list',groceryList);
+    this.setState({
+      groceryList: groceryList
+    })
+
+  }
+  eventsInDays ( daysFromNow, events ) {
+
+  }
+  parseList (masterList, groceryList) {
+
     var abbrev = {
       milliliter:'ml',
       liter: 'l',

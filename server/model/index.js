@@ -104,13 +104,50 @@ module.exports = {
       });
     },
     get: function(req,res) {
-      controller.getAll(req.headers.username,'Events').then(function(events) {
+
+      console.log("HEADERS",req.headers.username);
+      controller.getAll('Users',req.headers.username,'Events').then(function(events) {
+
         res.json(events);
       }).catch(function(error){
         res.json({somethingelse:error});
       });
     }
   },
+
+  getRecipesFromEvents: function(req,res) {
+    console.log('object',req.headers.events);
+    var parameterObj = module.exports.populate$orObject(req.headers.events,'id','MealId');
+
+    controller.getAll('Meals',parameterObj,'Events')
+      .then(function(results){
+        return module.exports.getRecipesFromMeals(results, 0);
+      })
+      .then(function(results){
+        console.log("Recipe Sent!", results);
+        res.json(results);
+      })
+      .catch(function(error){
+        console.log("Error", error)
+        res.send(error);
+      })
+  },
+  getRecipesFromMeals: function(mealsToRecipe, index) {
+    return controller.getAll('Meals', mealsToRecipe[index].dataValues.name, 'Recipe')
+                      .then(function(result){
+                        mealsToRecipe[index] = result;
+                        console.log(result, mealsToRecipe)
+                        if(index === mealsToRecipe.length-1) {
+                          return mealsToRecipe;
+                        } else {
+                          return module.exports.getRecipesFromMeals(mealsToRecipe, index+1);
+                        }
+                      })
+                      .catch(function(error){
+                        console.log("ERROR",error);
+                      });
+  },
+
   joinRecipesToMeal: function (recipeArr, count, MealId) {
     console.log(recipeArr[count].id);
     return controller.addJoinTable('Meal', 'Recipe', MealId, recipeArr[count].id)
