@@ -23,6 +23,9 @@
     width:65%;
 
 }
+.left-sideOf {
+    margin:auto;
+}
 
 .navbar-inverse {
     background-color:#262228 !important;
@@ -36,13 +39,15 @@
 }
 .menu-item-drop {
     display:inline;
-    width:7.5%;
+    width:7%;
     padding-top:5%;
+    max-width: 3em;
+
 }
 .space-fill {
     display:inline-block;
     visibility:hidden;
-    width:14%;
+    width:9.5%;
 }
 
 .contain-menu-drop {
