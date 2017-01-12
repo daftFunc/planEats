@@ -68,6 +68,7 @@ export default class Shop extends Component {
         return c;
       },[]));
     },[]);
+    var amountOrder = ['ml','tsp','Tbs','fl-oz','cup','l','pnt'];
     console.log('final list',masterList);
     var abbrev = {
       milliliter:'ml',
@@ -81,7 +82,8 @@ export default class Shop extends Component {
       'tbl':'Tbs',
       t: 'tsp',
       tbsp:'Tbs',
-      C: 'cup'
+      C: 'cup',
+      ounce:'oz'
     }
 
     for ( var i = 0; i < spoonRecipes.length; i++ ) {
@@ -134,8 +136,6 @@ export default class Shop extends Component {
     }
 
     console.log("shoppingList",groceryList)
-  }
-
   }
 
   handleInputChange(event) {

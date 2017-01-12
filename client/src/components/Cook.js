@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-// import Axios from 'axios'
+import Axios from 'axios'
+import moment from 'moment';
 export default class Cook extends Component {
   constructor(props) {
     super(props);
@@ -20,14 +21,31 @@ export default class Cook extends Component {
   }
 
   componentDidMount() {
-    //axios.get('/getRecipes').then((list) => {
-    //  this.setState({
-    //    groceryList: list,
-    //    freq:'week'
-    //  });
-    //})
-  }
+    Axios.get('/api/events', {headers:{username:JSON.parse(localStorage.profile).email}})
+      .then((events) => {
+        return this.getNextEvent(events.data[0].Events);
 
+      })
+      .then((nextEvent) => {
+
+      })
+      .catch((error)=>{
+        console.log('Error:',error);
+      })
+  }
+  getNextEvent(events){
+    return events.reduce((a,b)=>{
+      var momentPrev = a.start.substring(1,a.start.length-1);
+      var momentNext = b.start.substring(1,b.start.length-1);
+      var val;
+      if(moment(momentNext).diff(moment()) > moment(momentPrev).diff(moment())) {
+        val = a;
+      } else {
+        val = b;
+      }
+      return val;
+    })
+  }
   render() {
     return  (
       <div>
