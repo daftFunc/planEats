@@ -4,6 +4,7 @@ import './RecipeBook.css';
 import { FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
 import axios from 'axios';
 import FontAwesome from 'react-fontawesome';
+import Visible from 'visible-react';
 import {Link} from 'react-router';
 
 

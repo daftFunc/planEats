@@ -1,19 +1,16 @@
-
 var Sequelize = require('sequelize');
 var db = new Sequelize('planeats', 'postgres', 'thesisEats', {
   dialect: 'postgres'
 });
 
-
-
 // Model definitions
 var Recipe = db.define('Recipe', {
-  name: Sequelize.STRING,
+  name: {type: Sequelize.STRING, unique: true},
   recipe: Sequelize.JSONB
 });
 
 var Meals = db.define('Meals', {
-  name: Sequelize.STRING,
+  name: {type: Sequelize.STRING, unique: true},
   favorited: Sequelize.BOOLEAN
 });
 
