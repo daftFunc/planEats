@@ -1,0 +1,16 @@
+#cook-steps {
+    list-style: decimal;
+}
+#instruction-box {
+    height:200px;
+}
+@media screen and (min-width: 768px) {
+    #instruction-box {
+        height:100%;
+        margin:3%;
+
+    }
+    #cook-steps {
+        list-style-type:decimal;
+    }
+}

@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import Axios from 'axios'
 import moment from 'moment';
+import './Cook.css';
 export default class Cook extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      recipe: ['Preheat the oven to 350F and line a large baking sheet with parchment paper.',
+      cookingInstructions: ['Preheat the oven to 350F and line a large baking sheet with parchment paper.',
       'Peel the sweet potato. Using a box grater with the regular-sized grate holes, grate 1.5 cups of sweet potato. Place in large bowl. I had about 1/2 of the sweet potato leftover, so I sliced it into 1-cm rounds and placed it on the baking sheet. Drizzle with oil and toss to coat.',
       'In a large bowl, stir together the grated sweet potato, cilantro, basil, garlic, ginger, and chopped peanuts.',
       'In a food processor, add the oats and process until finely chopped. You want the texture to be like a coarse flour.', 'Stir the oat flour into the bowl with the vegetables.',
@@ -24,14 +25,31 @@ export default class Cook extends Component {
     Axios.get('/api/events', {headers:{username:JSON.parse(localStorage.profile).email}})
       .then((events) => {
         return this.getNextEvent(events.data[0].Events);
-
       })
       .then((nextEvent) => {
-
+        return this.getEventRecipes(nextEvent);
+      })
+      .then((mealRecipe) => {
+        var instructions = mealRecipe.data[0][0].Recipes.map((recipeData)=>{
+          return [recipeData.name, JSON.parse(recipeData.recipe).instructions];
+        });
+        console.log(instructions);
+        this.setState({
+          cookingInstructions:instructions
+        })
+        console.log(mealRecipe);
       })
       .catch((error)=>{
         console.log('Error:',error);
       })
+  }
+  getEventRecipes(event){
+    return Axios.get('/api/getEventRecipes',
+            {
+              headers: {
+                events: JSON.stringify([event])
+              }
+            })
   }
   getNextEvent(events){
     return events.reduce((a,b)=>{
@@ -49,25 +67,35 @@ export default class Cook extends Component {
   render() {
     return  (
       <div>
-        <div>Eat</div>
-        <div style={{overflow:'auto',height:200+'px'}}>
-          <CookingInstruction instructions={this.state.recipe} />
+        <h1 style={{textAlign:'center'}}>Eat</h1>
+        <div id='instruction-box'>
+          <CookingInstruction instructions={this.state.cookingInstructions} />
         </div>
       </div>
     );
   }
 }
 
-
 var CookingInstruction = ({instructions}) => (
 
-  <ol>
+
+  <ul>
     {instructions.map((element,i)=>(
-        <li key={element} style={{padding: 5 + 'px'}}>
-          <input type='checkbox'/>{element}
-        </li>
+      <p><li key={element[0]}><div id="title">{element[0]}</div>
+      <p></p><ol>
+        {
+          element[1].split(/[1-9]\.|[1-9]\)|\./).map((step) => {
+            if( step !== '' ) {
+              return (<li id='cook-steps' key={i + step}>
+                <input type='checkbox'/>{step}
+              </li>);
+            }
+          })
+        }
+      </ol>
+      </li></p>
       )
     )}
-  </ol>
+  </ul>
 
 );

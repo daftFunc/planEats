@@ -86,8 +86,8 @@ export default class Shop extends Component {
       ounce:'oz'
     }
 
-    for ( var i = 0; i < spoonRecipes.length; i++ ) {
-      var ingredients = spoonRecipes[i].extendedIngredients;
+    for ( var i = 0; i < masterList.length; i++ ) {
+      var ingredients = masterList[i].extendedIngredients;
 
       for ( var j = 0; j < ingredients.length; j++ ) {
         var ingredientMaster = ingredients[j];
@@ -171,12 +171,12 @@ export default class Shop extends Component {
     return (
 
       <div>
-        <div>Shop</div>
+        <h1 style={{textAlign:'center'}}>Shop</h1>
         <select value={this.state.freq} onChange={this.dropdownChange.bind(this)}>
           <option value='7'>For next week</option>
           <option value='31'>For next month</option>
         </select>
-        <div style={{overflow:'auto',height:200+'px'}}>
+        <div id="grocerylist-box">
         <GroceryList groceryList={this.state.groceryList}
                      freq={this.state.freq}
                      addedItems={this.state.addedItems}

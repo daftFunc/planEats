@@ -1,7 +1,10 @@
 input[type="checkbox"] {
     display:none;
 }
-
+#grocerylist-box {
+    overflow:auto;
+    height:200px;
+}
 input[type="checkbox"] + label span {
     display:inline-block;
     width:19px;
@@ -14,4 +17,14 @@ input[type="checkbox"] + label span {
 input[type="checkbox"]:checked + label span {
     text-decoration:line-through;
     background:url('images/checkbox.png') left top no-repeat;
+}
+@media screen and (min-width: 768px) {
+    #grocerylist-box{
+        height:100%;
+        display:flex;
+        margin-left:35%;
+        margin-right:auto;
+        text-align:left;
+        line-height: 2;
+    }
 }
