@@ -122,21 +122,21 @@ class Calendar extends React.Component {
       },
 
       eventClick: function(calEvent, jsEvent, view){
-        $('.fc-unthemed').css({display:'none'}); //hide calendar
+        /*$('.fc-unthemed').css({display:'none'});*/ //hide calendar
 
         var mealDate = moment(calEvent.start._d).add(1, 'day').format('MMMM Do[,] YYYY');
         swal({
           title: 'Meal for ' + mealDate + ':',
           text: calEvent.title,
           confirmButtonText: 'Back'
-        }).then(function(){
+        })/*.then(function(){
           $('.fc-unthemed').css({display:'block'});
           $('.swal2-modal').css({display:'none'});
-        })
+        })*/
       },
 
       dayClick: function(calEvent, jsEvent, view) {
-        $('.fc-unthemed').css({display:'none'}); //hide calendar
+/*        $('.fc-unthemed').css({display:'none'});*/ //hide calendar
         //get date clicked for plan
         var dateSelected = moment(calEvent._d).add(1, 'day').format('MMMM Do'); //BUG: full calendar registers the wrong day on click. needed to get the selected date.
 
@@ -185,16 +185,33 @@ class Calendar extends React.Component {
               this.handleNewEvent();
             });
 
-            $('.fc-unthemed').css({display:'block'});
-            $('.swal2-modal').css({display:'none'});
+            axios.defaults.headers.username = context.state.username;
+
+            axios.get('/api/events', {username: context.state.username})
+              .then(function(events) {
+                console.log('events', events.data[0].Events);
+                var holder = []
+                events.data[0].Events.forEach((val) => {
+                  holder.push(val)
+                })
+                context.setState({
+                  events: holder
+                }, function(){
+                  console.log('state set to: ', context.state.events);
+                  this.calendarSettings();
+                })
+              })
+
+    /*        $('.fc-unthemed').css({display:'block'});
+            $('.swal2-modal').css({display:'none'});*/
 
             context.forceUpdate();
           })
         }, function (dismiss) {
           if (dismiss === 'cancel') {
             //if cancel button is hit, exit the modal and display the calendar
-            $('.fc-unthemed').css({display:'block'});
-            $('.swal2-modal').css({display:'none'});
+/*            $('.fc-unthemed').css({display:'block'});
+            $('.swal2-modal').css({display:'none'});*/
           }
           swal.resetDefaults()
         })

@@ -3,7 +3,7 @@ import {connectProfile} from '../auth';
 import swal from 'sweetalert2';
 import {Link} from 'react-router';
 import './RecipeSearchResult.css';
-import { /*FieldGroup, FormGroup, HelpBlock, ControlLabel, FormControl, */Button/*, Checkbox, Radio*/} from 'react-bootstrap';
+import { /*FieldGroup, FormGroup, HelpBlock, ControlLabel, FormControl, */Button, ButtonToolbar/*, Checkbox, Radio*/} from 'react-bootstrap';
 import axios from 'axios';
 // import FontAwesome from 'react-fontawesome';
 import Visible from 'visible-react';
@@ -51,7 +51,8 @@ class RecipeSearchResult extends Component {
   displayFullRecipe(event){
     let user = this.state.username;
     let recipe = this.state.recipe;
-    let ingredients = '<ol>';
+    console.log(recipe);
+    let ingredients = '<h3>Ingredients:</h3><ol>';
     for(let i = 0; i < recipe.extendedIngredients.length; i++){
       ingredients = ingredients.concat(`<li>${recipe.extendedIngredients[i].originalString}</li>`);
     }
@@ -63,7 +64,6 @@ class RecipeSearchResult extends Component {
       imageHeight: 231,
       title: recipe.title,
       html: ingredients,
-      text: recipe.instructions,
       confirmButtonText: 'Add To Recipe Book',
       showCancelButton: true,
       cancelButtonText: 'Nah, not this one',
@@ -91,8 +91,10 @@ class RecipeSearchResult extends Component {
         <div className="recipeImage">
           <img src={`https://spoonacular.com/recipeImages/${this.state.recipe.id}-240x150.jpg`} width="240" height="150" alt={this.state.recipe.title}></img>
         </div>
-        <Button bsStyle="primary" active bsSize="large" onClick={this.addToRecipeBook.bind(this)}>Add To Recipe Book</Button>
-        <Button bsStyle="primary" active bsSize="large" onClick={this.displayFullRecipe.bind(this)}>Full Recipe</Button>
+        <ButtonToolbar>
+         <Button bsStyle="primary" active bsSize="large" onClick={this.addToRecipeBook.bind(this)}>Add To Recipe Book</Button>
+         <Button bsStyle="primary" active bsSize="large" onClick={this.displayFullRecipe.bind(this)}>Full Recipe</Button>
+        </ButtonToolbar>
       </div>
     )
   }

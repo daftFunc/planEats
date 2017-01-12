@@ -23,7 +23,7 @@ class RecipeSearch extends Component {
   componentDidMount() {
     axios.defaults.headers.username = this.state.username;
 
-    axios.get('https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/random?limitLicense=false&number=1', {
+    axios.get('https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/random?limitLicense=false&number=10', {
       headers: {
         'X-Mashape-Key': process.env.REACT_APP_SPOONACULAR_API_KEY,
         'Accept': 'application/json'
