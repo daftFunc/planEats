@@ -174,4 +174,4 @@ class Book extends Component {
   }
 }
 
-export default connectProfile(Visible()(Book));
+export default connectProfile(Book);

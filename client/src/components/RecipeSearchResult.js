@@ -82,4 +82,4 @@ class RecipeSearchResult extends Component {
   }
 }
 
-export default connectProfile(Visible()(RecipeSearchResult));
+export default connectProfile(RecipeSearchResult);

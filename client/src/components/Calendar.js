@@ -68,10 +68,10 @@ class Calendar extends React.Component {
     const {calendar} = this.refs;
     $(calendar).fullCalendar({
       header: {
-				left: 'prev,next today',
-				center: 'title',
-				right: 'month,basicWeek,agendaDay'
-			},
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,basicWeek,agendaDay'
+      },
       events: context.state.events,
       droppable: true,
       defaultTimedEventDuration: '01:00:00', //default length of event is an hour on the cal. can update this based on the total prep+cook time of each recipe in the meal
@@ -88,8 +88,8 @@ class Calendar extends React.Component {
           text: calEvent.title,
           confirmButtonText: 'Back'
         }).then(function(){
-            $('.fc-unthemed').css({display:'block'});
-            $('.swal2-modal').css({display:'none'});
+          $('.fc-unthemed').css({display:'block'});
+          $('.swal2-modal').css({display:'none'});
         })
       },
 
@@ -127,9 +127,9 @@ class Calendar extends React.Component {
           swal({
             title: 'All done!',
             html:
-              '<pre> You want to have: ' +
-                result[0] + ' at ' + time[result[1]] +
-              '</pre>',
+            '<pre> You want to have: ' +
+            result[0] + ' at ' + time[result[1]] +
+            '</pre>',
             confirmButtonText: 'Lovely!',
             showCancelButton: false
           }).then(function() {
@@ -158,23 +158,21 @@ class Calendar extends React.Component {
         })
 
         /*
-        var time = moment(calEvent._d).format('YYYY-MM-DD')
-
-        to follow moment formatting, will need to add on the time they specifiy. if no time specified, it defaults to 12am.
-
-        in meal pop-up, have user select time (24hr under the hood. will append to the date like so):
-          date = date + 'T17:00:00'
-        */
+         var time = moment(calEvent._d).format('YYYY-MM-DD')
+         to follow moment formatting, will need to add on the time they specifiy. if no time specified, it defaults to 12am.
+         in meal pop-up, have user select time (24hr under the hood. will append to the date like so):
+         date = date + 'T17:00:00'
+         */
       }
     });
   }
 
   handleTimeChange(time) {
-   this.convertTime(time);
+    this.convertTime(time);
 
-   this.setState({
-     date: this.state.date + 'T' + time
-   });
+    this.setState({
+      date: this.state.date + 'T' + time
+    });
   }
 
   handleNewEvent() {
