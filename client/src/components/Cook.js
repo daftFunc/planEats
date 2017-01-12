@@ -53,8 +53,8 @@ export default class Cook extends Component {
   }
   getNextEvent(events){
     return events.reduce((a,b)=>{
-      var momentPrev = a.start.substring(1,a.start.length-1);
-      var momentNext = b.start.substring(1,b.start.length-1);
+      var momentPrev = a.start;
+      var momentNext = b.start;
       var val;
       if(moment(momentNext).diff(moment()) > moment(momentPrev).diff(moment())) {
         val = a;

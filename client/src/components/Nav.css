@@ -87,14 +87,16 @@
         display:flex-inline;
         visibility:visible;
         color:white;
-        width:16%;
+        width:10%;
         margin-left:1em;
     }
     .left-sideOf{
-        width: 1%;
+        width: 9%;
     }
     .right-sideOf{
         width:0%;
+        margin:0;
+        padding:0;
     }
 
     a {
@@ -132,6 +134,7 @@
     .navbar-nav{
         height:50px;
         width:100%;
+        overflow: hidden;
     }
     .navbar {
         border-radius:0px;

@@ -25,6 +25,7 @@ export default class Shop extends Component {
       .then((events) => {
         console.log('Here"s the List',events.data[0].Events);
         var oneWeek = this.eventsInDays(events.data[0].Events, 7);
+        console.log("one week",oneWeek);
         return Axios.get('/api/getEventRecipes',
                           {
                             headers: {
@@ -49,9 +50,8 @@ export default class Shop extends Component {
 
   }
   eventsInDays ( events, daysFromNow ) {
-    var parsedEvent = events[0].start.substring(1,events[0].start.length-1);
     return events.filter(function(element){
-      var parsedEvent = element.start.substring(1,events[0].start.length-1);
+      var parsedEvent = element.start;
 
       var difference = moment(parsedEvent).diff(moment(),'days');
       console.log('log',parsedEvent, difference);
