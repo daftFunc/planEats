@@ -19,8 +19,11 @@ class Calendar extends React.Component {
       username: JSON.parse(localStorage.profile).email,
       date: null,
       events: null,
-      meals: null,
-      inputs: null
+      savedMeals: null,
+      mealTime: null,
+      mealName: null,
+      selectedMealId: null,
+      savedMealIds: null
     }
   }
 
@@ -47,11 +50,15 @@ class Calendar extends React.Component {
     axios.get('/api/meals')
       .then(function(meals) {
         var options = {}
+        var ids = {}
+
         meals.data[0].Meals.map(function(obj){
+          ids[obj.name] = obj.id
           return options[obj.name] = obj.name
         })
         context.setState({
-          inputs: options
+          savedMeals: options,
+          savedMealIds: ids
         })
       })
   }
@@ -81,18 +88,21 @@ class Calendar extends React.Component {
           text: calEvent.title,
           confirmButtonText: 'Back'
         }).then(function(){
-            $('.fc-unthemed').css({display:'block'}); //show calendar
-            $('.swal2-modal').css({display:'none'}); //hide modal. closeModal() not working
+            $('.fc-unthemed').css({display:'block'});
+            $('.swal2-modal').css({display:'none'});
         })
       },
 
       dayClick: function(calEvent, jsEvent, view) {
         $('.fc-unthemed').css({display:'none'}); //hide calendar
         //get date clicked for plan
-        var dateSelected = moment(calEvent._d).add(1, 'day').format('MMMM Do');
+        var dateSelected = moment(calEvent._d).add(1, 'day').format('MMMM Do'); //BUG: full calendar registers the wrong day on click. needed to get the selected date.
+
+        context.setState({
+          date: moment(calEvent._d).format('YYYY-MM-DD')
+        })
 
         swal.setDefaults({
-
           confirmButtonText: 'Select Meal Time &rarr;',
           showCancelButton: true,
           animation: false,
@@ -103,12 +113,12 @@ class Calendar extends React.Component {
           {
             title: 'Select a meal for ' + dateSelected + ':',
             input: 'select',
-            inputOptions: context.state.inputs
+            inputOptions: context.state.savedMeals
           },
           {
             title: 'What time would you like to eat?',
             input: 'select',
-            inputOptions: time //half hour count
+            inputOptions: time //using half hour count
           }
         ]
 
@@ -123,61 +133,42 @@ class Calendar extends React.Component {
             confirmButtonText: 'Lovely!',
             showCancelButton: false
           }).then(function() {
-            //result[0] = name of the meal
-            //result[1] = time selected for the meal
-            $('.fc-unthemed').css({display:'block'}); //show calendar
-            $('.swal2-modal').css({display:'none'}); //hide modal. closeModal() not working
+            //get user-selected data from fields
+            context.setState({
+              mealName: result[0], //name of the meal
+              mealTime: result[1], //time selected for the meal
+              selectedMealId: context.state.savedMealIds[result[0]]
+            }, function(){
+              // console.log(context.state);
+              this.handleNewEvent();
+            });
+
+            $('.fc-unthemed').css({display:'block'});
+            $('.swal2-modal').css({display:'none'});
+
             context.forceUpdate();
           })
-        }, function () {
+        }, function (dismiss) {
+          if (dismiss === 'cancel') {
+            //if cancel button is hit, exit the modal and display the calendar
+            $('.fc-unthemed').css({display:'block'});
+            $('.swal2-modal').css({display:'none'});
+          }
           swal.resetDefaults()
         })
 
-        // swal({
-        //   title: 'Select a meal for ' + dateSelected + ':',
-        //   input: 'select',
-        //   inputOptions: context.state.inputs,
-        //   confirmButtonText: 'Add to Plan',
-        //   showCancelButton: true,
-        //   inputValidator: function (mealClicked) {
-        //     return new Promise(function (resolve, reject) {
-        //       if (mealClicked) {
-        //         resolve();
-        //       } else {
-        //         reject('Please select a meal for this date');
-        //       }
-        //     })
-        //   }
-        // }).then(function(clickedMeal) {
-        //   // console.log(clickedMeal);
-        //   $('.fc-unthemed').css({display:'block'}); //show calendar
-        //   $('.swal2-modal').css({display:'none'}); //hide modal. closeModal() not working
-        //   // swal.close();
-        // }, function(dismiss){
-        //   if (dismiss === 'cancel') {
-        //     $('.swal2-modal').css({display:'none'});
-        //     $('.fc-unthemed').css({display:'block'});
-        //   }
-        // });
-
-
-        // this.setState({date: dateSelected}, function(){
-        //   this.context.router.push({
-        //     pathname: '/schedule',
-        //     state:{date: this.state.date}
-        //   });
-        // })
-        // console.log(time)
-        // var time = moment(calEvent._d).format('YYYY-MM-DD')
         /*
+        var time = moment(calEvent._d).format('YYYY-MM-DD')
+
         to follow moment formatting, will need to add on the time they specifiy. if no time specified, it defaults to 12am.
 
         in meal pop-up, have user select time (24hr under the hood. will append to the date like so):
           date = date + 'T17:00:00'
         */
-      }.bind(this)
+      }
     });
   }
+
   handleTimeChange(time) {
    this.convertTime(time);
 
@@ -186,8 +177,22 @@ class Calendar extends React.Component {
    });
   }
 
-  convertTime(seconds) {
-    var sec_num = parseInt(seconds, 10); // don't forget the second param
+  handleNewEvent() {
+    var context = this;
+    axios.defaults.headers.username = this.state.username;
+    axios.post('/api/events', {
+      username: this.state.username,
+      title: this.state.mealName,
+      start: this.state.date + 'T' + this.state.mealTime,
+      meal_id: this.state.mealId
+    }).then(function() {
+      console.log('event sent!')
+      context.forceUpdate()
+    })
+  }
+
+  convertTime(secs) {
+    var sec_num = parseInt(secs, 10);
     var hours   = Math.floor(sec_num / 3600);
     var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
     var seconds = sec_num - (hours * 3600) - (minutes * 60);
@@ -201,7 +206,6 @@ class Calendar extends React.Component {
   render() {
     return (
       <div ref="calendar"></div>
-      // <div><TimePicker onChange={this.handleTimeChange}/></div>
     );
   }
 };
