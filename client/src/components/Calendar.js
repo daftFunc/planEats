@@ -182,7 +182,7 @@ class Calendar extends React.Component {
       username: this.state.username,
       title: this.state.mealName,
       start: this.state.date + 'T' + this.state.mealTime,
-      meal_id: this.state.mealId
+      meal_id: this.state.selectedMealId
     }).then(function() {
       console.log('event sent!')
       context.forceUpdate()

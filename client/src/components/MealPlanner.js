@@ -84,10 +84,11 @@ class MealPlanner extends Component {
     };
 
     axios.defaults.headers.username = this.state.username;
+    var context = this;
     axios.post('/api/meals', newMeal)
       .then(function(event){
       console.log("posted", event)
-      this.setState({
+      context.setState({
         mealName: '',
         clicked: [],
         mealTime: ''

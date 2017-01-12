@@ -1,14 +1,12 @@
-import React, {Component} from 'react';
+import React, {Component, Link} from 'react';
 import {connectProfile} from '../auth';
 import './RecipeBook.css';
 import { FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
 import axios from 'axios';
 import FontAwesome from 'react-fontawesome';
-import Visible from 'visible-react';
-import {Link} from 'react-router';
 
 
-class Book extends Component {
+class NewRecipe extends Component {
   constructor() {
     super();
     this.state = {
@@ -110,16 +108,7 @@ class Book extends Component {
   render() {
     return (
       <div className="container">
-        <Link to='/new-recipe'>
-          <Button id="createARecipe">Create a Recipe</Button>
-        </Link>
-        <div className="recipeBook">
-          <h1 id="recipeBook">Recipe Book</h1>
-          <ul className="recipeList">
-            {this.state.recipes.map((recipe, i) => {return <li className="recipeLi" key={i}>{recipe.name}</li>})}
-          </ul>
-        </div>
-      {/* <div className="addNew">
+        <div className="addRecipe" id="addRecipe">
           <h1>Create a New Recipe</h1>
           <form ref="formRef">
             <FormGroup>
@@ -172,10 +161,10 @@ class Book extends Component {
               <Button type="submit" onClick={this.handleSubmit.bind(this)}>Submit</Button>
             </FormGroup>
         </form>
-        </div> */}
+        </div>
       </div>
     )
   }
 }
 
-export default connectProfile(Book);
+export default connectProfile(NewRecipe);
