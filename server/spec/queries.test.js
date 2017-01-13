@@ -183,8 +183,10 @@ describe('Database Queries', function()  {
         })
     });
     it('should retrieve meals from events',(done) => {
-      controller.getAllHasMany('Meals',[{"id":1}],'Events')
+      controller.getAllHasMany('Meals',[{"id":{"$eq":1}}])
         .then((results)=>{
+
+          expect(results[0].dataValues.name).to.equal('Sausage and Chips');
           console.log("Test",results);
           done();
         })
@@ -193,7 +195,14 @@ describe('Database Queries', function()  {
         });
     })
     it('should retrieve recipes from meals', (done) => {
-      controller.getAllJoin()
+      controller.getAllJoin('Meals','Sausage and Chips','Recipe')
+        .then((data)=>{
+          console.log(data);
+          done();
+        })
+        .catch((error)=>{
+          console.error(error);
+      })
     })
   })
   after((done) => {

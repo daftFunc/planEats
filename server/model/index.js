@@ -117,8 +117,8 @@ module.exports = {
   getRecipesFromEvents: function(req,res) {
     console.log('object',req.headers.events);
     var parameterObj = module.exports.populate$orObject(req.headers.events,'id','MealId');
-    //console.log("MealIds", JSON.stringify(parameterObj));
-    controller.getAllHasMany('Meals',parameterObj,'Events')
+    console.log("MealIds", JSON.stringify(parameterObj));
+    controller.getAllHasMany('Meals',parameterObj)
       .then(function(results){
         return module.exports.getRecipesFromMeals(results, 0);
       })
