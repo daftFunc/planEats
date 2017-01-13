@@ -6,11 +6,14 @@ var app = require('../server');
 
 describe('Recipe routes', function() {
    describe('GET /recipe', function() {
-    it('Responds with text', function(done) {
+    it('Responds with a recipe', function(done) {
       request(app)
         .get('/recipe')
         .expect('Content-Type', 'text/html; charset=utf-8')
-        .expect(201, done);
+        .expect(201)
+        .end(function(err, res) {
+          done();
+        });
     });
   });
   describe('POST /recipe', function() {
@@ -19,7 +22,10 @@ describe('Recipe routes', function() {
         .post('/recipe')
         .field('name', 'Salad')
         .field('recipe', '{ingredients: ["Lettuce", "Dressing"], time: 15, servings: 2, directions: "Toss and serve", nutrition: "0 calories"}')
-        .expect(201, done);
+        .expect(201)
+        .end(function(err, res) {
+          done();
+        });
     });
   });
 });
@@ -27,11 +33,14 @@ describe('Recipe routes', function() {
 
 describe('Meal routes', function() {
   describe('GET /meals', function() {
-    it('Responds with a string', function(done) {
+    it('Responds with a meal', function(done) {
       request(app)
         .get('/meals')
         .expect('Content-Type', 'text/html; charset=utf-8')
-        .expect(201, done);
+        .expect(201)
+        .end(function(err, res) {
+          done();
+        });
     });
   });
   describe('POST /meals', function() {
@@ -40,7 +49,10 @@ describe('Meal routes', function() {
         .post('/meals')
         .field('name', 'Pizza and Salad')
         .field('favorited', 'false')
-        .expect(201, done);
+        .expect(201)
+        .end(function(err, res) {
+          done();
+        });
     });
   });
 });
@@ -48,11 +60,14 @@ describe('Meal routes', function() {
 
 describe('Event routes', function() {
   describe('GET /events', function() {
-    it('Responds with a string', function(done) {
+    it('Responds with an event', function(done) {
       request(app)
         .get('/events')
         .expect('Content-Type', 'text/html; charset=utf-8')
-        .expect(201, done);
+        .expect(201)
+        .end(function(err, res) {
+          done();
+        });
     });
   });
   describe('POST /events', function() {
@@ -61,7 +76,10 @@ describe('Event routes', function() {
         .post('/events')
         .field('meal_id', '1')
         .field('meal_time', '7:05')
-        .expect(201, done);
+        .expect(201)
+        .end(function(err, res) {
+          done();
+        });
     });
   });
 });
@@ -73,7 +91,10 @@ describe('User routes', function() {
       request(app)
         .post('/users')
         .field('username', 'Rick')
-        .expect(201, done);
+        .expect(201)
+        .end(function(err, rest) {
+          done();
+        });
     });
   });
 });
