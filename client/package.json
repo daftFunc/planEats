@@ -20,7 +20,7 @@
     "events": "^1.1.1",
     "express": "^4.14.0",
     "express-jwt": "^5.1.0",
-    "flexbox-react": "^4.1.0",
+    "flexbox-react": "^4.1.1",
     "font-awesome": "^4.7.0",
     "fullcalendar": "^3.1.0",
     "google-auth-library": "^0.10.0",
@@ -41,7 +41,8 @@
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
     "sweetalert-react": "^0.4.6",
-    "sweetalert2": "^6.3.0"
+    "sweetalert2": "^6.3.0",
+    "visible-react": "0.0.8"
   },
   "scripts": {
     "start": "react-scripts start",

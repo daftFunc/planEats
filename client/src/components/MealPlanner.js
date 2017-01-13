@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connectProfile} from '../auth';
 import './MealPlanner.css';
 import { FormControl, Button } from 'react-bootstrap';
-import axios from 'axios';
+import axios from 'axios'
 
 class MealPlanner extends Component {
   constructor() {
@@ -23,16 +23,7 @@ class MealPlanner extends Component {
   }
 
   componentDidMount() {
-    var context = this;
-    axios.defaults.headers.username = this.state.username;
-
-    axios.get('/api/recipe')
-      .then(function(recipes) {
-      //recipes.data[0] is an object holding a Recipes array. Recipes array has all of the user's recipe objects
-      context.setState({
-        recipes: recipes.data[0].Recipes
-      })
-    })
+    this.getRecipes();
   }
 
   handleChange(meal, index) {
@@ -82,9 +73,26 @@ class MealPlanner extends Component {
       name: this.state.mealName,
       recipe: JSON.stringify(this.state.clicked)
     };
+    this.postMeal(newMeal);
+  }
 
-    axios.defaults.headers.username = this.state.username;
+  getRecipes() {
     var context = this;
+    axios.defaults.headers.username = this.state.username;
+
+    axios.get('/api/recipe')
+      .then(function(recipes) {
+      //recipes.data[0] is an object holding a Recipes array. Recipes array has all of the user's recipe objects
+      context.setState({
+        recipes: recipes.data[0].Recipes
+      })
+    });
+  }
+
+  postMeal(newMeal) {
+    var context = this;
+    axios.defaults.headers.username = this.state.username;
+
     axios.post('/api/meals', newMeal)
       .then(function(event){
       console.log("posted", event)
@@ -94,16 +102,15 @@ class MealPlanner extends Component {
         mealTime: ''
       });
     });
-
   }
 
   render() {
     return (
-      <div>
+      <div className="MPcontainer">
         <div className="recipeBookML">
           <div className="headerMP">
-            <h3>Click to add a recipe to your new meal</h3>
-            <form>
+            <text className="MPHeaderText">Click a recipe to add it to your book and write a name for your creation below!</text>
+            <form id="newMealForm">
               <FormControl
                 id="recipeName"
                 type="text"
@@ -113,8 +120,13 @@ class MealPlanner extends Component {
               />
               <Button type="submit" onClick={this.handleSubmit.bind(this)}>Add Meal</Button>
             </form>
+            <text>Click an item to remove from your meal</text>
+            <ul>
+              {this.state.clickedName.map((val, i) => {
+                return <li className="mealItems" key={i} onClick={this.handleRemove.bind(this, i)}>{val}</li>
+              })}
+            </ul>
           </div>
-
           <ul className="recipeList">
             {this.state.recipes.map((recipe, i) => {
               return <li className="recipeItem" key={recipe.id} onClick={this.handleAddRecipe.bind(this, recipe.name, recipe.id)}>{recipe.name}</li>})}
@@ -122,15 +134,10 @@ class MealPlanner extends Component {
         </div>
         <div className="addNew">
 
-          <ul>
-            {this.state.clickedName.map((val, i) => {
-              return <li className="mealItems" key={i} onClick={this.handleRemove.bind(this, i)}>{val}</li>
-            })}
-          </ul>
         </div>
       </div>
     )
   }
 }
 
-export default connectProfile(MealPlanner);
+export default MealPlanner;
