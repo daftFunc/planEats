@@ -29,7 +29,7 @@ var UsersEvents = db.define('UsersEvents');
 var MealsRecipes = db.define('MealsRecipes');
 var UsersMeals = db.define('UsersMeals');
 
- //Associations
+// Associations
 Recipe.sync();
 Users.sync()
   .then(() => {
