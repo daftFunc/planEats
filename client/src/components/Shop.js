@@ -37,6 +37,7 @@ export default class Shop extends Component {
         console.log("Heres the recipes",recipes.data);
         var groceryList = {};
         this.parseList(recipes.data, groceryList);
+        console.log("groceries",groceryList);
         this.setState({
           groceryList: groceryList
         })
@@ -63,8 +64,13 @@ export default class Shop extends Component {
 
     var masterList = masterList.reduce((a,b) => {
       return a.concat(b[0].Recipes.reduce((c,d) => {
-        console.log('what',c);
-        c.push(JSON.parse(d.recipe));
+        console.log('what',c,d.recipe);
+        if(typeof d.recipe === 'string')
+        {
+          c.push(JSON.parse(d.recipe));
+        } else {
+          c.push(d.recipe);
+        }
         return c;
       },[]));
     },[]);
@@ -87,6 +93,9 @@ export default class Shop extends Component {
     }
 
     for ( var i = 0; i < masterList.length; i++ ) {
+      if(!masterList[i].extendedIngredients){
+        continue;
+      }
       var ingredients = masterList[i].extendedIngredients;
 
       for ( var j = 0; j < ingredients.length; j++ ) {

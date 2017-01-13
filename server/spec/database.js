@@ -1,5 +1,5 @@
 var Sequelize = require('sequelize');
-var db = new Sequelize('testdb', 'postgres', 'thesisEats', {
+var db = new Sequelize('testdb', 'postgres', 'sorry1', {
   dialect: 'postgres'
 });
 
