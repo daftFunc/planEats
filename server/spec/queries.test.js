@@ -71,10 +71,10 @@ describe('Database Queries', function()  {
                   name:'Jalapeno Sausage',
                   ingredients: '1) 2 Bell-peppers 2) 2 packs of hot-dogs'
                 }]
-  describe("Users", function() {
-    it ( 'should add one user', function (done) {
+  describe("Users", () => {
+    it ( 'should add one user', (done)=>{
       controller.addUser(username)
-        .spread(function (user, created) {
+        .spread((user, created) => {
           if (created) {
             expect(user.username).to.equal(username)
             done();
@@ -82,108 +82,130 @@ describe('Database Queries', function()  {
             done(created);
           }
         })
-        .catch(function (error) {
+        .catch((error) => {
           done(error);
         });
     });
-    it ( 'should retrieve one user using username', function(done) {
+    it ( 'should retrieve one user using username', (done) => {
       controller.findUser(username)
-        .then(function(user) {
+        .then((user) => {
             expect(user.username).to.equal(username);
             done();
         })
-        .catch(function(error){
+        .catch((error) => {
           done(error);
         })
     });
   });
-  describe ( "Recipes", function() {
-    it ( 'should add recipe', function(done){
+  describe ( "Recipes", () => {
+    it ( 'should add recipe', (done)=> {
       controller.addRecipe(recipeName[0], recipe[0])
-        .then(function ( recipeData ) {
+        .then(( recipeData ) => {
           expect(recipeData.name).to.equal(recipeName[0]);
           expect(recipeData.recipe.ingredients).to.equal(recipe[0].ingredients);
           console.log("THIS IS ID",recipeData.id)
           return controller.addJoinTable('User','Recipe', 1, recipeData.id);
         })
-        .then(function ( join ) {
+        .then(( join ) => {
 
           expect(join).to.be.an('object');
           return controller.addRecipe(recipeName[1], recipe[1]);
 
         })
-        .then(function ( recipeData ) {
+        .then(( recipeData ) => {
           expect(recipeData.name).to.equal(recipeName[1]);
           expect(recipeData.recipe.ingredients).to.equal(recipe[1].ingredients);
           return controller.addJoinTable('User','Recipe', 1, recipeData.id);
         })
-        .then(function ( join ) {
+        .then(( join ) => {
           expect(join).to.be.an('object');
           done();
         })
-        .catch(function(error){
+        .catch((error) => {
           done(error);
         });
 
     });
-    it ( 'should retrieve all recipes for a user', function(done){
-      controller.getAll(username,'Recipe')
-        .then(function( recipeData ) {
+    it ( 'should retrieve all recipes for a user', (done) => {
+      controller.getAllJoin( 'Users', username, 'Recipe' )
+        .then(( recipeData ) => {
           expect(recipeData[0].Recipes[0].name).to.equal(recipeName[0]);
           expect(recipeData[0].Recipes[1].name).to.equal(recipeName[1]);
           done();
         })
-        .catch(function(error){
+        .catch((error)=>{
           done(error);
         })
     })
 
   });
-  describe ( "Meals", function() {
-    it('should add a meal to the database with a recipe', function(done){
+  describe ( "Meals", () => {
+    it('should add a meal to the database with a recipe', (done) => {
       controller.addMeal("Sausage and Chips")
-        .then(function (meal) {
+        .then((meal)=>{
           expect(meal[0].dataValues.name).to.equal('Sausage and Chips');
           MealId = meal[0].dataValues.id;
           expect(MealId).to.equal(1);
           return controller.addJoinTable('User', 'Meal', MealId, 1)
         })
-        .then(function (join) {
+        .then((join) => {
           expect(join).to.be.an('object');
           return controller.addJoinTable('Meal', 'Recipe', 1, 2)
         })
-        .then(function(join){
+        .then((join)=>{
           expect(join).to.be.an('object');
           done();
         })
     })
-    it ('should retrieve the meal from the database', function(done){
-      controller.getAll(username,'Meals')
-        .then(function(mealData){
+    it ('should retrieve the meal from the database', (done)=> {
+      controller.getAllJoin('Users', username, 'Meals')
+        .then((mealData)=>{
           expect(mealData[0].Meals[0].name).to.equal('Sausage and Chips')
           done();
         })
     })
   });
-  describe ('Events',function() {
+  describe ('Events',()=> {
     var eventName = 'Lunch Time';
     var mealTime = '07:15:00';
-    it('should add an Event to the database with a meal id', function(done) {
+    it('should add an Event to the database with a meal id', (done)=>{
       controller.addEvent(eventName,mealTime,1)
-        .then(function (events) {
+        .then((events)=>{
           expect(events.get('title')).to.equal(eventName);
           expect(events.get('start')).to.equal(mealTime);
           var EventId = events.get('id');
           expect(EventId).to.equal(1);
           return controller.addJoinTable('User', 'Event', 1, EventId)
         })
-        .then(function(join) {
+        .then((join) => {
           expect(join).to.be.an('object');
           done();
         })
     });
+    it('should retrieve meals from events',(done) => {
+      controller.getAllHasMany('Meals',[{"id":{"$eq":1}}])
+        .then((results)=>{
+
+          expect(results[0].dataValues.name).to.equal('Sausage and Chips');
+          console.log("Test",results);
+          done();
+        })
+        .catch((error)=> {
+          console.log( "Error retrieving Meals from Events", error );
+        });
+    })
+    it('should retrieve recipes from meals', (done) => {
+      controller.getAllJoin('Meals','Sausage and Chips','Recipe')
+        .then((data)=>{
+          console.log(data);
+          done();
+        })
+        .catch((error)=>{
+          console.error(error);
+      })
+    })
   })
-  after(function(done){
+  after((done) => {
     database.pathName = '../db';
     done();
   })

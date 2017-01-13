@@ -29,28 +29,28 @@ module.exports = {
     return db.Users.findOrCreate({where: {username:user}});
   },
 
-  getAll: function(reference, refData,type) {
-    console.log(type);
-    var parameters;
-    if(Array.isArray(refData)) {
-      parameters = {where:{$or:refData}};
-    } else {
-      var col1     = columns[type].col1;
-      var col2     = columns[type].col2;
-      var refField = columns[reference].col1;
+  getAllJoin: function(reference, refData,type) {
+    //console.log(type);
+    var col1     = columns[type].col1;
+    var col2     = columns[type].col2;
+    var refField = columns[reference].col1;
 
-      parameters = {
-        where: {[refField]: refData},
-        include: [{
-          model: db[type],
-          through: {
-            attributes: [col1, col2]
-          }
-        }]
-      };
-    }
-    console.log(parameters);
+    parameters = {
+      where: {[refField]: refData},
+      include: [{
+        model: db[type],
+        through: {
+          attributes: [col1, col2]
+        }
+      }]
+    };
+    //console.log(parameters);
     return db[reference].findAll(parameters);
+  },
+
+  getAllHasMany: function(reference, refData) {
+    //console.log(refData);
+    return db[reference].findAll({where:{$or:refData}});
   },
 
   addRecipe: function(name,recipe) {

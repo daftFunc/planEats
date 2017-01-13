@@ -33,7 +33,7 @@ module.exports = {
       });
     },
     get: function(req,res) {
-      controller.getAll('Users',req.headers.username,'Recipe').then(function(recipe) {
+      controller.getAllJoin('Users',req.headers.username,'Recipe').then(function(recipe) {
         res.json(recipe);
       }).catch(function(error){
         res.json({somethingelse:error});
@@ -45,6 +45,7 @@ module.exports = {
       var UserId;
       var MealId;
       var recipeArr = JSON.parse(req.body.recipe);
+      console.log("HERE IS ARRAY",recipeArr)
       controller.findUser(req.body.username)
         .then(function (user) {
           UserId = user.dataValues.id;
@@ -68,7 +69,7 @@ module.exports = {
         });
     },
     get: function (req, res) {
-      controller.getAll('Users', req.headers.username, 'Meals').then(function (meals) {
+      controller.getAllJoin('Users', req.headers.username, 'Meals').then(function (meals) {
         res.json(meals);
       }).catch(function (error) {
         res.json({somethingelse: error});
@@ -105,7 +106,8 @@ module.exports = {
     },
     get: function(req,res) {
       console.log("HEADERS",req.headers.username);
-      controller.getAll('Users',req.headers.username,'Events').then(function(events) {
+      controller.getAllJoin('Users',req.headers.username,'Events').then(function(events) {
+        console.log(events);
         res.json(events);
       }).catch(function(error){
         res.json({somethingelse:error});
@@ -115,8 +117,8 @@ module.exports = {
   getRecipesFromEvents: function(req,res) {
     console.log('object',req.headers.events);
     var parameterObj = module.exports.populate$orObject(req.headers.events,'id','MealId');
-
-    controller.getAll('Meals',parameterObj,'Events')
+    console.log("MealIds", JSON.stringify(parameterObj));
+    controller.getAllHasMany('Meals',parameterObj)
       .then(function(results){
         return module.exports.getRecipesFromMeals(results, 0);
       })
@@ -130,10 +132,10 @@ module.exports = {
       })
   },
   getRecipesFromMeals: function(mealsToRecipe, index) {
-    return controller.getAll('Meals', mealsToRecipe[index].dataValues.name, 'Recipe')
+    return controller.getAllJoin('Meals', mealsToRecipe[index].dataValues.name, 'Recipe')
       .then(function(result){
         mealsToRecipe[index] = result;
-        console.log(result, mealsToRecipe)
+        //console.log(result, mealsToRecipe)
         if(index === mealsToRecipe.length-1) {
           return mealsToRecipe;
         } else {
