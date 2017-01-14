@@ -5,16 +5,19 @@ var db = new Sequelize('testdb', 'postgres', 'sorry1', {
 
 // Model definitions
 var Recipe = db.define('Recipe', {
+  uniqueId: Sequelize.STRING,
   name: Sequelize.STRING,
   recipe: Sequelize.JSONB
 });
 
 var Meals = db.define('Meals', {
+  uniqueId: Sequelize.STRING,
   name: Sequelize.STRING,
   favorited: Sequelize.BOOLEAN
 });
 
 var Events = db.define('Events', {
+  uniqueId: Sequelize.STRING,
   title: Sequelize.STRING,
   start: Sequelize.TIME
 });
