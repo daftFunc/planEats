@@ -4,7 +4,7 @@ import './Calendar.css';
 import $ from 'jquery';
 import fullCalendar from 'fullcalendar';
 import moment from 'moment';
-import { default as swal } from 'sweetalert2'
+import { default as swal } from 'sweetalert2';
 import axios from 'axios';
 import time from '../data/timeConversion.js';
 
@@ -25,6 +25,10 @@ class Calendar extends React.Component {
       selectedMealId: null,
       savedMealIds: null
     }
+    this.checkAuth = this.checkAuth.bind(this);
+    this.handleAuthResult = this.handleAuthResult.bind(this);
+    this.handleAuthClick = this.handleAuthClick.bind(this);
+    this.insertEvent = this.insertEvent.bind(this);
   }
 
   componentDidMount() {
@@ -61,6 +65,44 @@ class Calendar extends React.Component {
           savedMealIds: ids
         })
       })
+
+    // handleAuthClick();
+  }
+
+  // var CLIENT_ID = '998213442315-36am84caphfp5kve49oom63murreksr4.apps.googleusercontent.com';
+  // var SCOPES = ["https://www.googleapis.com/auth/calendar"];
+
+  checkAuth() {
+    window.gapi.auth.authorize(
+      {
+        'client_id': '998213442315-36am84caphfp5kve49oom63murreksr4.apps.googleusercontent.com',
+        'scope': ["https://www.googleapis.com/auth/calendar"].join(' '),
+        'immediate': true
+      }, this.handleAuthResult);
+  }
+
+  handleAuthResult(authResult) {
+    // var authorizeDiv = document.getElementById('authorize-div');
+    if (authResult && !authResult.error) {
+      // Hide auth UI, then load client library.
+      // authorizeDiv.style.display = 'none';
+      this.loadCalendarApi();
+    } // else {
+      // Show auth UI, allowing the user to initiate authorization by
+      // clicking authorize button.
+      // authorizeDiv.style.display = 'inline';
+    // }
+  }
+
+  handleAuthClick(event) {
+    window.gapi.auth.authorize(
+      {client_id: '998213442315-36am84caphfp5kve49oom63murreksr4.apps.googleusercontent.com', scope: ["https://www.googleapis.com/auth/calendar"], immediate: true},
+      this.handleAuthResult);
+    return true;
+  }
+
+  loadCalendarApi() {
+    window.gapi.client.load('calendar', 'v3', this.insertEvent);
   }
 
   calendarSettings() {
@@ -175,8 +217,32 @@ class Calendar extends React.Component {
     });
   }
 
+  insertEvent() {
+    console.log('This is running');
+    var request = window.gapi.client.calendar.events.insert({
+      'calendarId': 'primary',
+      'end': {'dateTime': '2016-01-13T19:0:00-07:00', 'timeZone': 'America/Los_Angeles'},
+      'start': {'dateTime': '2016-01-13T18:00:00-07:00', 'timeZone': 'America/Los_Angeles'},
+      'summary': 'Dinner',
+      'reminders': {
+        'useDefault': false,
+        'overrides': [{'method': 'popup', 'minutes': 30}]
+      },
+      'description': 'Enjoy your meal! - planEats',
+      'visibility': 'private'
+    });
+
+    request.execute(function(event) {
+      console.log('Event created: ' + event.htmlLink);
+      // appendPre('Event created: ' + event.htmlLink);
+    });
+  }
+
   handleNewEvent() {
     var context = this;
+
+    this.handleAuthClick();
+
     axios.defaults.headers.username = this.state.username;
     axios.post('/api/events', {
       username: this.state.username,
@@ -186,7 +252,59 @@ class Calendar extends React.Component {
     }).then(function() {
       console.log('event sent!')
       context.forceUpdate()
-    })
+    });
+    // axios.post('https://www.googleapis.com/calendar/v3/calendars/primary/events', {
+    //   'calendarId': 'primary',
+    //     'end': {'dateTime': '2016-01-13T19:0:00-07:00', 'timeZone': 'America/Los_Angeles'},
+    //     'start': {'dateTime': '2016-01-13T18:00:00-07:00', 'timeZone': 'America/Los_Angeles'},
+    //     'summary': 'Dinner',
+    //     'reminders': {
+    //       'useDefault': false,
+    //       'overrides': [{'method': 'popup', 'minutes': 30}]
+    //     },
+    //     'description': 'Enjoy your meal! - planEats',
+    //     'visibility': 'private'
+    // });
+
+    // Google Calendar insert authorization
+    // var CLIENT_ID = '998213442315-36am84caphfp5kve49oom63murreksr4.apps.googleusercontent.com';
+    // var SCOPES = ["https://www.googleapis.com/auth/calendar"];
+
+    // function checkAuth() {
+    //   gapi.auth.authorize(
+    //     {
+    //       'client_id': CLIENT_ID,
+    //       'scope': SCOPES.join(' '),
+    //       'immediate': true
+    //     }, handleAuthResult);
+    // }
+
+    // function handleAuthResult(authResult) {
+    //   var authorizeDiv = document.getElementById('authorize-div');
+    //   if (authResult && !authResult.error) {
+    //     // Hide auth UI, then load client library.
+    //     authorizeDiv.style.display = 'none';
+    //     loadCalendarApi();
+    //   } else {
+    //     // Show auth UI, allowing the user to initiate authorization by
+    //     // clicking authorize button.
+    //     authorizeDiv.style.display = 'inline';
+    //   }
+    // }
+
+    // function handleAuthClick(event) {
+    //   gapi.auth.authorize(
+    //     {client_id: CLIENT_ID, scope: SCOPES, immediate: true},
+    //     handleAuthResult);
+    //   return true;
+    // }
+
+    // function loadCalendarApi() {
+    //   gapi.client.load('calendar', 'v3', insertEvent);
+    // }
+
+    // // Insert event into Google Calendar
+
   }
 
   convertTime(secs) {

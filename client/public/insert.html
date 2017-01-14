@@ -53,19 +53,6 @@
        * Load Google Calendar client library. List upcoming events
        * once client library is loaded.
        */
-      //  var event = {
-      //   'end': {'dateTime': '2016-01-12T19:00:00-07:00', 'timeZone': 'America/Los_Angeles'},
-      //   'start': {'dateTime': '2016-01-12T18:00:00-07:00', 'timeZone': 'America/Los_Angeles'}
-      //   'reminders': {
-      //     'useDefault': false,
-      //     'overrides': [{'method': 'popup', 'minutes': 30}]
-      //   },
-      //   'attendees': [{'email': 'mason.jordanp@gmail.com'}],
-      //   'summary': 'Dinner',
-      //   'visibility': 'private'
-      // };
-
-      // console.log('1: ', event);
 
       function loadCalendarApi() {
         gapi.client.load('calendar', 'v3', insertEvent);
