@@ -21,7 +21,7 @@ export default class Cook extends Component {
       .then((mealRecipe) => {
         var instructions = mealRecipe.data[0][0].Recipes.map((recipeData)=>{
           console.log('recipe',recipeData.recipe);
-          return [recipeData.name, recipeData.recipe.instructions];
+          return [recipeData.name, recipeData.recipe.instructions, recipeData.recipe.image, recipeData.recipe.extendedIngredients];
         });
         console.log(instructions);
         this.setState({
@@ -57,7 +57,7 @@ export default class Cook extends Component {
   render() {
     return  (
       <div>
-        <h1 style={{textAlign:'center'}}>Eat</h1>
+        <h1 style={{textAlign:'center'}}>Cook</h1>
         <div id='instruction-box'>
           <CookingInstruction instructions={this.state.cookingInstructions} />
         </div>
@@ -71,25 +71,51 @@ var CookingInstruction = ({instructions}) => (
 
   <ul>
     {console.log("instructions",instructions)}
-    {instructions.map((element,i)=>(
-      <p><li key={element[0]}><div id="title">{element[0]}</div>
-        {console.log("next recipe",element)}
-      <p></p><ol>
-        {
+    {instructions.map((element,i) => (
+      <p>
+        <li key={element[0]}><div id="title">{element[0]}</div>
+          <div style={{display:'inline'}}>
+            <img className="recipe-image" src={element[2]} alt={element[0]} />
 
-          element[1] && element[1].split(/[1-9]\.|[1-9]\)|\./).map((step) => {
-            if( step !== '' ) {
-              console.log("next step",step);
-              return (<li id='cook-steps' key={i + step}>
-                <input type='checkbox'/>{step}
-              </li>);
-            }
-          })
-        }
-      </ol>
-      </li></p>
-      )
-    )}
+          <Ingredients style={{display:'inline'}} ingredients={element[3]}/>
+            {console.log("next recipe",element)}
+          </div>
+          <Instructions instructions={element[1]} />
+        </li>
+      </p>
+      ))}
   </ul>
 
 );
+
+var Ingredients = ({ingredients}) => (
+
+  <ul id = "ing-ul">
+
+    {ingredients.map((ingredient) => {
+      var ingredientStr = ingredient.originalString;
+
+      return (
+        <li className="ingredients-cook" id={ingredientStr}>
+            {ingredientStr}
+        </li>
+      );
+    })}
+  </ul>
+);
+var Instructions = ({instructions}) => (
+    <ol>
+    {instructions && instructions
+                      .replace(/([.?!])\s*(?=[A-Z])/g, "$1|")
+                      .split("|")
+                      .map((step,i) => {
+                        if( step !== '' ) {
+                          console.log("next step",step);
+                          return (<li id='cook-steps' key={i + step}>
+                            {step}
+                          </li>);
+                        }
+                    })
+    }
+    </ol>
+  );
