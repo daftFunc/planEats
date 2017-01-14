@@ -124,7 +124,7 @@ class Calendar extends React.Component {
       eventClick: function(calEvent, jsEvent, view){
         $('.fc-unthemed').css({display:'none'}); //hide calendar
 
-        var mealDate = moment(calEvent.start._d).format('MMMM Do[,] YYYY');
+        var mealDate = moment(calEvent.start._d).add(1, 'day').format('MMMM Do[,] YYYY');
         swal({
           title: 'Meal for ' + mealDate + ':',
           text: calEvent.title,
@@ -141,7 +141,7 @@ class Calendar extends React.Component {
         var dateSelected = moment(calEvent._d).add(1, 'day').format('MMMM Do'); //BUG: full calendar registers the wrong day on click. needed to get the selected date.
 
         context.setState({
-          date: moment(calEvent._d).format('YYYY-MM-DD')
+          date: moment(calEvent._d).add(1, 'day').format('YYYY-MM-DD')
         })
 
         swal.setDefaults({
@@ -218,14 +218,19 @@ class Calendar extends React.Component {
   }
 
   insertEvent() {
-    var time = this.state.mealTime;
-    var hours = time.slice(0, 2);
-    hours++;
-    var endTime = hours + time.slice(2);
-    console.log('Date: ', this.state.date + 'T' + endTime);
+    var endTime = function (time) {
+      var hours = time.slice(0,2);
+      if (hours === '23') {
+        hours = '00';
+      } else {
+        hours++;
+      }
+      return hours + time.slice(2);
+    }
+    var defaultEnd = endTime(this.state.mealTime);
     var request = window.gapi.client.calendar.events.insert({
       'calendarId': 'primary',
-      'end': {'dateTime': this.state.date + 'T' + endTime, 'timeZone': 'America/Los_Angeles'},
+      'end': {'dateTime': this.state.date + 'T' + defaultEnd, 'timeZone': 'America/Los_Angeles'},
       'start': {'dateTime': this.state.date + 'T' + this.state.mealTime, 'timeZone': 'America/Los_Angeles'},
       'summary': this.state.mealName,
       'reminders': {
