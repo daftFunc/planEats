@@ -1,22 +1,9 @@
-/*input[type="checkbox"] {*/
-    /*display:none;*/
-/*}*/
+
 #grocerylist-box {
     overflow:auto;
     height:200px;
 }
-.check-shop + label span {
-    display:inline-block;
-    width:19px;
-    height:19px;
-    margin:-1px 4px 0 0;
-    vertical-align:middle;
-    cursor:pointer;
-}
-/*.check-shop:checked + label span {*/
-    /*text-decoration:line-through;*/
-    /*background:url('images/checkbox.png') left top no-repeat;*/
-/*}*/
+
 @media screen and (min-width: 768px) {
     #grocerylist-box{
         height:100%;

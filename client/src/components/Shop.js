@@ -4,6 +4,7 @@ import './Shop.css';
 import Convert from 'convert-units';
 import spoonRecipes from '../data/shop.js'
 import moment from 'moment';
+import {Checkbox} from 'react-bootstrap';
 export default class Shop extends Component {
   constructor(props) {
     super(props);
@@ -225,20 +226,25 @@ var GroceryList = ({groceryList, freq, addedItems}) => (
 
         return (
           <li className="item" id={key}>
-          <input type='checkbox'/>
-          <label htmlFor={key}>
-            <span></span>{amount + ' ' + key}
-          </label>
+            <div className="checkbox-style">
+              <Checkbox>
+                <div className="shop-list">{amount + ' ' + key}</div>
+              </Checkbox>
+            </div>
           </li>
         );
       })
       }
       {addedItems.map((element) => (
-        <li className="item">
-          <input type="checkbox" id={element} />
+        <li >
+          <div className="check">
+          <input clasName="check-shop" id={element} type="checkbox"  />
             <label htmlFor={element}>
-              <input type="checkbox" className="check-shop" /><span />{element}
+
+
+              <span/>{element}
             </label>
+          </div>
         </li>
       ))}
     </ul>
