@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
 import {connectProfile} from '../auth';
-// import swal from 'sweetalert2';
+import swal from 'sweetalert2';
 import {Link} from 'react-router';
 import './RecipeSearch.css';
-import { /*FieldGroup, FormGroup, HelpBlock, ControlLabel, FormControl, Button, Checkbox, Radio */} from 'react-bootstrap';
 import axios from 'axios';
 import FontAwesome from 'react-fontawesome';
 import RecipeSearchResult from './RecipeSearchResult';
-import Visible from 'visible-react'
-
+import Visible from 'visible-react';
+import Flexbox from 'flexbox-react';
 
 class RecipeSearch extends Component {
   constructor(props) {
@@ -18,7 +17,7 @@ class RecipeSearch extends Component {
       recipes: null,
       searchValue: null
     }
-  }
+  };
 
   componentDidMount() {
     axios.defaults.headers.username = this.state.username;
@@ -34,11 +33,11 @@ class RecipeSearch extends Component {
         recipes: res.data.recipes
       });
     });
-  }
+  };
 
   handleChange(event) {
     this.setState({searchValue: event.target.value});
-  }
+  };
 
   handleSubmit(event) {
     event.preventDefault();
@@ -54,11 +53,58 @@ class RecipeSearch extends Component {
         recipes: res.data.results
       });
     });
-  }
+  };
+
+  addToRecipeBook(recipeID) {
+    axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${recipeID}/information?includeNutrition=true`, {
+      headers: {
+        'X-Mashape-Key': process.env.REACT_APP_SPOONACULAR_API_KEY,
+        'Accept': 'application/json'
+      }
+    })
+    .then(res => {
+    axios.post('/api/recipe', {
+      username: JSON.parse(localStorage.profile).email,
+      name: res.data.title,
+      recipe: res.data
+    })
+      .then(
+      swal(
+        'Added to your recipe book!',
+        'We can taste it already. Yum!'
+    ))});
+    event.preventDefault();
+  };
+
+  displayRecipeSummary(recipe) {
+    axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${recipe}/summary`, {
+      headers: {
+        'X-Mashape-Key': process.env.REACT_APP_SPOONACULAR_API_KEY,
+        'Accept': 'application/json'
+      }
+    })
+    .then(res =>
+      swal({
+        imageUrl: `https://spoonacular.com/recipeImages/${res.data.id}-312x231.jpg`,
+        imageWidth: 312,
+        imageHeight: 231,
+        title: res.data.title,
+        html: res.data.summary,
+        confirmButtonText: 'Add To Recipe Book',
+        showCancelButton: true,
+        cancelButtonText: 'Nah, not this one',
+        animation: true,
+        customClass: 'animated bounceIn'
+      })
+      .then(() => {
+        this.addToRecipeBook(res.data.id);
+      }))
+  };
+
 
   render() {
     return (
-      <div className="container">
+      <div className="recipeSearchPage">
         <form onSubmit={this.handleSubmit.bind(this)}>
           <h1>Search for a recipe.</h1>
           <textarea className="recipeSearchForm" required placeholder="What would you like to search for?" onChange={this.handleChange.bind(this)} />
@@ -66,10 +112,27 @@ class RecipeSearch extends Component {
             <input type="submit" value="Submit" />
           </div>
         </form>
-        <div className="recipes">
           <h1>Results</h1>
-          {this.state.recipes ? (this.state.recipes.map((recipe, i) => (<RecipeSearchResult recipe={recipe} key={recipe.id} />))) : (<h1>Loading</h1>)}
-        </div>
+        <Flexbox flex={'inline-flex'} flexDirection={'column'} flexWrap={'wrap'}>
+          {this.state.recipes ?
+            (this.state.recipes.map((recipe, i) => (
+               <RecipeSearchResult
+                className="item recipe"
+                recipe={recipe}
+                addToRecipeBook={this.addToRecipeBook.bind(this)}
+                displayRecipeSummary={this.displayRecipeSummary.bind(this)}
+                key={i}
+               />
+            ))) :
+              <FontAwesome
+                className='super-crazy-colors'
+                name='rocket'
+                size='2x'
+                spin
+                style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
+              />
+          }
+        </Flexbox>
       </div>
     )
   }

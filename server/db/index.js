@@ -29,8 +29,12 @@ var UsersEvents = db.define('UsersEvents');
 var MealsRecipes = db.define('MealsRecipes');
 var UsersMeals = db.define('UsersMeals');
 
+<<<<<<< HEAD
  //Associations
 
+=======
+// Associations
+>>>>>>> ecipeSearch refactored with functions from recipeSeachResult, which was refactored into a functional state-less component
 Recipe.sync();
 Users.sync()
   .then(() => {

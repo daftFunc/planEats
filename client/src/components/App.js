@@ -14,7 +14,6 @@ import MealPlanner from './MealPlanner';
 import RecipeSearch from './RecipeSearch';
 import RecipeSearchResult from './RecipeSearchResult';
 import NewRecipe from './NewRecipe';
-import RecipeSearchResult from './RecipeSearchResult';
 
 class App extends Component {
   render() {
