@@ -4,7 +4,7 @@ import './Calendar.css';
 import $ from 'jquery';
 import fullCalendar from 'fullcalendar';
 import moment from 'moment';
-import { default as swal } from 'sweetalert2'
+import { default as swal } from 'sweetalert2';
 import axios from 'axios';
 import time from '../data/timeConversion.js';
 
@@ -25,6 +25,10 @@ class Calendar extends React.Component {
       selectedMealId: null,
       savedMealIds: null
     }
+    this.checkAuth = this.checkAuth.bind(this);
+    this.handleAuthResult = this.handleAuthResult.bind(this);
+    this.handleAuthClick = this.handleAuthClick.bind(this);
+    this.insertEvent = this.insertEvent.bind(this);
   }
 
   componentDidMount() {
@@ -61,6 +65,44 @@ class Calendar extends React.Component {
           savedMealIds: ids
         })
       })
+
+    // handleAuthClick();
+  }
+
+  // var CLIENT_ID = '998213442315-36am84caphfp5kve49oom63murreksr4.apps.googleusercontent.com';
+  // var SCOPES = ["https://www.googleapis.com/auth/calendar"];
+
+  checkAuth() {
+    window.gapi.auth.authorize(
+      {
+        'client_id': '998213442315-36am84caphfp5kve49oom63murreksr4.apps.googleusercontent.com',
+        'scope': ["https://www.googleapis.com/auth/calendar"].join(' '),
+        'immediate': true
+      }, this.handleAuthResult);
+  }
+
+  handleAuthResult(authResult) {
+    // var authorizeDiv = document.getElementById('authorize-div');
+    if (authResult && !authResult.error) {
+      // Hide auth UI, then load client library.
+      // authorizeDiv.style.display = 'none';
+      this.loadCalendarApi();
+    } // else {
+      // Show auth UI, allowing the user to initiate authorization by
+      // clicking authorize button.
+      // authorizeDiv.style.display = 'inline';
+    // }
+  }
+
+  handleAuthClick(event) {
+    window.gapi.auth.authorize(
+      {client_id: '998213442315-36am84caphfp5kve49oom63murreksr4.apps.googleusercontent.com', scope: ["https://www.googleapis.com/auth/calendar"], immediate: true},
+      this.handleAuthResult);
+    return true;
+  }
+
+  loadCalendarApi() {
+    window.gapi.client.load('calendar', 'v3', this.insertEvent);
   }
 
   calendarSettings() {
@@ -82,7 +124,7 @@ class Calendar extends React.Component {
       eventClick: function(calEvent, jsEvent, view){
         $('.fc-unthemed').css({display:'none'}); //hide calendar
 
-        var mealDate = moment(calEvent.start._d).format('MMMM Do[,] YYYY');
+        var mealDate = moment(calEvent.start._d).add(1, 'day').format('MMMM Do[,] YYYY');
         swal({
           title: 'Meal for ' + mealDate + ':',
           text: calEvent.title,
@@ -99,7 +141,7 @@ class Calendar extends React.Component {
         var dateSelected = moment(calEvent._d).add(1, 'day').format('MMMM Do'); //BUG: full calendar registers the wrong day on click. needed to get the selected date.
 
         context.setState({
-          date: moment(calEvent._d).format('YYYY-MM-DD')
+          date: moment(calEvent._d).add(1, 'day').format('YYYY-MM-DD')
         })
 
         swal.setDefaults({
@@ -175,8 +217,41 @@ class Calendar extends React.Component {
     });
   }
 
+  insertEvent() {
+    var endTime = function (time) {
+      var hours = time.slice(0,2);
+      if (hours === '23') {
+        hours = '00';
+      } else {
+        hours++;
+      }
+      return hours + time.slice(2);
+    }
+    var defaultEnd = endTime(this.state.mealTime);
+    var request = window.gapi.client.calendar.events.insert({
+      'calendarId': 'primary',
+      'end': {'dateTime': this.state.date + 'T' + defaultEnd, 'timeZone': 'America/Los_Angeles'},
+      'start': {'dateTime': this.state.date + 'T' + this.state.mealTime, 'timeZone': 'America/Los_Angeles'},
+      'summary': this.state.mealName,
+      'reminders': {
+        'useDefault': false,
+        'overrides': [{'method': 'popup', 'minutes': 30}]
+      },
+      'description': 'Enjoy your meal! - planEats',
+      'visibility': 'private'
+    });
+
+    request.execute(function(event) {
+      console.log('Event created: ' + event.htmlLink);
+      // appendPre('Event created: ' + event.htmlLink);
+    });
+  }
+
   handleNewEvent() {
     var context = this;
+
+    this.handleAuthClick();
+
     axios.defaults.headers.username = this.state.username;
     axios.post('/api/events', {
       username: this.state.username,
@@ -186,7 +261,8 @@ class Calendar extends React.Component {
     }).then(function() {
       console.log('event sent!')
       context.forceUpdate()
-    })
+    });
+
   }
 
   convertTime(secs) {
