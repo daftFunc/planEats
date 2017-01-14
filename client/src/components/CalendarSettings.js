@@ -153,10 +153,9 @@ class CalendarSettings extends React.Component {
               this.handleNewEvent();
             });
           }, function(dismiss) {
-            //TODO: logic - how can they both save the event and add to google calendar? look at chaining another modal on here
-            // if (dismiss === 'cancel') {
-            //   context.handleAuthClick();
-            // }
+            if (dismiss === 'cancel') {
+              context.handleAuthClick();
+            }
           })
         }, function () {
           swal.resetDefaults();
