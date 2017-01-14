@@ -1,23 +1,33 @@
-input[type="checkbox"] {
-    display:none;
-}
+
+/*input[type="checkbox"] {*/
+    /*display:none;*/
+/*}*/
 #grocerylist-box {
     overflow:auto;
-    height:200px;
+    height:100%;
+    width: 40%;
+    margin-left:auto;
+    margin-right:auto;
+    background:white;
+    border-radius: 10px;
+
 }
-input[type="checkbox"] + label span {
-    display:inline-block;
-    width:19px;
-    height:19px;
-    margin:-1px 4px 0 0;
-    vertical-align:middle;
-    background:url('images/unchecked.png') left top no-repeat;
-    cursor:pointer;
+
+.shop-list {
+
+    padding-left: 5%;
+    color: #5e79a5;
+    height:100%;
+
 }
-input[type="checkbox"]:checked + label span {
-    text-decoration:line-through;
-    background:url('images/checkbox.png') left top no-repeat;
+.checkbox-par {
+    padding-left: 0px;
 }
+.checkbox-par>li:nth-child(odd){
+    background: #F5F6F4;
+}​
+
+
 @media screen and (min-width: 768px) {
     #grocerylist-box{
         height:100%;

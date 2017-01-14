@@ -4,6 +4,7 @@ import './Shop.css';
 import Convert from 'convert-units';
 import spoonRecipes from '../data/shop.js'
 import moment from 'moment';
+import {Checkbox} from 'react-bootstrap';
 export default class Shop extends Component {
   constructor(props) {
     super(props);
@@ -180,12 +181,13 @@ export default class Shop extends Component {
     return (
 
       <div>
-        <h1 style={{textAlign:'center'}}>Shop</h1>
+
         <select value={this.state.freq} onChange={this.dropdownChange.bind(this)}>
           <option value='7'>For next week</option>
           <option value='31'>For next month</option>
         </select>
         <div id="grocerylist-box">
+          <h1 style={{textAlign:'center'}}>Shop</h1>
         <GroceryList groceryList={this.state.groceryList}
                      freq={this.state.freq}
                      addedItems={this.state.addedItems}
@@ -196,7 +198,8 @@ export default class Shop extends Component {
                                  toggleAdd={this.toggleAdd.bind(this)}
                                  handleAddItem={this.handleAddItem.bind(this)}
                                  itemAddedValue={this.state.itemAddedValue}
-                                 handleInputChange={this.handleInputChange.bind(this)}/>
+                                 handleInputChange={this.handleInputChange.bind(this)}
+                                  parent={this}/>
         </div>
       </div>
     );
@@ -204,11 +207,10 @@ export default class Shop extends Component {
 }
 
 
-var GroceryList = ({groceryList, freq, addedItems}) => (
+var GroceryList = ({groceryList, freq, addedItems, parent}) => (
 
   <div>
-    <ul style={{listStyleType:'none'}}>
-
+    <ul style={{listStyleType:'none'}} className="checkbox-par">
       {Object.keys(groceryList).map((key) => {
         var amount = '';
 
@@ -224,21 +226,26 @@ var GroceryList = ({groceryList, freq, addedItems}) => (
         }
 
         return (
-          <li className="item" id={key}>
-          <input type='checkbox'/>
-          <label htmlFor={key}>
-            <span></span>{amount + ' ' + key}
-          </label>
-          </li>
+
+            <li  id={key} className="shop-list">
+                <Checkbox style={{marginTop:'0',paddingTop:'10px'}}>
+                  <div >{amount + ' ' + key}</div>
+                </Checkbox>
+
+            </li>
         );
       })
       }
       {addedItems.map((element) => (
-        <li className="item">
-          <input type="checkbox" id={element} />
+        <li >
+          <div className="check">
+          <input clasName="check-shop" id={element} type="checkbox"  />
             <label htmlFor={element}>
-              <input type="checkbox" /><span />{element}
+
+              <input type="checkbox" className="check-shop" /><span />{element}
+
             </label>
+          </div>
         </li>
       ))}
     </ul>
