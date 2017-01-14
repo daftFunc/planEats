@@ -1,4 +1,7 @@
 
+/*input[type="checkbox"] {*/
+    /*display:none;*/
+/*}*/
 #grocerylist-box {
     overflow:auto;
     height:100%;
@@ -15,6 +18,7 @@
     padding-left: 5%;
     color: #5e79a5;
     height:100%;
+
 }
 .checkbox-par {
     padding-left: 0px;
@@ -22,6 +26,7 @@
 .checkbox-par>li:nth-child(odd){
     background: #F5F6F4;
 }​
+
 
 @media screen and (min-width: 768px) {
     #grocerylist-box{

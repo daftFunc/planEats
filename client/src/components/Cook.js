@@ -23,6 +23,7 @@ export default class Cook extends Component {
 
           console.log('recipe',recipeData.recipe);
           return [recipeData.name, recipeData.recipe.instructions, recipeData.recipe.image, recipeData.recipe.extendedIngredients];
+
         });
         console.log(instructions);
         this.setState({
@@ -86,6 +87,7 @@ var CookingInstruction = ({instructions}) => (
         </li>
       </p>
       ))}
+
   </ul>
 
 );
