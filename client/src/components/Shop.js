@@ -237,7 +237,7 @@ var GroceryList = ({groceryList, freq, addedItems}) => (
         <li className="item">
           <input type="checkbox" id={element} />
             <label htmlFor={element}>
-              <input type="checkbox" /><span />{element}
+              <input type="checkbox" className="check-shop" /><span />{element}
             </label>
         </li>
       ))}
