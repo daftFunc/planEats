@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import {connectProfile} from '../auth';
 import './MealPlanner.css';
 import { FormControl, Button } from 'react-bootstrap';
+import axios from 'axios';
 
-import axios from 'axios'
 class MealPlanner extends Component {
   constructor() {
     super();
     this.state = {
-      username: JSON.parse(localStorage.profile).email, //TODO: update to get user's ID in location
+      username: JSON.parse(localStorage.profile).email,
       mealName: '',
       recipes: [],
       clicked: [],

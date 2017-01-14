@@ -36,7 +36,6 @@ lock.on('authenticated', authResult => {
     setProfile(profile);
     browserHistory.push(getNextPath());
     clearNextPath();
-    console.log(JSON.parse(localStorage.profile));
     axios.post('/api/users', {username: JSON.parse(localStorage.profile).email});
   });
 });
