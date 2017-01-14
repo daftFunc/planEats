@@ -1,8 +1,27 @@
 
 #grocerylist-box {
     overflow:auto;
-    height:200px;
+    height:100%;
+    width: 40%;
+    margin-left:auto;
+    margin-right:auto;
+    background:white;
+    border-radius: 10px;
+
 }
+
+.shop-list {
+
+    padding-left: 5%;
+    color: #5e79a5;
+    height:100%;
+}
+.checkbox-par {
+    padding-left: 0px;
+}
+.checkbox-par>li:nth-child(odd){
+    background: #F5F6F4;
+}​
 
 @media screen and (min-width: 768px) {
     #grocerylist-box{

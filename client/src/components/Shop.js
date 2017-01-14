@@ -181,12 +181,13 @@ export default class Shop extends Component {
     return (
 
       <div>
-        <h1 style={{textAlign:'center'}}>Shop</h1>
+
         <select value={this.state.freq} onChange={this.dropdownChange.bind(this)}>
           <option value='7'>For next week</option>
           <option value='31'>For next month</option>
         </select>
         <div id="grocerylist-box">
+          <h1 style={{textAlign:'center'}}>Shop</h1>
         <GroceryList groceryList={this.state.groceryList}
                      freq={this.state.freq}
                      addedItems={this.state.addedItems}
@@ -197,7 +198,8 @@ export default class Shop extends Component {
                                  toggleAdd={this.toggleAdd.bind(this)}
                                  handleAddItem={this.handleAddItem.bind(this)}
                                  itemAddedValue={this.state.itemAddedValue}
-                                 handleInputChange={this.handleInputChange.bind(this)}/>
+                                 handleInputChange={this.handleInputChange.bind(this)}
+                                  parent={this}/>
         </div>
       </div>
     );
@@ -205,11 +207,10 @@ export default class Shop extends Component {
 }
 
 
-var GroceryList = ({groceryList, freq, addedItems}) => (
+var GroceryList = ({groceryList, freq, addedItems, parent}) => (
 
   <div>
-    <ul style={{listStyleType:'none'}}>
-
+    <ul style={{listStyleType:'none'}} className="checkbox-par">
       {Object.keys(groceryList).map((key) => {
         var amount = '';
 
@@ -225,13 +226,13 @@ var GroceryList = ({groceryList, freq, addedItems}) => (
         }
 
         return (
-          <li className="item" id={key}>
-            <div className="checkbox-style">
-              <Checkbox>
-                <div className="shop-list">{amount + ' ' + key}</div>
-              </Checkbox>
-            </div>
-          </li>
+
+            <li  id={key} className="shop-list">
+                <Checkbox style={{marginTop:'0',paddingTop:'10px'}}>
+                  <div >{amount + ' ' + key}</div>
+                </Checkbox>
+
+            </li>
         );
       })
       }
