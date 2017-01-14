@@ -12,6 +12,7 @@ module.exports = {
   },
   recipe: {
     post: function(req,res) {
+      console.log("HERE I AM");
       var UserId;
       var RecipeId;
       controller.findUser(req.body.username)
