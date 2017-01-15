@@ -1,9 +1,6 @@
-.container {
-    display: flex-inline;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
+@font-face { font-family: Ailerons; src: url('font/Ailerons-Typeface.otf'); }
+
+h2 {
+    font-family: Ailerons;
 }
-
-
 

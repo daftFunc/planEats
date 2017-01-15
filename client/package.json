@@ -20,6 +20,7 @@
     "events": "^1.1.1",
     "express": "^4.14.0",
     "express-jwt": "^5.1.0",
+    "flexbox-react": "^4.1.0",
     "font-awesome": "^4.7.0",
     "fullcalendar": "^3.1.0",
     "google-auth-library": "^0.10.0",

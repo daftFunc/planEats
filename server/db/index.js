@@ -30,7 +30,6 @@ var MealsRecipes = db.define('MealsRecipes');
 var UsersMeals = db.define('UsersMeals');
 
  //Associations
-
 Recipe.sync();
 Users.sync()
   .then(() => {
