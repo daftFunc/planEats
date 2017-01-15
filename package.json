@@ -11,7 +11,7 @@
   "bugs": {
     "url": "https://github.com/daftFunc/planEats/issues"
   },
-  "homepage": "http://planEats.xyz"
+  "homepage": "http://planEats.xyz",
   "scripts": {
     "initialBuild": "cd server && npm install && cd ../client && npm install"
   }
