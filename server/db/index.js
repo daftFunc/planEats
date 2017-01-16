@@ -5,16 +5,19 @@ var db = new Sequelize('planeats', 'postgres', 'thesisEats', {
 
 // Model definitions
 var Recipe = db.define('Recipe', {
+  uniqueId: Sequelize.STRING,
   name: {type: Sequelize.STRING, unique: true},
   recipe: Sequelize.JSONB
 });
 
 var Meals = db.define('Meals', {
+  uniqueId: Sequelize.STRING,
   name: {type: Sequelize.STRING, unique: true},
   favorited: Sequelize.BOOLEAN
 });
 
 var Events = db.define('Events', {
+  uniqueId: Sequelize.STRING,
   title: Sequelize.STRING,
   start: Sequelize.STRING
 });
@@ -29,7 +32,9 @@ var UsersEvents = db.define('UsersEvents');
 var MealsRecipes = db.define('MealsRecipes');
 var UsersMeals = db.define('UsersMeals');
 
-// Associations
+
+ //Associations
+
 Recipe.sync();
 Users.sync()
   .then(() => {

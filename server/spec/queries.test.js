@@ -100,10 +100,13 @@ describe('Database Queries', function()  {
   describe ( "Recipes", () => {
     it ( 'should add recipe', (done)=> {
       controller.addRecipe(recipeName[0], recipe[0])
-        .then(( recipeData ) => {
+        .spread(( recipeData, created ) => {
+          if(created){
+            console.error("already exists");
+          }
           expect(recipeData.name).to.equal(recipeName[0]);
           expect(recipeData.recipe.ingredients).to.equal(recipe[0].ingredients);
-          console.log("THIS IS ID",recipeData.id)
+          console.log("THIS IS ID",recipeData)
           return controller.addJoinTable('User','Recipe', 1, recipeData.id);
         })
         .then(( join ) => {
@@ -112,7 +115,7 @@ describe('Database Queries', function()  {
           return controller.addRecipe(recipeName[1], recipe[1]);
 
         })
-        .then(( recipeData ) => {
+        .spread(( recipeData, created ) => {
           expect(recipeData.name).to.equal(recipeName[1]);
           expect(recipeData.recipe.ingredients).to.equal(recipe[1].ingredients);
           return controller.addJoinTable('User','Recipe', 1, recipeData.id);
@@ -142,9 +145,10 @@ describe('Database Queries', function()  {
   describe ( "Meals", () => {
     it('should add a meal to the database with a recipe', (done) => {
       controller.addMeal("Sausage and Chips")
-        .then((meal)=>{
-          expect(meal[0].dataValues.name).to.equal('Sausage and Chips');
-          MealId = meal[0].dataValues.id;
+        .spread((meal)=>{
+          console.log("HERE IS MEAL",meal);
+          expect(meal.dataValues.name).to.equal('Sausage and Chips');
+          MealId = meal.dataValues.id;
           expect(MealId).to.equal(1);
           return controller.addJoinTable('User', 'Meal', MealId, 1)
         })
@@ -170,7 +174,7 @@ describe('Database Queries', function()  {
     var mealTime = '07:15:00';
     it('should add an Event to the database with a meal id', (done)=>{
       controller.addEvent(eventName,mealTime,1)
-        .then((events)=>{
+        .spread((events)=>{
           expect(events.get('title')).to.equal(eventName);
           expect(events.get('start')).to.equal(mealTime);
           var EventId = events.get('id');

@@ -1,100 +1,153 @@
 var request = require('supertest');
 var expect = require('chai').expect;
-var app = require('../server');
 
-// request = request('http://localhost:3001');
+request = request('http://localhost:3001');
+describe('Server routes',function() {
 
-describe('Recipe routes', function() {
-   describe('GET /recipe', function() {
-    it('Responds with a recipe', function(done) {
-      request(app)
-        .get('/recipe')
-        .expect('Content-Type', 'text/html; charset=utf-8')
-        .expect(201)
-        .end(function(err, res) {
-          done();
-        });
+  describe('User routes', function () {
+    describe('POST /users', function () {
+      it('Returns 201', function (done) {
+        request
+          .post('/api/users')
+          .field('username', 'Rick')
+          .expect(201)
+          .end(function (err, res) {
+            if (err) {
+              console.log(res.body)
+              throw err;
+            }else {
+              done();
+            }
+
+          })
+
+      });
     });
   });
-  describe('POST /recipe', function() {
-    it('Returns 201', function(done) {
-      request(app)
-        .post('/recipe')
+  describe('POST /recipe', function () {
+    it('Returns 201', function (done) {
+      request
+        .post('/api/recipe')
+        .field('username', 'Rick')
         .field('name', 'Salad')
-        .field('recipe', '{ingredients: ["Lettuce", "Dressing"], time: 15, servings: 2, directions: "Toss and serve", nutrition: "0 calories"}')
+        .field('recipe', '{\
+          "name":"Name of recipe",\
+          "ingredients": ["Lettuce", "Dressing"],\
+          "time": 15,\
+          "servings": 2,\
+          "directions": "Toss and serve",\
+          "nutrition": "0 calories"\
+        }')
         .expect(201)
-        .end(function(err, res) {
-          done();
-        });
+        .end(function (err, res) {
+          if (err) {
+            console.log(res.body);
+            throw err;
+          } else {
+            done();
+          }
+
+        })
+
     });
   });
-});
 
+  describe('Recipe routes', function () {
+    describe('GET /recipe', function () {
+      it('Responds with a recipe', function (done) {
+        request
+          .get('/api/recipe')
+          .field('username','Rick')
+          .expect(200)
+          .end(function (err, res) {
+            if (err) {
+              console.log(res.body)
+              throw err;
+            } else {
+              done();
+            }
+          })
 
-describe('Meal routes', function() {
-  describe('GET /meals', function() {
-    it('Responds with a meal', function(done) {
-      request(app)
-        .get('/meals')
-        .expect('Content-Type', 'text/html; charset=utf-8')
-        .expect(201)
-        .end(function(err, res) {
-          done();
-        });
+      });
     });
   });
-  describe('POST /meals', function() {
-    it('Returns 201', function(done) {
-      request(app)
-        .post('/meals')
+
+  describe('POST /meals', function () {
+    it('Returns 201', function (done) {
+      request
+        .post('/api/meals')
+        .field('username','Rick')
         .field('name', 'Pizza and Salad')
-        .field('favorited', 'false')
+        .field('recipe', [0])
         .expect(201)
-        .end(function(err, res) {
-          done();
-        });
+        .end(function (err, res) {
+          if (err) {
+            console.log(res.body)
+            throw err;
+          } else {
+            done();
+          }
+        })
+
     });
   });
-});
 
+  describe('Meal routes', function () {
+    describe('GET /meals', function () {
+      it('Responds with a meal', function (done) {
+        request
+          .get('/api/meals')
+          .field('username','Rick')
+          .expect(200)
+          .end(function (err, res) {
+            if (err) {
+              console.log(res.body)
+              throw err;
+            } else {
+              done();
+            }
+          })
 
-describe('Event routes', function() {
-  describe('GET /events', function() {
-    it('Responds with an event', function(done) {
-      request(app)
-        .get('/events')
-        .expect('Content-Type', 'text/html; charset=utf-8')
-        .expect(201)
-        .end(function(err, res) {
-          done();
-        });
+      });
     });
   });
-  describe('POST /events', function() {
-    it('Returns 201', function(done) {
-      request(app)
-        .post('/events')
+
+  describe('POST /events', function () {
+    it('Returns 201', function (done) {
+      request
+        .post('/api/events')
+        .field('username','Rick')
         .field('meal_id', '1')
         .field('meal_time', '7:05')
         .expect(201)
-        .end(function(err, res) {
-          done();
-        });
+        .end(function (err, res) {
+          if (err) {
+            console.log(res.body)
+            throw err;
+          } else {
+            done();
+          }
+        })
+
     });
   });
-});
 
-
-describe('User routes', function() {
-  describe('POST /users', function() {
-    it('Returns 201', function(done) {
-      request(app)
-        .post('/users')
-        .field('username', 'Rick')
-        .expect(201)
-        .end(function(err, rest) {
-          done();
-        });
+  describe('Event routes', function () {
+    describe('GET /events', function () {
+      it('Responds with an event', function (done) {
+        request
+          .get('/api/events')
+          .field('username','Rick')
+          .expect(200)
+          .end(function (err, res) {
+            if (err) {
+              console.log(res.body)
+              throw err;
+            } else {
+              done();
+            }
+          })
+      });
     });
   });
 });

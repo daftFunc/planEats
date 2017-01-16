@@ -12,16 +12,22 @@ module.exports = {
   },
   recipe: {
     post: function(req,res) {
+
       var UserId;
       var RecipeId;
       controller.findUser(req.body.username)
         .then(function(user){
           UserId = user.dataValues.id;
-          return controller.addRecipe(req.body.name, req.body.recipe)
+          var uniqueKey = req.body.username + req.body.name;
+          return controller.addRecipe(req.body.name, req.body.recipe, uniqueKey);
         })
-        .then(function(recipe){
-          RecipeId = recipe.get('id');
-          return controller.addJoinTable('User','Recipe', UserId, RecipeId)
+        .spread(function(recipe, created){
+          if(!created) {
+            throw new Error("Recipe already exists for this user");
+          } else {
+            RecipeId = recipe.get('id');
+            return controller.addJoinTable('User', 'Recipe', UserId, RecipeId)
+          }
         })
         .then(function(join){
           res.sendStatus(201);
@@ -29,7 +35,7 @@ module.exports = {
         }).catch(function(error){
         console.error(error);
         console.error('recipe error',error);
-        res.sendStatus(404);
+        res.status(404).send(error);
       });
     },
     get: function(req,res) {
@@ -49,11 +55,15 @@ module.exports = {
       controller.findUser(req.body.username)
         .then(function (user) {
           UserId = user.dataValues.id;
-          return controller.addMeal(req.body.name)
+          return controller.addMeal(req.body.name, req.body.username+req.body.name)
         })
-        .then(function (meal) {
-          MealId = meal[0].dataValues.id;
-          return controller.addJoinTable('User', 'Meal', UserId, MealId)
+        .spread(function (meal, created) {
+          MealId = meal.dataValues.id;
+          if(!created){
+            throw new Error("Meal name already exists for this user");
+          }else {
+            return controller.addJoinTable('User', 'Meal', UserId, MealId)
+          }
         })
         .then(function (join) {
           return module.exports.joinRecipesToMeal(recipeArr, recipeArr.length - 1,MealId)
@@ -65,7 +75,7 @@ module.exports = {
         .catch(function (error) {
           console.error(error);
           console.error('Meal error', error);
-          res.sendStatus(404);
+          res.send(304).send(error);
         });
     },
     get: function (req, res) {
@@ -88,20 +98,24 @@ module.exports = {
       var EventId;
       controller.findUser(req.body.username)
         .then(function (user) {
+          console.log(user);
           UserId = user.dataValues.id;
-          return controller.addEvent(req.body.title, req.body.start,req.body.meal_id)
+          return controller.addEvent(req.body.title, req.body.start,req.body.meal_id,req.body.username+req.body.start)
         })
-        .then(function (events) {
-          EventId = events.get('id');
-          return controller.addJoinTable('User', 'Event', UserId, EventId);
+        .spread(function (events, created) {
+          if(!created) {
+            throw new Error("Event already exists for this user");
+          } else {
+            EventId = events.get('id');
+            return controller.addJoinTable('User', 'Event', UserId, EventId);
+          }
         })
         .then(function (join) {
           res.sendStatus(201);
           console.log('Event created!', join);
         }).catch(function (error) {
-        console.error(error);
         console.error('Event error', error);
-        res.sendStatus(404);
+        res.status(304).send(error);
       });
     },
     get: function(req,res) {

@@ -53,15 +53,16 @@ module.exports = {
     return db[reference].findAll({where:{$or:refData}});
   },
 
-  addRecipe: function(name,recipe) {
-    return db.Recipe.create({
+  addRecipe: function(name,recipe, uniqueKey) {
+
+    return db.Recipe.findOrCreate({where:{uniqueId:uniqueKey}, defaults:{
       name: name,
       recipe: recipe
-    });
+    }});
   },
 
-  addMeal: function(name) {
-    return db.Meals.findOrCreate({where:{name:name}, defaults:{
+  addMeal: function(name, uniqueKey) {
+    return db.Meals.findOrCreate({where:{uniqueId:uniqueKey}, defaults:{
       name: name,
       favorited: false
     }});
@@ -71,12 +72,12 @@ module.exports = {
     return db.Meals.findAll({where:{id:id}});
   },
 
-  addEvent: function(name, meal_time, meal_id) {
-    return db.Events.create({
+  addEvent: function(name, meal_time, meal_id, uniqueKey) {
+    return db.Events.findOrCreate({where:{uniqueId:uniqueKey}, defaults:{
       title: name,
       start: meal_time,
       MealId: meal_id
-    })
+    }})
   },
 
   addJoinTable(Join1, Join2, id1, id2) {

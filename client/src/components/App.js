@@ -18,7 +18,6 @@ import NewRecipe from './NewRecipe';
 class App extends Component {
   render() {
     return (
-
       <Router history={browserHistory}>
         <Route component={Nav}>
           <Route path="/" component={Home} />
