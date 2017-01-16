@@ -23,8 +23,7 @@ module.exports = {
         })
         .spread(function(recipe, created){
           if(!created) {
-            res.status(301).send("Recipe already exists for this user");
-            throw new Error("Event already exists");
+            throw new Error("Recipe already exists for this user");
           } else {
             RecipeId = recipe.get('id');
             return controller.addJoinTable('User', 'Recipe', UserId, RecipeId)
@@ -36,7 +35,7 @@ module.exports = {
         }).catch(function(error){
         console.error(error);
         console.error('recipe error',error);
-        res.sendStatus(404);
+        res.status(404).send(error);
       });
     },
     get: function(req,res) {
@@ -61,8 +60,7 @@ module.exports = {
         .spread(function (meal, created) {
           MealId = meal.dataValues.id;
           if(!created){
-            res.status(304).send("Meal with this name already exists for this user")
-            throw new Error("Event already exists");
+            throw new Error("Meal name already exists for this user");
           }else {
             return controller.addJoinTable('User', 'Meal', UserId, MealId)
           }
@@ -77,7 +75,7 @@ module.exports = {
         .catch(function (error) {
           console.error(error);
           console.error('Meal error', error);
-          res.sendStatus(404);
+          res.send(304).send(error);
         });
     },
     get: function (req, res) {
@@ -105,9 +103,8 @@ module.exports = {
           return controller.addEvent(req.body.title, req.body.start,req.body.meal_id,req.body.username+req.body.start)
         })
         .spread(function (events, created) {
-          if(created) {
-            res.status(304).send("Event with this title already exists for this user")
-            throw new Error("Event already exists");
+          if(!created) {
+            throw new Error("Event already exists for this user");
           } else {
             EventId = events.get('id');
             return controller.addJoinTable('User', 'Event', UserId, EventId);
@@ -117,9 +114,8 @@ module.exports = {
           res.sendStatus(201);
           console.log('Event created!', join);
         }).catch(function (error) {
-        console.error(error);
         console.error('Event error', error);
-        res.sendStatus(404);
+        res.status(304).send(error);
       });
     },
     get: function(req,res) {

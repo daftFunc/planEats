@@ -20,7 +20,7 @@ const lock = new Auth0Lock(
   process.env.REACT_APP_AUTH0_CLIENT_ID,
   process.env.REACT_APP_AUTH0_DOMAIN, {
     auth: {
-      redirectUrl: `${window.location.origin}${LOGIN_ROUTE}`,
+      redirectUrl: `${window.location.origin}${ROOT_ROUTE}`,
       responseType: 'token'
     }
   }
