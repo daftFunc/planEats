@@ -1,10 +1,10 @@
 import React, {Component, Link} from 'react';
 import {connectProfile} from '../auth';
 import './RecipeBook.css';
-import { FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, Button, FieldGroup } from 'react-bootstrap';
 import axios from 'axios';
 import FontAwesome from 'react-fontawesome';
-
+import noImg from '../../public/noImg.jpg'
 
 class NewRecipe extends Component {
   constructor() {
@@ -18,7 +18,8 @@ class NewRecipe extends Component {
       cookTime: null,
       instructions: null,
       ingredientArr: [],
-      instructionArr: []
+      instructionArr: [],
+      imageUpload: null
     }
   }
 
@@ -30,7 +31,7 @@ class NewRecipe extends Component {
       .then(function(recipes) {
       //recipes.data[0] is an object holding a Recipes array. Recipes array has all of the user's recipe objects
       context.setState({
-        recipes: recipes.data[0].Recipes
+        recipes: recipes.data[0].Recipes || []
       })
     })
   }
@@ -52,11 +53,18 @@ class NewRecipe extends Component {
     // var context = this;
     // event.preventDefault();
     /*on submit, data needs to be updated so that it renders in the recipe book (send to recipes array)*/
+    var img = {
+      data_uri: this.state.data_uri,
+      filename: this.state.filename,
+      filetype: this.state.filetype
+    }
+
     var newRecipe = {
       ingredients: this.state.ingredientArr,
       prepTime: this.state.prepTime,
       cookTime: this.state.cookTime,
-      instructions: this.state.instructionArr
+      instructions: this.state.instructionArr,
+      image: img || noImg
     }
 
     axios.defaults.headers.username = this.state.username;
@@ -64,6 +72,8 @@ class NewRecipe extends Component {
       username: this.state.username,
       name: this.state.recipeName,
       recipe: newRecipe
+    }, function(posted) {
+      console.log(posted)
     })
 
     this.setState({
@@ -103,6 +113,21 @@ class NewRecipe extends Component {
         instructions: ''
       });
     }
+  }
+
+  handleFile(e) {
+    const reader = new FileReader();
+    const file = e.target.files[0];
+
+    reader.onload = (upload) => {
+      this.setState({
+        data_uri: upload.target.result,
+        filename: file.name,
+        filetype: file.type
+      });
+    };
+
+    reader.readAsDataURL(file);
   }
 
   render() {
@@ -158,6 +183,14 @@ class NewRecipe extends Component {
                 onChange={this.handleChange.bind(this, 'instructions')}
                 placeholder="Instructions"
               />
+
+              <FormControl
+                id="imageUpload"
+                type="file"
+                label="File"
+                onChange={this.handleFile.bind(this)}
+                help="OPTIONAL: upload an image of your dish."
+              />
               <Button type="submit" onClick={this.handleSubmit.bind(this)}>Submit</Button>
             </FormGroup>
         </form>
@@ -167,4 +200,4 @@ class NewRecipe extends Component {
   }
 }
 
-export default connectProfile(NewRecipe);
+export default NewRecipe;

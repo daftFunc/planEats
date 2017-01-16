@@ -11,6 +11,11 @@ html::-webkit-scrollbar-thumb {
   outline: 1px solid slategrey;
 }
 
+.RBcontainer {
+  display: flex;
+  justify-content: center;
+}
+
 .recipeList {
   padding-left: 0px;
 }
@@ -27,17 +32,13 @@ html::-webkit-scrollbar-thumb {
 }​
 
 .recipeBook {
-  display: inline-block;
-  text-align: left;
-}
-
-.recipeBook {
   overflow: auto;
   background: white;
   border-radius: 10px;
-  margin: 0 auto;
-  height: 600px;
-  width: 400px;
+  height: 70rem;
+  width: 70rem;
+  display: flex;
+  text-align: left;
 }
 
 input:-webkit-autofill {
@@ -52,6 +53,9 @@ input:-webkit-autofill {
 /*#ingredients{
   float: left;
 }*/
+.recipeListContainer {
+  width: 70em;
+}
 
 .plusSign{
   font-size: 20px;
@@ -75,4 +79,5 @@ input:-webkit-autofill {
 #createARecipe {
   float: right;
   margin: 0 auto;
+  width: 100%;
 }

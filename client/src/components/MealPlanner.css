@@ -1,15 +1,49 @@
+.MPcontainer{
+  display: flex;
+  justify-content: center;
+}
+
+.MPHeaderText{
+  font-size: 1.5rem;
+  text-align: center;
+}
+
 li {
   list-style: none;
 }
 
-.addNew {
-  width: 30%;
-}
-
-.recipes {
-  width: 50%;
+#newMealForm {
+  padding: 10px 0;
+  text-align: left;
 }
 
 .mealItems {
+  padding: 1px;
+}
+
+.headerMP {
+  width: 30rem;
   padding: 5px;
+}
+
+.mealItems {
+  list-style: none;
+  padding: 10px;
+  text-decoration: underline;
+  color: #5e79a5;
+  /*display: inline-flex;*/
+}
+
+#mealPlanner {
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+.recipeBookML {
+  /*overflow: auto;*/
+  background: white;
+  border-radius: 10px;
+  height: 70rem;
+  width: 70rem;
+  display: flex;
 }
