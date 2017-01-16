@@ -14,7 +14,6 @@ import MealPlanner from './MealPlanner';
 import RecipeSearch from './RecipeSearch';
 import RecipeSearchResult from './RecipeSearchResult';
 import NewRecipe from './NewRecipe';
-import GoogleAuth from './GoogleAuth';
 
 class App extends Component {
   render() {
@@ -36,7 +35,6 @@ class App extends Component {
             <Route path="/recipeSearchResult" component={RecipeSearchResult} />
             <Route path="/meals" component={MealPlanner} />
             <Route path="/eat" component={Cook} />
-            <Route path="/auth" component={GoogleAuth} />
 
           </Route>
         </Route>
