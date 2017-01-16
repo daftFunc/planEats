@@ -1,7 +1,7 @@
 var controller = require('./../controllers');
 var model = require('./../model')
 var router = require('express').Router();
-
+var curl = require('curlrequest');
 
 router.get('/', function(req, res) {
   res.sendfile('../client/build/');
@@ -24,5 +24,14 @@ router.route('/users')
   .post(model.user.post);
 router.route('/getEventRecipes')
   .get(model.getRecipesFromEvents);
+
+router.route('/searchRestaurants')
+  .get(function(req, res) {
+    curl.request({url: 'https://api.eatstreet.com/publicapi/v1/restaurant/search?method=both&street-address=5628+Sabetha+Way+Plano+TX', headers: {'X-Access-Token': 'cc02e93d4e63df1f'}}, function (err, data) {
+      data = JSON.parse(data);
+      // console.log(data);
+      res.send(data);
+    });
+  });
 
 module.exports = router;
