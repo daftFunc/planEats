@@ -53,7 +53,13 @@ class Delivery extends Component {
           {this.state.restaurants.map((restaurant) => {
             return (
               <div>
-                <li>{restaurant.name}</li>
+                <ol>
+                  <img src={restaurant.logoUrl} width='150' height='150'></img>
+                  <li>{restaurant.name}</li>
+                  <a href={restaurant.url}>Visit Website</a>
+                  <li>{restaurant.streetAddress}</li>
+                  <li>{restaurant.phone}</li>
+                </ol>
               </div>
               );
           })}
