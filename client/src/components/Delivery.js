@@ -33,13 +33,27 @@ class Delivery extends Component {
       });
   }
 
+  findDay() {
+    var week = {
+      0: 'Sunday',
+      1: 'Monday',
+      2: 'Tuesday',
+      3: 'Wednesday',
+      4: 'Thursday',
+      5: 'Friday',
+      6: 'Saturday'
+    }
+    var today = new Date(Date.now());
+    return week[today.getDay()];
+  }
+
   render() {
     return (
       <div classname='deliveryContainer'>
         <div>
           <div id='delivery'>
-            <h1>No worries!</h1>
-            <h4>Find a restaurant</h4>
+            <h1>No time? No worries!</h1>
+            <h4>Search for restaurants</h4>
           </div>
         </div>
         <form id='delivery' onSubmit={this.handleSearch.bind(this)}>
@@ -47,18 +61,17 @@ class Delivery extends Component {
           <input id='button' type='submit' value='Search' onSubmit={this.handleSearch.bind(this)}></input>
         </form>
         <div id='delivery'>
-          <h4>Food near you</h4>
+          <h4>Near you</h4>
           {this.state.restaurants.map((restaurant) => {
             return (
               <div>
-                <ol>
                   <img src={restaurant.logoUrl} width='150' height='150'></img>
                   <li>{restaurant.name}</li>
                   <a href={restaurant.url}>View on EatStreet!</a>
-                  <li>Hours Today: {restaurant.hours.Monday}</li>
+                  <li>Hours Today: {restaurant.hours[this.findDay()]}</li>
                   <li>{restaurant.streetAddress}</li>
                   <li>{restaurant.phone}</li>
-                </ol>
+                  <hr></hr>
               </div>
               );
           })}
