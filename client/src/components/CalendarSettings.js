@@ -87,7 +87,7 @@ class CalendarSettings extends React.Component {
       },
 
       eventClick: function(calEvent, jsEvent, view){
-
+        var eventId = calEvent.id;
         var mealDate = moment(calEvent.start._d).add(1, 'day').format('MMMM Do[,] YYYY');
         swal({
           title: 'Meal for ' + mealDate + ':',
@@ -99,9 +99,7 @@ class CalendarSettings extends React.Component {
         })
           .then(function(toDelete) {
             /*DELETE*/
-            var eventId = calEvent.id
             alert('event would be deleted')
-
             //context.deleteEvent(eventId)
           }, function(toEdit) {
             /*EDIT*/
