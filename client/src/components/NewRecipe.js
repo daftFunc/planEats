@@ -4,7 +4,11 @@ import './RecipeBook.css';
 import { FormGroup, ControlLabel, FormControl, Button, FieldGroup } from 'react-bootstrap';
 import axios from 'axios';
 import FontAwesome from 'react-fontawesome';
-import noImg from '../../public/noImg.jpg'
+import noImg from '../../public/noImg.jpg';
+import request from 'superagent';
+import ReactDOM from 'react-dom';
+import $ from 'jquery';
+import Dropzone from 'react-dropzone';
 
 class NewRecipe extends Component {
   constructor() {
@@ -19,7 +23,8 @@ class NewRecipe extends Component {
       instructions: null,
       ingredientArr: [],
       instructionArr: [],
-      imageUpload: null
+      imageUpload: '',
+      imageUrl: ''
     }
   }
 
@@ -52,19 +57,26 @@ class NewRecipe extends Component {
   handleSubmit(event) {
     // var context = this;
     // event.preventDefault();
-    /*on submit, data needs to be updated so that it renders in the recipe book (send to recipes array)*/
-    var img = {
-      data_uri: this.state.data_uri,
-      filename: this.state.filename,
-      filetype: this.state.filetype
-    }
+
+    /*TODO: update handling to include below instead of an instructions property
+      NEEDS:
+        1. form update to handle amt, unit and name
+        2. push in obj & push into extendedIngredients arr before posting
+    */
+    // extendedIngredients = []
+    // extendedIngredients.push({
+    //   name:(name of ingredient),
+    //   unit:(tsp, tbsp, etc),
+    //   amount:(numerical amount)
+    //   originalString: amount + unit + name},
+    // })
 
     var newRecipe = {
       ingredients: this.state.ingredientArr,
       prepTime: this.state.prepTime,
       cookTime: this.state.cookTime,
       instructions: this.state.instructionArr,
-      image: img || noImg
+      image: this.state.imageUrl || noImg
     }
 
     axios.defaults.headers.username = this.state.username;
@@ -115,19 +127,33 @@ class NewRecipe extends Component {
     }
   }
 
-  handleFile(e) {
-    const reader = new FileReader();
-    const file = e.target.files[0];
+  onImageDrop(files) {
+    this.setState({
+      imageUpload: files[0]
+    });
 
-    reader.onload = (upload) => {
-      this.setState({
-        data_uri: upload.target.result,
-        filename: file.name,
-        filetype: file.type
-      });
-    };
+    this.handleImageUpload(files[0]);
+  }
 
-    reader.readAsDataURL(file);
+  handleImageUpload(file) {
+    var context = this;
+    const CLOUDINARY_UPLOAD_PRESET='dfkrm5sc'
+    const CLOUDINARY_UPLOAD_URL='https://api.cloudinary.com/v1_1/djuydlfup/image/upload'
+
+    let upload = request.post(CLOUDINARY_UPLOAD_URL)
+                        .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+                        .field('file', file);
+
+    upload.end((err, response) => {
+      if (err) {
+        console.error('image post error!', err);
+      }
+      if (response.body.secure_url !== '') {
+        this.setState({
+          imageUrl: response.body.secure_url
+        });
+      }
+    });
   }
 
   render() {
@@ -184,13 +210,13 @@ class NewRecipe extends Component {
                 placeholder="Instructions"
               />
 
-              <FormControl
-                id="imageUpload"
-                type="file"
-                label="File"
-                onChange={this.handleFile.bind(this)}
-                help="OPTIONAL: upload an image of your dish."
-              />
+              <Dropzone
+                multiple={false}
+                accept="image/*"
+                onDrop={this.onImageDrop.bind(this)}>
+                <p>OPTIONAL: drag or click to upload an image of your dish!</p>
+              </Dropzone>
+
               <Button type="submit" onClick={this.handleSubmit.bind(this)}>Submit</Button>
             </FormGroup>
         </form>
