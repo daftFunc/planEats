@@ -16,7 +16,6 @@ class Delivery extends Component {
   }
 
   componentDidMount() {
-    console.log('1', this.state.restaurants);
   }
 
   handleChange(e) {
@@ -26,13 +25,12 @@ class Delivery extends Component {
   handleSearch(e) {
     e.preventDefault();
     // console.log('Input', this.state.searchValue);
-    axios.get('/api/searchRestaurants')
+    axios.post('/api/searchRestaurants', {
+      location: this.state.searchValue.split(' ').join('+')
+    })
       .then(res => {
         this.setState({restaurants: res.data.restaurants})
-        console.log('2', this.state.restaurants);
       });
-    // 5628 Sabetha Way Plano TX
-    // 5628+Sabetha+Way+Plano+TX
   }
 
   render() {
@@ -45,7 +43,7 @@ class Delivery extends Component {
           </div>
         </div>
         <form id='delivery' onSubmit={this.handleSearch.bind(this)}>
-          <input id='form' type='text' placeholder='Input address ex. 1600 Pennsylvania Ave, Washington, DC' onChange={this.handleChange.bind(this)}></input>
+          <input id='form' type='text' placeholder='Input address ex. 944 Market Street, San Franciso, CA' onChange={this.handleChange.bind(this)}></input>
           <input id='button' type='submit' value='Search' onSubmit={this.handleSearch.bind(this)}></input>
         </form>
         <div id='delivery'>
@@ -56,7 +54,8 @@ class Delivery extends Component {
                 <ol>
                   <img src={restaurant.logoUrl} width='150' height='150'></img>
                   <li>{restaurant.name}</li>
-                  <a href={restaurant.url}>Visit Website</a>
+                  <a href={restaurant.url}>View on EatStreet!</a>
+                  <li>Hours Today: {restaurant.hours.Monday}</li>
                   <li>{restaurant.streetAddress}</li>
                   <li>{restaurant.phone}</li>
                 </ol>
