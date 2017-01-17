@@ -10,70 +10,29 @@ class Delivery extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      restaurants: null,
+      restaurants: [],
       searchValue: null
     }
   }
 
   componentDidMount() {
-    // axios.defaults.headers.username = this.state.username;
-    // var config = {
-    //   headers: {'X-Access-Token': 'cc02e93d4e63df1f', 'Accept': 'application/JSON'}
-    // };
+    console.log('1', this.state.restaurants);
+  }
 
-    // window.ESApi.searchRestaurants({ 'street-address': '316 W. Washington Ave. Madison, WI' }, function(response) {
-    //     var address = response.address;
-    //     var restaurants = response.restaurants;
-    //     console.log(address, restaurants);
-    // });
-
-    // axios.get(`https://api.eatstreet.com/publicapi/v1/restaurant/search?method=both&street-address=5628+Sabetha+Way+Plano+TX?access-token={2b88de533594293f}`);
-    // , {
-    //   headers: {'X-Access-Token': '2b88de533594293f', 'Access-Control-Allow-Origin': '*', 'Access-Control-Expose-Headers': 'X-Access-Token'}
-    // }
-    // var url = 'https://api.eatstreet.com/publicapi/v1/restaurant/search?method=both&street-address=5628+Sabetha+Way+Plano+TX';
-    // fetch(url, {
-    //   method: 'GET',
-    //   headers: {'X-Access-Token': 'cc02e93d4e63df1f', 'Access-Control-Allow-Origin': '*', 'Access-Control-Expose-Headers': 'X-Access-Token'}
-    // })
-    //   .then(function(res) {
-    //     console.log(res);
-    //     // return res.json();
-    //   })
-    //   .then(function(data) {
-    //     console.log(data);
-    //   });
-    //   .then(function(res) {
-    //     console.log(res);
-        // this.setState({
-        //   restaurants: res.data.restaurants
-        // });
-      // })
-    //   .catch(function(err) {
-    //     console.log(err);
-    //   })
+  handleChange(e) {
+    this.setState({searchValue: e.target.value});
   }
 
   handleSearch(e) {
     e.preventDefault();
-  //   var config = {
-  //     headers: {'X-Access-Token': 'cc02e93d4e63df1f'}
-  //   };
-  //   axios.get('https://api.eatstreet.com/publicapi/v1/restaurant/search', config);
-    //   .then(function(res) {
-    //     console.log(res);
-    //     this.setState({
-    //       restaurants: res.data.restaurants
-    //     });
-    //   })
-    //   .catch(function(err) {
-    //     console.log(err);
-    //   })
-        window.ESApi.searchRestaurants({ 'street-address': '316 W. Washington Ave. Madison, WI' }, function(response) {
-        var address = response.address;
-        var restaurants = response.restaurants;
-        console.log(address, restaurants);
-    });
+    // console.log('Input', this.state.searchValue);
+    axios.get('/api/searchRestaurants')
+      .then(res => {
+        this.setState({restaurants: res.data.restaurants})
+        console.log('2', this.state.restaurants);
+      });
+    // 5628 Sabetha Way Plano TX
+    // 5628+Sabetha+Way+Plano+TX
   }
 
   render() {
@@ -86,12 +45,18 @@ class Delivery extends Component {
           </div>
         </div>
         <form id='delivery' onSubmit={this.handleSearch.bind(this)}>
-          <input id='form' type='text' placeholder='Input address ex. 1600 Pennsylvania Ave, Washington, DC'></input>
-          <input id='button' type='submit' value='Search'></input>
+          <input id='form' type='text' placeholder='Input address ex. 1600 Pennsylvania Ave, Washington, DC' onChange={this.handleChange.bind(this)}></input>
+          <input id='button' type='submit' value='Search' onSubmit={this.handleSearch.bind(this)}></input>
         </form>
         <div id='delivery'>
           <h4>Food near you</h4>
-          {this.state.restaurants}
+          {this.state.restaurants.map((restaurant) => {
+            return (
+              <div>
+                <li>{restaurant.name}</li>
+              </div>
+              );
+          })}
         </div>
       </div>
     )

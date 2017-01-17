@@ -29,7 +29,6 @@ router.route('/searchRestaurants')
   .get(function(req, res) {
     curl.request({url: 'https://api.eatstreet.com/publicapi/v1/restaurant/search?method=both&street-address=5628+Sabetha+Way+Plano+TX', headers: {'X-Access-Token': 'cc02e93d4e63df1f'}}, function (err, data) {
       data = JSON.parse(data);
-      // console.log(data);
       res.send(data);
     });
   });
