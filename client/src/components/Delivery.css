@@ -1,0 +1,14 @@
+#delivery {
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+#form {
+  width: 375px;
+  border-radius: 3px;
+}
+
+#button {
+  border-radius: 3px;
+  margin: 0 auto;
+}
