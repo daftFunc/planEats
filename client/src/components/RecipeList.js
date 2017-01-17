@@ -13,6 +13,7 @@ const RecipeList = ({recipes}) => {
       <ul className="recipeList">
         {recipes.map((recipe, i) => {return <li className="recipeLi" key={i}>{recipe.name}</li>})}
       </ul>
+      {/* {recipes.map((recipe, i) => {return <img src={recipe.recipe.image}/>})} */}
     </div>
   );
 };

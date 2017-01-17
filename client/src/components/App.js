@@ -14,6 +14,7 @@ import MealPlanner from './MealPlanner';
 import RecipeSearch from './RecipeSearch';
 import RecipeSearchResult from './RecipeSearchResult';
 import NewRecipe from './NewRecipe';
+require('dotenv').config();
 
 class App extends Component {
   render() {
