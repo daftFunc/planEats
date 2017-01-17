@@ -87,12 +87,75 @@ class CalendarSettings extends React.Component {
       },
 
       eventClick: function(calEvent, jsEvent, view){
+
         var mealDate = moment(calEvent.start._d).add(1, 'day').format('MMMM Do[,] YYYY');
         swal({
           title: 'Meal for ' + mealDate + ':',
           text: calEvent.title,
-          confirmButtonText: 'Back'
+          confirmButtonText: 'Delete event',
+          showCancelButton: true,
+          cancelButtonText: 'Edit event',
+          showCloseButton: true
         })
+          .then(function(toDelete) {
+            /*DELETE*/
+            var eventId = calEvent.id
+            alert('event would be deleted')
+
+            //context.deleteEvent(eventId)
+          }, function(toEdit) {
+            /*EDIT*/
+            console.log('edit')
+            if (toEdit === 'close') {
+              swal.close();
+            }
+            var eventId = calEvent.id;
+
+            swal.setDefaults({
+              showCancelButton: true,
+              animation: false,
+              progressSteps: ['1', '2']
+            });
+
+            var steps = [
+              {
+                title: 'Select a meal for ' + mealDate + ':',
+                input: 'select',
+                inputOptions: context.state.savedMeals,
+                confirmButtonText: 'Select Meal Time &rarr;'
+              },
+              {
+                title: 'What time would you like to eat?',
+                input: 'select',
+                inputOptions: time,
+                confirmButtonText: 'Save'
+              }
+            ]
+
+            swal.queue(steps).then(function (result) {
+              swal.resetDefaults()
+              swal({
+                title: 'All done!',
+                html:
+                '<pre> You want to have: ' +
+                result[0] + ' at ' + time[result[1]] +
+                '</pre>',
+                confirmButtonText: 'Lovely!'
+              }).then(function() {
+                //get user-selected data from fields
+                context.setState({
+                  mealName: result[0], //name of the meal
+                  mealTime: result[1], //time selected for the meal
+                  selectedMealId: context.state.savedMealIds[result[0]]
+                }, function(){
+                  alert('event would be edited');
+                  //context.editEvent();
+                });
+              });
+            }, function () {
+              swal.resetDefaults();
+            });
+          })
       },
 
       dayClick: function(calEvent, jsEvent, view) {
@@ -120,14 +183,6 @@ class CalendarSettings extends React.Component {
             input: 'select',
             inputOptions: time //using half hour count
           }
-        //   {
-        //     title: 'Would you like to link your Google Calendar?',
-        //     type: 'info',
-        //     html: '<div id="authorize-div" style="display: none">' +
-        //       '<span>Authorize access to Google Calendar API</span>' +
-        //       '<button id="authorize-button" onclick="handleAuthClick(event)">Authorize</button>' +
-        //     '</div>'
-        //   }
         ];
 
         swal.queue(steps).then(function (result) {
@@ -138,10 +193,7 @@ class CalendarSettings extends React.Component {
             '<pre> You want to have: ' +
             result[0] + ' at ' + time[result[1]] +
             '</pre>',
-            confirmButtonText: 'Lovely!',
-            showCancelButton: true,
-            cancelButtonText: 'Add to Google Calendar',
-            showCancelButton: true
+            confirmButtonText: 'Lovely!'
           }).then(function() {
             //get user-selected data from fields
             context.setState({
@@ -266,13 +318,13 @@ class CalendarSettings extends React.Component {
       .then(function(events) {
         // console.log('events', events.data[0].Events);
         if (events) {
-          var holder = []
+          var holder = [];
           events.data[0].Events.forEach((val) => {
-            holder.push(val)
+            holder.push(val);
           })
           context.setState({
             events: holder
-          })
+          });
         }
       });
   }
@@ -295,6 +347,33 @@ class CalendarSettings extends React.Component {
         });
       });
   }
+
+  editEvent(id) {
+    var context = this;
+    var data = {
+      id: id,
+      username: this.state.username,
+      title: this.state.mealName,
+      start: this.state.date + 'T' + this.state.mealTime,
+      meal_id: this.state.selectedMealId
+    };
+
+    axios.put('/api/events', data)
+      .then(function(){
+        context.getEventsOnLoad();
+      });
+  }
+
+  deleteEvent(id) {
+    var context = this;
+
+    axios.delete('/api/events', {
+      id: id
+    }, function(){
+      context.getEventsOnLoad();
+    });
+  }
+
   render() {
     return (
       <div ref="calendar"></div>

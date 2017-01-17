@@ -99,7 +99,8 @@ class MealPlanner extends Component {
       context.setState({
         mealName: '',
         clicked: [],
-        mealTime: ''
+        mealTime: '',
+        clickedName: []
       });
     });
   }
