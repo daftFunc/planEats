@@ -10,5 +10,4 @@ COPY client/build /usr/src/app/client/build
 EXPOSE 3001
 CMD [ "npm", "start" ]
 
-
 # Work in progress

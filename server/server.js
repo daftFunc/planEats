@@ -4,6 +4,9 @@ var express = require('express'),
     parser = require('body-parser'),
     helmet = require('helmet'),
     router = require('./config/routes');
+    bodyParse = require('body-parser');
+    path = require('path');
+
 // Create new app
 var app = express();
 // Set port to process.env.PORT or 3001
@@ -21,6 +24,9 @@ app.use(express.static('../client/build'));
 
 // API route
 app.use('/api', router);
+app.get('*', function(request, response){
+  response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'))
+});
 
 // Confirm server is running
 app.listen(app.get('port'), () => {
