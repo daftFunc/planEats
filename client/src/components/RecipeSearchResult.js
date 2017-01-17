@@ -14,7 +14,7 @@ const RecipeSearchResult = ({recipe, addToRecipeBook, displayRecipeSummary}) => 
         Ready in {recipe.readyInMinutes} minutes!
       </div>
       <div className="recipeImage item">
-        <Image src={recipe.image} responsive alt={recipe.title}></Image>
+        <Image src={`https://spoonacular.com/recipeImages/${recipe.id}-636x393`} responsive alt={recipe.title}></Image>
       </div>
       <div className="recipeButtons item">
         <ButtonToolbar bsSize="large">

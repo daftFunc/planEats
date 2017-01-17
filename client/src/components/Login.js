@@ -15,8 +15,8 @@ class Login extends Component {
   render() {
     return (
       <div className="Login">
-        <a className="Login-loginButton" onClick={() => login()}>Log In with Auth0</a>
-      </div>
+      <a className="Login-loginButton" onClick={() => login()}>Log In with Auth0</a>
+    </div>
     );
   }
 }

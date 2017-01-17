@@ -49,6 +49,7 @@ class EditProfile extends Component {
             </div>
           </fieldset>
         </form>*/}
+        <a target="_blank" href="http://privacypolicies.com/privacy/view/obtS7k">Privacy policy</a>
       </div>
     );
   }

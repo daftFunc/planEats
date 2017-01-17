@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import {connectProfile} from '../auth';
 import {Link} from 'react-router';
 // import logo from './images/planEatsLogo.png'
-import recipe from './images/white_notebook.png'
-import calendar from './images/white_calendar.png'
-import cart from './images/white_shop.png'
-import eat from './images/white_cook.png'
+import recipe from './images/white_notebook.png';
+import calendar from './images/white_calendar.png';
+import cart from './images/white_shop.png';
+import eat from './images/white_cook.png';
+import {login} from '../auth';
 
 import './Home.css';
 
@@ -52,7 +53,9 @@ class Home extends Component {
             <div className="menu-text eatA">Cook</div>
           </div>
         </div>
-
+        <div className="Login">
+          {!this.props.profile ? <a className="Login-loginButton" onClick={() => login()}>Log In with Auth0</a> : <h3>Hello {this.props.profile.name}!</h3>}
+        </div>
       </div>
     );
   }
