@@ -26,7 +26,9 @@ router.route('/users')
   .post(model.user.post);
 router.route('/getEventRecipes')
   .get(model.getRecipesFromEvents);
-
+router.route('/shoppinglist')
+  .get(model.shoppinglist.get)
+  .put(model.shoppinglist.put)
 router.route('/searchRestaurants')
   .post(function(req, res) {
     curl.request({url: 'https://api.eatstreet.com/publicapi/v1/restaurant/search?method=both&street-address=' + req.body.location, headers: {'X-Access-Token': 'cc02e93d4e63df1f'}}, function (err, data) {

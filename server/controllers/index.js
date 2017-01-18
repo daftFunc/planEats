@@ -28,7 +28,14 @@ module.exports = {
   addUser: function(user) {
     return db.Users.findOrCreate({where: {username:user}});
   },
-
+  getShoppingList: function(UserId) {
+    console.log('get shopping list user', UserId);
+    return db.ShoppingList.findOrCreate({where:{UserId:UserId}, defaults:{list: {}}})
+  },
+  updateShoppingList: function(newList, UserId) {
+    console.log("newList",newList);
+    return db.ShoppingList.update({list:newList}, {where:{UserId:UserId}})
+  },
   getAllJoin: function(reference, refData,type) {
     //console.log(type);
     var col1     = columns[type].col1;

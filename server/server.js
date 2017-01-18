@@ -24,10 +24,10 @@ app.use(express.static('../client/build'));
 
 // API route
 app.use('/api', router);
+//remember to change back
 app.get('*', function(request, response){
   response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'))
 });
-
 // Confirm server is running
 app.listen(app.get('port'), () => {
   console.log(`Find the server at: http://localhost:${app.get('port')}/`);

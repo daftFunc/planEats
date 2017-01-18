@@ -4,6 +4,10 @@ var db = new Sequelize('planeats', 'postgres', 'thesisEats', {
 });
 
 // Model definitions
+var ShoppingList = db.define('ShoppingList',{
+  list: Sequelize.JSONB
+})
+
 var Recipe = db.define('Recipe', {
   uniqueId: Sequelize.STRING,
   name: {type: Sequelize.STRING, unique: true},
@@ -40,31 +44,27 @@ var UsersMeals = db.define('UsersMeals');
 
 
 //Associations
-Api.sync();
-Recipe.sync();
-Users.sync()
-  .then(() => {
-    Users.belongsToMany(Recipe, {through: UsersRecipes, foreignkey: "MealID"});
-    Recipe.belongsToMany(Users, {through: UsersRecipes, foreignkey: "UserId"});
-    UsersRecipes.sync();
-    Meals.sync();
-  })
-  .then(() => {
-    Meals.belongsToMany(Users, {through: UsersMeals, foreignkey: 'MealId'});
-    Users.belongsToMany(Meals, {through: UsersMeals, foreignkey: 'UserId'});
-    Recipe.belongsToMany(Meals, {through: MealsRecipes, foreignkey: 'RecipeId'});
-    Meals.belongsToMany(Recipe, {through: MealsRecipes, foreignkey: 'MealId'});
-    Events.belongsTo(Meals, {foreignkey: 'MealId'});
-    Meals.hasMany(Events, {foreignkey: 'MealId'});
-    UsersMeals.sync();
-    MealsRecipes.sync();
-    Events.sync();
-  })
-  .then(() => {
-    Events.belongsToMany(Users, {through: UsersEvents, foreignkey: 'EventId'});
-    Users.belongsToMany(Events, {through: UsersEvents, foreignkey: 'UserId'});
-    UsersEvents.sync();
-  });
+Api.sync()
+.then(()=>Recipe.sync())
+.then(()=>Users.sync())
+.then(()=>ShoppingList.belongsTo(Users,{foreignkey:'UserId'}))
+.then(()=>ShoppingList.sync())
+.then(()=>Users.belongsToMany(Recipe, {through: UsersRecipes, foreignkey: "MealID"}))
+.then(()=> Recipe.belongsToMany(Users, {through: UsersRecipes, foreignkey: "UserId"}))
+.then(()=>UsersRecipes.sync())
+.then(()=>Meals.sync())
+.then(()=>Meals.belongsToMany(Users, {through: UsersMeals, foreignkey: 'MealId'}))
+.then(()=>Users.belongsToMany(Meals, {through: UsersMeals, foreignkey: 'UserId'}))
+.then(()=>Recipe.belongsToMany(Meals, {through: MealsRecipes, foreignkey: 'RecipeId'}))
+.then(()=>Meals.belongsToMany(Recipe, {through: MealsRecipes, foreignkey: 'MealId'}))
+.then(()=>Events.belongsTo(Meals, {foreignkey: 'MealId'}))
+.then(()=>Meals.hasMany(Events, {foreignkey: 'MealId'}))
+.then(()=>UsersMeals.sync())
+.then(()=>MealsRecipes.sync())
+.then(()=>Events.sync())
+.then(()=>Events.belongsToMany(Users, {through: UsersEvents, foreignkey: 'EventId'}))
+.then(()=>Users.belongsToMany(Events, {through: UsersEvents, foreignkey: 'UserId'}))
+.then(()=>UsersEvents.sync())
 // on delete cascade - when user is deleted it deletes all relations
 
 exports.Recipe = Recipe;
@@ -76,3 +76,4 @@ exports.UsersEvents = UsersEvents;
 exports.MealsRecipes = MealsRecipes;
 exports.UsersMeals = UsersMeals;
 exports.Api = Api;
+exports.ShoppingList = ShoppingList;
