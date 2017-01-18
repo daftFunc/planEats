@@ -141,13 +141,15 @@ class MealPlanner extends Component {
                 placeholder="Meal Name"
               />
             </form>
-            <text>Click an item to remove from your meal</text>
+            <text>Search or select from your saved recipes</text>
             <Select
-              name="form-field-name"
+              name="recipeDropDown"
               value={this.state.clickedName}
               options={this.state.list}
               multi={true}
               onChange={this.handleAddRemove.bind(this)}
+              searchable={true}
+              placeholder="Search and select from your saved recipes..."
             />
           </div>
           <Button type="submit" onClick={this.handleSubmit.bind(this)}>Save Meal</Button>
