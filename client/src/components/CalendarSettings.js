@@ -97,9 +97,8 @@ class CalendarSettings extends React.Component {
           showCloseButton: true
         })
           .then(function(toDelete) {
-            /*DELETE*/
-            alert('event would be deleted')
-            //context.deleteEvent(eventId)
+            alert('Delete event?')
+            context.deleteEvent(eventId)
           }, function(toEdit) {
             /*EDIT*/
             console.log('edit')
@@ -365,7 +364,7 @@ class CalendarSettings extends React.Component {
     var context = this;
 
     axios.delete('/api/events', {
-      id: id
+      headers: {'id': id}
     }, function(){
       context.getEventsOnLoad();
     });

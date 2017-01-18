@@ -126,6 +126,36 @@ module.exports = {
       }).catch(function(error){
         res.json({somethingelse:error});
       });
+    },
+    put: function(req, res) {
+      var UserId;
+      var EventId;
+      controller.findUser(req.body.username)
+        .then(function() {
+          // return controller.editEvent()
+        })
+        .then(function(done) {
+          res.sendStatus(201);
+          console.log('Event edited', done);
+        }).catch(function(error) {
+          console.log('Error', error);
+          res.status(304).send(error);
+        });
+    },
+    delete: function(req, res) {
+      var EventId;
+      controller.findUser(req.headers.username)
+        .then(function() {
+          EventId = req.headers.id;
+          return controller.removeEvent(EventId)
+        })
+        .then(function(done) {
+          res.sendStatus(201);
+          console.log('Event deleted', done);
+        }).catch(function(error) {
+          console.log('Error', error);
+          res.sendStatus(304).send(error);
+        })
     }
   },
   getRecipesFromEvents: function(req,res) {
@@ -206,4 +236,5 @@ module.exports = {
     }
   }
 }
+
 //userI = user.dataValues.id;

@@ -18,7 +18,9 @@ router.route('/meals')
 
 router.route('/events')
   .get(model.event.get)
-  .post(model.event.post);
+  .post(model.event.post)
+  .put(model.event.put)
+  .delete(model.event.delete);
 
 router.route('/users')
   .post(model.user.post);
