@@ -5,7 +5,7 @@ var db = new Sequelize('planeats', 'postgres', 'sorry1', {
 
 // Model definitions
 var ShoppingList = db.define('ShoppingList',{
-  list: Sequelize.JSONB
+  list: {type:Sequelize.JSONB, defaultValue:[]}
 })
 
 var Recipe = db.define('Recipe', {

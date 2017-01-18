@@ -17,9 +17,11 @@ export default class Shop extends Component {
       addedItems: [],
       events:[],
       modalActive: false,
-      itemAddedValue:'',
       startDate: moment(),
-      endDate: moment()
+      endDate: moment(),
+      formQuant: '',
+      formUnits: '',
+      formIngred: ''
     }
     this.getEventRecipes = this.getEventRecipes.bind(this);
   }
@@ -170,11 +172,23 @@ export default class Shop extends Component {
     console.log("shoppingList",groceryList)
   }
 
-  handleInputChange(event) {
+  handleInputChange(field,event) {
     event.preventDefault();
-    this.setState({
-      itemAddedValue: event.target.value
-    });
+    if(field === 'Quantity') {
+      this.setState({
+        formQuant: event.target.value
+      });
+    }
+    if(field === 'Units') {
+      this.setState({
+        formUnits: event.target.value
+      });
+    }
+    if(field === 'Ingredient') {
+      this.setState({
+        formIngred: event.target.value
+      });
+    }
   }
 
   toggleAdd(event) {
@@ -213,10 +227,13 @@ export default class Shop extends Component {
   }
   handleAddItem(event) {
     event.preventDefault();
-    var newItems = this.state.addedItems.concat([this.state.itemAddedValue]);
+    var newItems = this.state.addedItems.slice();
+    newItems.push([this.state.formQuant,this.state.formUnits,this.state.formIngred]);
     this.setState({
       addedItems:newItems,
-      itemAddedValue:'',
+      formQuant:'',
+      formUnits:'',
+      formIngred:'',
       modalActive: !this.state.modalActive
     });
   }
@@ -240,9 +257,11 @@ export default class Shop extends Component {
       <AddItemButtonAndPopup  modalActive={this.state.modalActive}
                               toggleAdd={this.toggleAdd.bind(this)}
                               handleAddItem={this.handleAddItem.bind(this)}
-                              itemAddedValue={this.state.itemAddedValue}
                               handleInputChange={this.handleInputChange.bind(this)}
-                              parent={this}/>
+                              parent={this}
+                              quant={this.state.formQuant}
+                              units={this.state.formUnits}
+                              ingredient={this.state.formIngred}/>
         </div>
       </div>
   );
@@ -262,7 +281,9 @@ var GroceryList = ({groceryList, freq, addedItems, parent}) => (
 
           groceryList[key].map((element,i)=> {
             console.log ( element );
-          amount += ' and ' + groceryList[key][i][0] + ' ' + groceryList[key][i][1];
+            amount += ' and '
+            + groceryList[key][i][0]
+            + ' ' + groceryList[key][i][1];
         })
           amount = amount.substring(5,amount.length);
         } else {
@@ -283,8 +304,8 @@ var GroceryList = ({groceryList, freq, addedItems, parent}) => (
             <div className="check">
               <input clasName="check-shop" id={element} type="checkbox"  />
               <label htmlFor={element}>
-
-                <input type="checkbox" className="check-shop" /><span />{element}
+                <span />
+                {element[0] + ' ' + element[1] + ' ' + element[2]}
 
               </label>
             </div>
@@ -295,7 +316,7 @@ var GroceryList = ({groceryList, freq, addedItems, parent}) => (
 
 );
 
-var AddItemButtonAndPopup = ({modalActive, toggleAdd, handleAddItem, itemAddedValue,handleInputChange}) => (
+var AddItemButtonAndPopup = ({modalActive, toggleAdd, handleAddItem,handleInputChange, parent, quant, units, ingredient}) => (
 
   <div>
     <input  type="button"
@@ -309,9 +330,19 @@ var AddItemButtonAndPopup = ({modalActive, toggleAdd, handleAddItem, itemAddedVa
                   <h3>Add Item</h3>
                   <input  type="text"
                           name="item"
-                          placeholder="Add Item"
-                          value={itemAddedValue}
-                          onChange={handleInputChange} />
+                          placeholder="Quantity"
+                          value={quant}
+                          onChange={handleInputChange.bind(parent,'Quantity')} />
+                  <input type="text"
+                         name="item"
+                         placeholder="Units"
+                          value={units}
+                          onChange={handleInputChange.bind(parent,'Units')} />
+                  <input  type="text"
+                          name="item"
+                          placeholder="Ingredient"
+                          value={ingredient}
+                          onChange={handleInputChange.bind(parent,'Ingredient')} />
                   <input type="submit" value="Add" />
                 </div>
               </form>)}
