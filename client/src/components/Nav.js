@@ -11,6 +11,7 @@ import search from './images/white_search.png';
 import {Navbar} from 'react-bootstrap';
 import {Nav} from 'react-bootstrap';
 import logo from './images/planEats_logo.png';
+import delivery from './images/delivery_button.png';
 
 
 import './Nav.css';
@@ -54,6 +55,9 @@ class Site extends Component {
       return (
         <div>
           <div id="desktop-header">
+            <Link to ='/delivery'>
+              <img src={delivery} id='delivery-button' alt='delivery'/>
+            </Link>
             <Link to='/'>
               <img src={logo} id="desktop-header-logo" alt="logo" />
             </Link>
