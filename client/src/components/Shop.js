@@ -7,7 +7,7 @@ import moment from 'moment';
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import {Checkbox} from 'react-bootstrap';
 import './daterangepicker.css';
-
+import {DropdownButton} from 'react-bootstrap';
 
 export default class Shop extends Component {
   constructor(props) {
@@ -17,7 +17,9 @@ export default class Shop extends Component {
       addedItems: [],
       events:[],
       modalActive: false,
-      itemAddedValue:''
+      itemAddedValue:'',
+      startDate: moment(),
+      endDate: moment()
     }
     this.getEventRecipes = this.getEventRecipes.bind(this);
   }
@@ -187,10 +189,13 @@ export default class Shop extends Component {
     this.setState({freq: event.target.value});
   }
   getEventRecipes(event, picker) {
-    console.log(event,picker)
+
+    console.log(picker.startDate,picker.endDate)
     var dates = this.eventRangeDates(picker.startDate, picker.endDate);
+    console.log('dates',dates, this.state.events)
     this.getRecipes(dates)
       .then((recipes)=>{
+        console.log("recipes",recipes)
         var groceryList = {};
         this.parseList(recipes.data,groceryList);
         this.setState({
@@ -200,6 +205,11 @@ export default class Shop extends Component {
       .catch((error) => {
         console.log("Error getting recipe:", error);
       })
+    console.log(picker.startDate,picker.endDate)
+    this.setState({
+      startDate:picker.startDate,
+      endDate:picker.endDate
+    })
   }
   handleAddItem(event) {
     event.preventDefault();
@@ -215,7 +225,7 @@ export default class Shop extends Component {
     return (
       <div>
       <DateRangePicker onApply={this.getEventRecipes} startDate={moment()} endDate={moment()}>
-        <div> hi </div>
+          <DropdownButton title = {`${this.state.startDate.format("dddd, MMMM Do")} - ${this.state.endDate.format("dddd, MMMM Do")}`} />
       </DateRangePicker>
       <div>
 
