@@ -26,6 +26,12 @@ var Users = db.define('Users', {
   username: {type: Sequelize.STRING, unique: true}
 });
 
+var Api = db.define('API', {
+  site: Sequelize.STRING,
+  url: Sequelize.STRING,
+  api_key: Sequelize.STRING
+});
+
 // Join Tables
 var UsersRecipes = db.define('UsersRecipes');
 var UsersEvents = db.define('UsersEvents');
@@ -34,6 +40,7 @@ var UsersMeals = db.define('UsersMeals');
 
 
 //Associations
+Api.sync();
 Recipe.sync();
 Users.sync()
   .then(() => {
@@ -68,3 +75,4 @@ exports.UsersRecipes = UsersRecipes;
 exports.UsersEvents = UsersEvents;
 exports.MealsRecipes = MealsRecipes;
 exports.UsersMeals = UsersMeals;
+exports.Api = Api;

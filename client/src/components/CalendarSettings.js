@@ -1,5 +1,4 @@
 import React from 'react';
-import {connectProfile} from '../auth';
 import './Calendar.css';
 import $ from 'jquery';
 require('fullcalendar');

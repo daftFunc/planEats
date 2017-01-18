@@ -33,4 +33,8 @@ router.route('/searchRestaurants')
     });
   });
 
+router.route('/apiKeys')
+  .get(model.apiKeys.get)
+  .post(model.apiKeys.post);
+  
 module.exports = router;

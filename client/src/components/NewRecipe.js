@@ -1,13 +1,11 @@
-import React, {Component, Link} from 'react';
+import React, {Component} from 'react';
 import {connectProfile} from '../auth';
 import './RecipeBook.css';
-import { FormGroup, ControlLabel, FormControl, Button, FieldGroup, HelpBlock } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, Button, HelpBlock, Panel } from 'react-bootstrap';
 import axios from 'axios';
 import FontAwesome from 'react-fontawesome';
 import noImg from '../../public/noImg.jpg';
 import request from 'superagent';
-import ReactDOM from 'react-dom';
-import $ from 'jquery';
 import Dropzone from 'react-dropzone';
 
 class NewRecipe extends Component {
@@ -38,7 +36,7 @@ class NewRecipe extends Component {
       context.setState({
         recipes: recipes.data[0].Recipes || []
       })
-    })
+    });
   }
 
   handleChange(ignore, toPush) {
@@ -129,40 +127,54 @@ class NewRecipe extends Component {
   }
 
   onImageDrop(files) {
+    var context = this;
+
     this.setState({
       imageUpload: files[0]
+    }, function() {
+      context.handleImageUpload(files[0]);
     });
-
-    this.handleImageUpload(files[0]);
   }
 
   handleImageUpload(file) {
     var context = this;
-    const CLOUDINARY_UPLOAD_PRESET='dfkrm5sc'
-    const CLOUDINARY_UPLOAD_URL='https://api.cloudinary.com/v1_1/djuydlfup/image/upload'
+    var cloudinary_url = '';
+    var cloudinary_preset = '';
 
-    let upload = request.post(process.env.CLOUDINARY_UPLOAD_URL)
-                        .field('upload_preset', process.env.CLOUDINARY_UPLOAD_PRESET)
-                        .field('file', file);
-
-    upload.end((err, response) => {
-      if (err) {
-        console.error('image post error!', err);
+    axios.get('/api/apiKeys', {headers: {
+      url: 'cloudinary'
       }
-      if (response.body.secure_url !== '') {
-        this.setState({
-          imageUrl: response.body.secure_url
+    })
+      .then(function(data) {
+        cloudinary_preset = data.data.api_key;
+        cloudinary_url = data.data.url;
+        let upload = request.post(cloudinary_url)
+                            .field('upload_preset', cloudinary_preset)
+                            .field('file', file);
+
+        upload.end((err, response) => {
+          if (err) {
+            console.error('image post error!', err);
+          }
+          if (response.body.secure_url !== '') {
+            context.setState({
+              imageUrl: response.body.secure_url
+            });
+          }
         });
-      }
-    });
+      })
+
+
+
   }
 
   render() {
     return (
-      <div className="container">
+      <div className="NRcontainer">
         <div className="addRecipe" id="addRecipe">
           <h1>Create a New Recipe</h1>
-          <form ref="formRef">
+          <Panel className="addRecipePanel">
+            <form ref="formRef">
             <FormGroup>
               <ControlLabel htmlFor="recipeName" >Recipe Name</ControlLabel>
               <FormControl
@@ -215,12 +227,13 @@ class NewRecipe extends Component {
                 multiple={false}
                 accept="image/*"
                 onDrop={this.onImageDrop.bind(this)}>
-                <p>OPTIONAL: drag or click to upload an image of your dish!</p>
+                <p>OPTIONAL: drag or double-click to upload an image of your dish!</p>
               </Dropzone>
 
               <Button type="submit" onClick={this.handleSubmit.bind(this)}>Submit</Button>
             </FormGroup>
-        </form>
+          </form>
+        </Panel>
         </div>
       </div>
     )
