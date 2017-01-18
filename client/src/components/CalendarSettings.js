@@ -287,21 +287,21 @@ class CalendarSettings extends React.Component {
 
     axios.get('/api/events', {username: context.state.username})
       .then(function(events) {
-        if (events) {
-          // console.log('events', events.data[0].Events);
-          var holder = []
+        if (events.data[0].Events.length) {
+          var holder = [];
+
           events.data[0].Events.forEach((val) => {
-            holder.push(val)
+            holder.push(val);
           })
           context.setState({
             events: holder
           }, function(){
             // console.log('state set to: ', context.state.events);
-            this.calendarSettings();
+            context.calendarSettings();
           })
         }
         else {
-          this.calendarSettings();
+          context.calendarSettings();
         }
       });
   }
@@ -314,8 +314,9 @@ class CalendarSettings extends React.Component {
     axios.get('/api/events', {username: context.state.username})
       .then(function(events) {
         // console.log('events', events.data[0].Events);
-        if (events) {
+        if (events.data[0].Events.length) {
           var holder = [];
+
           events.data[0].Events.forEach((val) => {
             holder.push(val);
           })
@@ -331,18 +332,19 @@ class CalendarSettings extends React.Component {
 
     axios.get('/api/meals')
       .then(function(meals) {
-        var options = {}
-        var ids = {}
-
-        meals.data[0].Meals.map(function(obj){
-          ids[obj.name] = obj.id
-          return options[obj.name] = obj.name
-        });
-        context.setState({
-          savedMeals: options,
-          savedMealIds: ids
-        });
-      });
+        if (meals.data[0].Meals.length) {
+          var options = {}
+          var ids = {}
+          meals.data[0].Meals.map(function(obj){
+            ids[obj.name] = obj.id
+            return options[obj.name] = obj.name
+          });
+          context.setState({
+            savedMeals: options,
+            savedMealIds: ids
+          });
+        };
+    });
   }
 
   editEvent(id) {

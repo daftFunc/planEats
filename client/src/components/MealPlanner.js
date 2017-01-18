@@ -117,7 +117,7 @@ class MealPlanner extends Component {
 
     this.state.recipes.map((recipe, i) => {
       var obj = {
-        value: i,
+        value: recipe.id,
         label: recipe.name
       }
       arr.push(obj);
