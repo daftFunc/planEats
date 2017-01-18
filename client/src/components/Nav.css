@@ -167,6 +167,13 @@
         height:70px;
         width:auto;
     }
+    #delivery-button {
+        position: absolute;
+        top:7px;
+        left:10px;
+        height:55px;
+        width:auto;
+    }
     #header-logo {
         display:flex;
         margin-left:auto;
