@@ -82,6 +82,7 @@ export default class Shop extends Component {
 
 
   }
+
   getRecipes (events) {
     return Axios.get('/api/getEventRecipes',
       {
@@ -101,8 +102,9 @@ export default class Shop extends Component {
   parseList (masterList, groceryList) {
 
     var masterList = masterList.reduce((a,b) => {
+      console.log('whattt',b);
         return a.concat(b[0].Recipes.reduce((c,d) => {
-            console.log('what',c,d.recipe);
+            console.log('what',c,d);
     if(typeof d.recipe === 'string')
     {
       c.push(JSON.parse(d.recipe));
@@ -211,12 +213,8 @@ export default class Shop extends Component {
     });
   }
 
-  dropdownChange(event) {
-    event.preventDefault();
-    this.setState({freq: event.target.value});
-  }
   getEventRecipes(event, picker) {
-
+    event.preventDefault();
     console.log(picker.startDate,picker.endDate)
     var dates = this.eventRangeDates(picker.startDate, picker.endDate);
     console.log('dates',dates, this.state.events)
@@ -227,7 +225,7 @@ export default class Shop extends Component {
         this.parseList(recipes.data,groceryList);
         this.setState({
           groceryList:groceryList
-        })
+        }, this.pushUpList)
       })
       .catch((error) => {
         console.log("Error getting recipe:", error);
@@ -248,17 +246,20 @@ export default class Shop extends Component {
       formUnits:'',
       formIngred:'',
       modalActive: !this.state.modalActive
-    });
+    }, this.pushUpList);
   }
   pushUpList() {
     var copy = JSON.parse(JSON.stringify(this.state.groceryList));
-    this.state.addedItems.map((element)=>{
-      copy[element[0]] = [element[1],element[2]];
+    this.state.addedItems.map((element,i)=>{
+
+      copy[element[2]] = [[element[0],element[1]]];
+      this.state.addedItems[i] = [];
     });
+    console.log("adjusted", copy);
     this.setState({
       groceryList:copy
     })
-    Axios.put('/api/shoppinglist',{list:this.state.groceryList,username:JSON.parse(localStorage.profile).email})
+    Axios.put('/api/shoppinglist',{list:copy,username:JSON.parse(localStorage.profile).email})
       .then((created)=>{
       console.log(created);
       })
@@ -272,19 +273,8 @@ export default class Shop extends Component {
       <DateRangePicker onApply={this.getEventRecipes} startDate={moment()} endDate={moment()}>
           <DropdownButton title = {`${this.state.startDate.format("dddd, MMMM Do")} - ${this.state.endDate.format("dddd, MMMM Do")}`} />
       </DateRangePicker>
-      <Button onClick={this.pushUpList.bind(this)}>
-        Save Recipe
-      </Button>
-      <div>
 
-
-        <h1 style={{textAlign:'center'}}>Shop</h1>
-        <GroceryList  groceryList={this.state.groceryList}
-                      freq={this.state.freq}
-                      addedItems={this.state.addedItems}
-        />
-      </div>
-      <div>
+      <Button onClick={()=>{this.setState({groceryList:{}}, this.pushUpList);}}>Clear List</Button>
       <AddItemButtonAndPopup  modalActive={this.state.modalActive}
                               toggleAdd={this.toggleAdd.bind(this)}
                               handleAddItem={this.handleAddItem.bind(this)}
@@ -293,6 +283,17 @@ export default class Shop extends Component {
                               quant={this.state.formQuant}
                               units={this.state.formUnits}
                               ingredient={this.state.formIngred}/>
+      <div>
+
+
+        <h1 style={{textAlign:'center'}}>Shop</h1>
+        <GroceryList  groceryList={this.state.groceryList}
+                      freq={this.state.freq}
+                      addedItems={this.state.addedItems}
+                      />
+      </div>
+      <div>
+
         </div>
       </div>
   );
@@ -330,18 +331,6 @@ var GroceryList = ({groceryList, freq, addedItems, parent}) => (
           </li>
         );
         })}
-        {addedItems.map((element) => (
-          <li >
-            <div className="check">
-              <input clasName="check-shop" id={element} type="checkbox"  />
-              <label htmlFor={element}>
-                <span />
-                {element[0] + ' ' + element[1] + ' ' + element[2]}
-
-              </label>
-            </div>
-          </li>
-        ))}
     </ul>
   </div>
 
