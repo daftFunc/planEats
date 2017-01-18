@@ -1,27 +1,31 @@
 import React, {Component} from 'react';
 import {connectProfile} from '../auth';
-import { Button } from 'react-bootstrap';
-import {Link} from 'react-router';
+import { Button, Panel, Image } from 'react-bootstrap';
 
-const RecipeList = ({recipes}) => {
+const RecipeList = ({recipe}) => {
   return (
     <div>
-      <h1 id="recipeBook">Recipe Book</h1>
-      <Link to='/new-recipe'>
-        <Button id="createARecipe">Create a Recipe</Button>
-      </Link>
-      <ul className="recipeList">
-        {recipes.map((recipe, i) => {return <li className="recipeLi" key={i}>{recipe.name}</li>})}
-      </ul>
-      {/* {recipes.map((recipe, i) => {return <img src={recipe.recipe.image}/>})} */}
+      <Panel className="recipeBookPanel">
+        <div className="itemHeader item">
+          <h2>{recipe.name}</h2>
+          <text>Ready in {recipe.recipe.readyInMinutes} minutes!</text>
+        </div>
+
+        <div className="recipeImage item">
+          <Image src={recipe.recipe.image} responsive alt={recipe.name}></Image>
+        </div>
+      </Panel>
+
     </div>
   );
 };
 
 RecipeList.propTypes = {
-  recipes: React.PropTypes.array.isRequired
+  recipe: React.PropTypes.object.isRequired
 };
 
 export default RecipeList;
 
-// var buf = new Buffer(recipe.image.data_uri.replace(/^data:image\/\w+;base64,/, ""),'base64');
+
+
+  {/* {recipes.map((recipe, i) => {return <img src={recipe.recipe.image}/>})} */}
