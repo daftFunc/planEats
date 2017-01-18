@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {connectProfile} from '../auth';
 import './MealPlanner.css';
 import { FormControl, Button } from 'react-bootstrap';
 import Select from 'react-select';

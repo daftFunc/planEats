@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
-import {connectProfile} from '../auth';
 import './RecipeBook.css';
 import { Button, Pagination } from 'react-bootstrap';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import RecipeList from './RecipeList';
-import Flexbox from 'flexbox-react';
 import {Link} from 'react-router';
 
 class Book extends Component {
@@ -52,11 +50,11 @@ class Book extends Component {
 
   render() {
     return (
-      <div className="RBcontainer">
-        {/* <h1 id="recipeBook">Recipe Book</h1>
+      <div>
+        <h1 id="recipeBook">Recipe Book</h1>
         <Link to='/new-recipe'>
           <Button id="createARecipe">Create a Recipe</Button>
-        </Link> */}
+        </Link>
         <div>
           {this.state.recipes.map((recipe, i) =>
                (<RecipeList

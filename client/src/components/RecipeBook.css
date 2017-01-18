@@ -86,4 +86,18 @@ input:-webkit-autofill {
   display: flex;
   width: 30em;
   float: left;
+  margin-right: 20px;
+}
+
+.resultImg {
+  max-height: 425px;
+  align-items: center;
+}
+
+.recipeHeader {
+  font-size: 1em;
+}
+
+.recipeName {
+  font-size: 1.5em;
 }

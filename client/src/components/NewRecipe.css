@@ -18,15 +18,10 @@ input:-webkit-autofill {
   z-index: 1;
 }
 
-/*#ingredients{
-  float: left;
-}*/
-
 .plusSign{
   font-size: 20px;
   margin: 5px;
   padding: 0px;
-  /*float: right;*/
 }
 
 .plusSign:active{
@@ -49,4 +44,12 @@ input:-webkit-autofill {
 .help-block {
   display: inline-block;
   padding-left: 5px;
+}
+
+.NRcontainer {
+  position: absolute;
+}
+
+.addRecipePanel {
+  width: 40em;
 }

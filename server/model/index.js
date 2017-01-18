@@ -179,6 +179,31 @@ module.exports = {
     return JSON.parse(array).map(function(element) {
       return {[field1]:{'$eq':element[field2]}};
     });
+  },
+
+  apiKeys: {
+    get: function(req, res) {
+      return controller.getKey(req.headers.url)
+        .then(function(data) {
+          if (data) {
+            res.send(data);
+            res.end();
+          }
+          res.end('No match found')
+        })
+        .catch(function(err) {
+          console.log('api get error', err);
+        });
+    },
+    post: function(req, res) {
+      return controller.postKey(req.body.site, req.body.url, req.body.api_key)
+        .then(function(data) {
+          res.end('Posted key to the database');
+        })
+        .catch(function(err) {
+          console.log('api post error', err);
+        });
+    }
   }
 }
 //userI = user.dataValues.id;

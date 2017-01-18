@@ -85,5 +85,17 @@ module.exports = {
       [Join1+'Id']: id1,
       [Join2+'Id']: id2
     })
+  },
+
+  postKey: function(site, url, key) {
+    return db.Api.create({
+      site: site,
+      url: url,
+      api_key: key
+    });
+  },
+
+  getKey: function(reqSite) {
+    return db.Api.find({where: {site: reqSite}});
   }
 };
