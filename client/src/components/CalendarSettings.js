@@ -88,6 +88,9 @@ class CalendarSettings extends React.Component {
       eventClick: function(calEvent, jsEvent, view){
         var eventId = calEvent.id;
         var mealDate = moment(calEvent.start._d).add(1, 'day').format('MMMM Do[,] YYYY');
+        context.setState({
+          date: calEvent.uniqueId.slice(-19, -9)
+        });
         swal({
           title: 'Meal for ' + mealDate + ':',
           text: calEvent.title,
@@ -97,11 +100,9 @@ class CalendarSettings extends React.Component {
           showCloseButton: true
         })
           .then(function(toDelete) {
-            alert('Delete event?')
+            alert('Remove event from calendar?')
             context.deleteEvent(eventId)
           }, function(toEdit) {
-            /*EDIT*/
-            console.log('edit')
             if (toEdit === 'close') {
               swal.close();
             }
@@ -144,8 +145,8 @@ class CalendarSettings extends React.Component {
                   mealTime: result[1], //time selected for the meal
                   selectedMealId: context.state.savedMealIds[result[0]]
                 }, function(){
-                  alert('event would be edited');
-                  //context.editEvent();
+                  alert('Change this meal?');
+                  context.editEvent(eventId);
                 });
               });
             }, function () {
@@ -348,12 +349,17 @@ class CalendarSettings extends React.Component {
 
   editEvent(id) {
     var context = this;
+
+    // context.setState({
+    //   date: moment(calEvent._d).add(1, 'day').format('YYYY-MM-DD')
+    // });
+
     var data = {
-      id: id,
-      username: this.state.username,
-      title: this.state.mealName,
-      start: this.state.date + 'T' + this.state.mealTime,
-      meal_id: this.state.selectedMealId
+      'id': id,
+      'username': this.state.username,
+      'title': this.state.mealName,
+      'start': this.state.date + 'T' + this.state.mealTime,
+      'meal_id': this.state.selectedMealId
     };
 
     axios.put('/api/events', data)
@@ -367,9 +373,10 @@ class CalendarSettings extends React.Component {
 
     axios.delete('/api/events', {
       headers: {'id': id}
-    }, function(){
-      context.getEventsOnLoad();
-    });
+    })
+      .then(function(){
+        context.getEventsOnLoad();
+      });
   }
 
   render() {

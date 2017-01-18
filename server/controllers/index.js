@@ -87,10 +87,12 @@ module.exports = {
     }})
   },
 
-  editEvent: function(name, meal_time, meal_id, uniqueKey) {},
+  editEvent: function(name, meal_time, meal_id, uniqueKey) {
+    return db.Events.update({title: name, start: meal_time, MealId: meal_id}, {where: {id: uniqueKey}})
+  },
 
   removeEvent: function(uniqueKey) {
-    return db.Events.destroy({where: { id: uniqueKey }})
+    return db.Events.destroy({where: {id: uniqueKey}})
   },
 
   addJoinTable(Join1, Join2, id1, id2) {

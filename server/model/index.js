@@ -128,11 +128,17 @@ module.exports = {
       });
     },
     put: function(req, res) {
-      var UserId;
       var EventId;
-      controller.findUser(req.body.username)
+      var Name;
+      var MealTime;
+      var MealId;
+      controller.findUser(req.headers.username)
         .then(function() {
-          // return controller.editEvent()
+          EventId = req.body.id;
+          Name = req.body.title;
+          MealTime = req.body.start;
+          MealId = req.body.meal_id;
+          return controller.editEvent(Name, MealTime, MealId, EventId)
         })
         .then(function(done) {
           res.sendStatus(201);
