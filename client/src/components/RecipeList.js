@@ -12,7 +12,7 @@ const RecipeList = ({recipe}) => {
         </div>
 
         <div className="recipeImage item">
-          <Image src={recipe.recipe.image} alt={recipe.name} responsive></Image>
+          <img src={recipe.recipe.image} alt={recipe.name} className="scaleImg"/>
         </div>
       </Panel>
 
