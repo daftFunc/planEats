@@ -5,7 +5,8 @@ import { Button, Pagination } from 'react-bootstrap';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import RecipeList from './RecipeList';
-
+import Flexbox from 'flexbox-react';
+import {Link} from 'react-router';
 
 class Book extends Component {
   constructor() {
@@ -47,24 +48,32 @@ class Book extends Component {
    this.setState({
      activePage: eventKey
    });
-  //  var query = this.props.location.query;
-  //  query.page = eventKey;
-  //  ProductStore.fetchProductList(query);
-}
+ }
 
   render() {
     return (
       <div className="RBcontainer">
-        <div className="recipeBook">
+        {/* <h1 id="recipeBook">Recipe Book</h1>
+        <Link to='/new-recipe'>
+          <Button id="createARecipe">Create a Recipe</Button>
+        </Link> */}
+        <div>
+          {this.state.recipes.map((recipe, i) =>
+               (<RecipeList
+                className="item recipe"
+                recipe={recipe}
+                key={i}
+               />)
+            )
+          }
 
-          <RecipeList recipes={this.state.recipes}/>
           {/*
           TODO: pagination features
           <Pagination
               items={this.state.totalPages}
               activePage={this.state.activePage}
             /> */}
-        </div>
+          </div>
       </div>
     )
   }

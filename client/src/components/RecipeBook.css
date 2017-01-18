@@ -81,3 +81,9 @@ input:-webkit-autofill {
   margin: 0 auto;
   width: 100%;
 }
+
+.recipeBookPanel {
+  display: flex;
+  width: 30em;
+  float: left;
+}
