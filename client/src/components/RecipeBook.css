@@ -87,6 +87,7 @@ input:-webkit-autofill {
   width: 30em;
   float: left;
   margin-right: 20px;
+  height: 40em;
 }
 
 .resultImg {
@@ -100,4 +101,10 @@ input:-webkit-autofill {
 
 .recipeName {
   font-size: 1.5em;
+}
+
+.scaleImg {
+  display: block;
+  max-width: 388px;
+  max-height: 258px;
 }

@@ -62,11 +62,16 @@ class MealPlanner extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    /*on submit, data needs to be updated so that it renders in the recipe book (send to recipes array)*/
+
+    var ids = [];
+    this.state.clickedName.forEach(function(obj) {
+      ids.push(obj.value);
+    });
+
     var newMeal = {
       username: this.state.username,
       name: this.state.mealName,
-      recipe: JSON.stringify(this.state.clicked)
+      recipe: JSON.stringify(ids)
     };
     this.postMeal(newMeal);
   }
