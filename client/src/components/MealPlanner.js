@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {connectProfile} from '../auth';
 import './MealPlanner.css';
 import { FormControl, Button } from 'react-bootstrap';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 import axios from 'axios'
 class MealPlanner extends Component {
@@ -18,7 +20,8 @@ class MealPlanner extends Component {
       cookTime: '',
       instructions: '',
       mealTime: '',
-      clickedName: []
+      clickedName: [],
+      list: ''
     }
   }
 
@@ -35,16 +38,9 @@ class MealPlanner extends Component {
     }
   }
 
-  handleAddRecipe(name, index) {
-    var updateIds = this.state.clicked.slice();
-    updateIds.push(index) //push clicked recipe's index to state
-
-    var updatedNames = this.state.clickedName.slice();
-    updatedNames.push(name) //push clicked recipe's name to state for rendering
-
+  handleAddRemove(name) {
     this.setState({
-      clicked: updateIds,
-      clickedName: updatedNames
+      clickedName: name
     })
   }
 
@@ -85,6 +81,8 @@ class MealPlanner extends Component {
       //recipes.data[0] is an object holding a Recipes array. Recipes array has all of the user's recipe objects
       context.setState({
         recipes: recipes.data[0].Recipes
+      }, function() {
+        context.listRecipes();
       })
     });
   }
@@ -99,8 +97,32 @@ class MealPlanner extends Component {
       context.setState({
         mealName: '',
         clicked: [],
-        mealTime: ''
+        mealTime: '',
+        clickedName: []
       });
+    });
+  }
+
+  recipeListChange(val) {
+    console.log("Selected: " + val);
+  }
+
+  listRecipes() {
+    var context = this;
+    var arr = [];
+
+    this.state.recipes.map((recipe, i) => {
+      var obj = {
+        value: i,
+        label: recipe.name
+      }
+      arr.push(obj);
+    });
+
+    this.setState({
+      list: arr
+    }, function() {
+      console.log('state', context.state.list)
     });
   }
 
@@ -118,22 +140,19 @@ class MealPlanner extends Component {
                 onChange={this.handleChange.bind(this)}
                 placeholder="Meal Name"
               />
-              <Button type="submit" onClick={this.handleSubmit.bind(this)}>Add Meal</Button>
             </form>
-            <text>Click an item to remove from your meal</text>
-            <ul>
-              {this.state.clickedName.map((val, i) => {
-                return <li className="mealItems" key={i} onClick={this.handleRemove.bind(this, i)}>{val}</li>
-              })}
-            </ul>
+            <text>Search or select from your saved recipes</text>
+            <Select
+              name="recipeDropDown"
+              value={this.state.clickedName}
+              options={this.state.list}
+              multi={true}
+              onChange={this.handleAddRemove.bind(this)}
+              searchable={true}
+              placeholder="Search and select from your saved recipes..."
+            />
           </div>
-          <ul className="recipeList">
-            {this.state.recipes.map((recipe, i) => {
-              return <li className="recipeItem" key={recipe.id} onClick={this.handleAddRecipe.bind(this, recipe.name, recipe.id)}>{recipe.name}</li>})}
-          </ul>
-        </div>
-        <div className="addNew">
-
+          <Button type="submit" onClick={this.handleSubmit.bind(this)}>Save Meal</Button>
         </div>
       </div>
     )

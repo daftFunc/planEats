@@ -1,7 +1,7 @@
 import React, {Component, Link} from 'react';
 import {connectProfile} from '../auth';
 import './RecipeBook.css';
-import { FormGroup, ControlLabel, FormControl, Button, FieldGroup } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, Button, FieldGroup, HelpBlock } from 'react-bootstrap';
 import axios from 'axios';
 import FontAwesome from 'react-fontawesome';
 import noImg from '../../public/noImg.jpg';
@@ -70,12 +70,13 @@ class NewRecipe extends Component {
     //   amount:(numerical amount)
     //   originalString: amount + unit + name},
     // })
+    var splitInst = this.state.instructions.split(',');
 
     var newRecipe = {
       ingredients: this.state.ingredientArr,
       prepTime: this.state.prepTime,
       cookTime: this.state.cookTime,
-      instructions: this.state.instructionArr,
+      instructions: splitInst,
       image: this.state.imageUrl || noImg
     }
 
@@ -116,15 +117,15 @@ class NewRecipe extends Component {
       });
     }
 
-    if (option === 'instructions') {
-      var updateInst = context.state.instructionArr.slice();
-      updateInst.push(context.state.instructions);
-
-      context.setState({
-        instructionArr: updateInst,
-        instructions: ''
-      });
-    }
+    // if (option === 'instructions') {
+    //   var updateInst = context.state.instructionArr.slice();
+    //   updateInst.push(context.state.instructions);
+    //
+    //   context.setState({
+    //     instructionArr: updateInst,
+    //     instructions: ''
+    //   });
+    // }
   }
 
   onImageDrop(files) {
@@ -140,8 +141,8 @@ class NewRecipe extends Component {
     const CLOUDINARY_UPLOAD_PRESET='dfkrm5sc'
     const CLOUDINARY_UPLOAD_URL='https://api.cloudinary.com/v1_1/djuydlfup/image/upload'
 
-    let upload = request.post(CLOUDINARY_UPLOAD_URL)
-                        .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+    let upload = request.post(process.env.CLOUDINARY_UPLOAD_URL)
+                        .field('upload_preset', process.env.CLOUDINARY_UPLOAD_PRESET)
                         .field('file', file);
 
     upload.end((err, response) => {
@@ -182,7 +183,7 @@ class NewRecipe extends Component {
                 placeholder="Ingredients"
               />
 
-              <ControlLabel htmlFor="prepTime" >Prep-Time</ControlLabel>
+              <ControlLabel htmlFor="prepTime" >Prep-Time in Minutes</ControlLabel>
               <FormControl
                 id="prepTime"
                 type="text"
@@ -191,7 +192,7 @@ class NewRecipe extends Component {
                 placeholder="Prep-Time in Minutes"
               />
 
-              <ControlLabel htmlFor="cookTime" >Cook-Time</ControlLabel>
+              <ControlLabel htmlFor="cookTime" >Cook-Time in Minutes</ControlLabel>
               <FormControl
                 id="cookTime"
                 type="text"
@@ -200,11 +201,11 @@ class NewRecipe extends Component {
                 placeholder="Cook-Time in Minutes"
               />
 
-              <span onClick={this.handleDynamicAdd.bind(this, 'instructions')}><FontAwesome name="plus-circle" className="plusSign" /></span>
-              <ControlLabel htmlFor="instructions" >Instructions</ControlLabel>
+              <ControlLabel htmlFor="instructions">Instructions</ControlLabel>
+              <HelpBlock htmlFor="instructions">Enter instructions with each item separated by a comma</HelpBlock>
               <FormControl
                 id="instructions"
-                type="text"
+                componentClass="textarea"
                 value={this.state.instructions}
                 onChange={this.handleChange.bind(this, 'instructions')}
                 placeholder="Instructions"
