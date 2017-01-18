@@ -8,6 +8,7 @@ import DateRangePicker from 'react-bootstrap-daterangepicker';
 import {Checkbox} from 'react-bootstrap';
 import './daterangepicker.css';
 import {DropdownButton} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 
 export default class Shop extends Component {
   constructor(props) {
@@ -36,6 +37,18 @@ export default class Shop extends Component {
       this.setState({
         events: events.data[0].Events
       })
+      return Axios.get('/api/shoppinglist', {
+        headers:{
+          username: JSON.parse(localStorage.profile).email
+        }
+      })
+    })
+    .then((list)=>{
+      console.log("list", list);
+      this.setState({
+        groceryList:list.data[0].list
+      })
+    console.log("hihi",this.state.groceryList)
     })
     .catch((error)=>{
         console.log("Error getting events:", error);
@@ -237,13 +250,31 @@ export default class Shop extends Component {
       modalActive: !this.state.modalActive
     });
   }
-
+  pushUpList() {
+    var copy = JSON.parse(JSON.stringify(this.state.groceryList));
+    this.state.addedItems.map((element)=>{
+      copy[element[0]] = [element[1],element[2]];
+    });
+    this.setState({
+      groceryList:copy
+    })
+    Axios.put('/api/shoppinglist',{list:this.state.groceryList,username:JSON.parse(localStorage.profile).email})
+      .then((created)=>{
+      console.log(created);
+      })
+      .catch((error)=>{
+        console.error(error);
+      })
+  }
   render() {
     return (
       <div>
       <DateRangePicker onApply={this.getEventRecipes} startDate={moment()} endDate={moment()}>
           <DropdownButton title = {`${this.state.startDate.format("dddd, MMMM Do")} - ${this.state.endDate.format("dddd, MMMM Do")}`} />
       </DateRangePicker>
+      <Button onClick={this.pushUpList.bind(this)}>
+        Save Recipe
+      </Button>
       <div>
 
 

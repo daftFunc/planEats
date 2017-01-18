@@ -210,6 +210,42 @@ module.exports = {
       return {[field1]:{'$eq':element[field2]}};
     });
   },
+  shoppinglist: {
+    get: function(req,res) {
+      controller.findUser(req.headers.username)
+        .then((user) => {
+          if(user){
+            console.log("Users",user);
+            var UserId = user.dataValues.id;
+            return controller.getShoppingList(UserId);
+          } else {
+            res.status(400).send("Can not find User");
+          }
+        })
+        .then((list) => {
+          res.status(201).send(list);
+        })
+        .catch((error)=>{
+          console.error(error);
+          res.sendStatus(304);
+        })
+
+    },
+    put: function(req,res) {
+      console.log("body",req.body)
+      controller.findUser(req.body.username)
+        .then((user)=>{
+          var UserId = user.dataValues.id;
+          return controller.updateShoppingList(req.body.list,UserId);
+        })
+        .then((list)=>{
+          res.sendStatus(201);
+        })
+        .catch((error)=>{
+          res.status(304).send(error);
+        })
+    }
+  },
 
   apiKeys: {
     get: function(req, res) {

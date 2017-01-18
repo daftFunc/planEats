@@ -5,7 +5,7 @@ var db = new Sequelize('planeats', 'postgres', 'sorry1', {
 
 // Model definitions
 var ShoppingList = db.define('ShoppingList',{
-  list: {type:Sequelize.JSONB, defaultValue:[]}
+  list: Sequelize.JSONB
 })
 
 var Recipe = db.define('Recipe', {
@@ -47,8 +47,8 @@ var UsersMeals = db.define('UsersMeals');
 Api.sync()
 .then(()=>Recipe.sync())
 .then(()=>Users.sync())
-.then(()=>ShoppingList.sync())
 .then(()=>ShoppingList.belongsTo(Users,{foreignkey:'UserId'}))
+.then(()=>ShoppingList.sync())
 .then(()=>Users.belongsToMany(Recipe, {through: UsersRecipes, foreignkey: "MealID"}))
 .then(()=> Recipe.belongsToMany(Users, {through: UsersRecipes, foreignkey: "UserId"}))
 .then(()=>UsersRecipes.sync())
