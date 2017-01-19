@@ -40,9 +40,7 @@ li {
 }
 
 .recipeBookML {
-  /*overflow: auto;*/
-  background: white;
-  border-radius: 10px;
+  overflow: auto;
   height: 70rem;
   width: 70rem;
   display: flex;

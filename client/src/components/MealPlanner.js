@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './MealPlanner.css';
-import { FormControl, Button } from 'react-bootstrap';
+import { FormControl, Button, Panel } from 'react-bootstrap';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
@@ -115,7 +115,7 @@ class MealPlanner extends Component {
     var context = this;
     var arr = [];
 
-    this.state.recipes.map((recipe, i) => {
+    this.state.recipes.forEach((recipe, i) => {
       var obj = {
         value: recipe.id,
         label: recipe.name
@@ -133,7 +133,7 @@ class MealPlanner extends Component {
   render() {
     return (
       <div className="MPcontainer">
-        <div className="recipeBookML">
+        <Panel className="recipeBookML">
           <div className="headerMP">
             <text className="MPHeaderText">Click a recipe to add it to your book and write a name for your creation below!</text>
             <form id="newMealForm">
@@ -157,7 +157,7 @@ class MealPlanner extends Component {
             />
           </div>
           <Button type="submit" onClick={this.handleSubmit.bind(this)}>Save Meal</Button>
-        </div>
+        </Panel>
       </div>
     )
   }

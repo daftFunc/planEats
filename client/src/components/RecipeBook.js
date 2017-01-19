@@ -51,16 +51,19 @@ class Book extends Component {
   render() {
     return (
       <div>
-        <h1 id="recipeBook">Recipe Book</h1>
-        <Link to='/new-recipe'>
-          <Button id="createARecipe">Create a Recipe</Button>
-        </Link>
+      <h1 id="recipeBook">Recipe Book</h1>
+      <Link to='/new-recipe'>
+        <Button id="createARecipe">Create a Recipe</Button>
+      </Link>
+      <div className="RBcontainer">
+
         <div>
           {this.state.recipes.map((recipe, i) =>
                (<RecipeList
                 className="item recipe"
                 recipe={recipe}
                 key={i}
+                readyInMinutes={parseInt(recipe.recipe.cookTime) + parseInt(recipe.recipe.cookTime)}
                />)
             )
           }
@@ -73,6 +76,7 @@ class Book extends Component {
             /> */}
           </div>
       </div>
+    </div>
     )
   }
 }

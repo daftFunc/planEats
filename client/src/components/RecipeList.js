@@ -1,9 +1,8 @@
-import React, {Component} from 'react';
-import { Panel, Image } from 'react-bootstrap';
+import React from 'react';
+import { Panel } from 'react-bootstrap';
 
 const RecipeList = ({recipe}) => {
   return (
-    // <div className="RBcontainer">
     <div>
       <Panel className="recipeBookPanel">
         <div className="itemHeader item recipeHeader">
@@ -15,7 +14,6 @@ const RecipeList = ({recipe}) => {
           <img src={recipe.recipe.image} alt={recipe.name} className="scaleImg"/>
         </div>
       </Panel>
-
     </div>
   );
 };

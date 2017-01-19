@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connectProfile} from '../auth';
 import './EditProfile.css';
+import { Panel } from 'react-bootstrap';
 
 class EditProfile extends Component {
   static propTypes = {
@@ -19,7 +20,7 @@ class EditProfile extends Component {
     // const user_metadata = profile.user_metadata || {};
 
     return (
-      <div className="EditProfile">
+      <Panel className="EditProfile">
         <div className="EditProfile-heading">Your Profile</div>
         <div className="EditProfile-profile">
           <p><strong>Nickname:</strong> {profile.nickname}</p>
@@ -50,7 +51,7 @@ class EditProfile extends Component {
           </fieldset>
         </form>*/}
         <a target="_blank" href="http://privacypolicies.com/privacy/view/obtS7k">Privacy policy</a>
-      </div>
+      </Panel>
     );
   }
 

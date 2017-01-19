@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {connectProfile} from '../auth';
 import './RecipeBook.css';
-import { FormGroup, ControlLabel, FormControl, Button, HelpBlock, Panel } from 'react-bootstrap';
+import { Form, ControlLabel, FormControl, Button, HelpBlock, Panel } from 'react-bootstrap';
 import axios from 'axios';
 import FontAwesome from 'react-fontawesome';
 import noImg from '../../public/noImg.jpg';
@@ -14,15 +13,18 @@ class NewRecipe extends Component {
     this.state = {
       username: JSON.parse(localStorage.profile).email,
       recipes: [],
-      recipeName: null,
-      ingredients: null,
-      prepTime: null,
-      cookTime: null,
-      instructions: null,
+      recipeName: '',
+      ingredients: '',
+      prepTime: '',
+      cookTime: '',
+      instructions: '',
       ingredientArr: [],
       instructionArr: [],
       imageUpload: '',
-      imageUrl: ''
+      imageUrl: '',
+      unitList: ['unit', 'ml','tsp','Tbs','fl-oz','cup','l','pnt'],
+      amount: '',
+      units: ''
     }
   }
 
@@ -48,32 +50,20 @@ class NewRecipe extends Component {
     var changedVal = toPush.target.value;
 
     context.setState({
-      [changedId]: changedVal //[] around var name lets it be used as key in ES6
+      [changedId]: changedVal
     })
   }
 
   handleSubmit(event) {
-    // var context = this;
-    // event.preventDefault();
+    var context = this;
+    event.preventDefault();
 
-    /*TODO: update handling to include below instead of an instructions property
-      NEEDS:
-        1. form update to handle amt, unit and name
-        2. push in obj & push into extendedIngredients arr before posting
-    */
-    // extendedIngredients = []
-    // extendedIngredients.push({
-    //   name:(name of ingredient),
-    //   unit:(tsp, tbsp, etc),
-    //   amount:(numerical amount)
-    //   originalString: amount + unit + name},
-    // })
     var splitInst = this.state.instructions.split(',');
-
+    var ready = parseInt(this.state.prepTime) + parseInt(this.state.cookTime);
+    
     var newRecipe = {
-      ingredients: this.state.ingredientArr,
-      prepTime: this.state.prepTime,
-      cookTime: this.state.cookTime,
+      extendedIngredients: this.state.ingredientArr,
+      readyInMinutes: ready,
       instructions: splitInst,
       image: this.state.imageUrl || noImg
     }
@@ -85,7 +75,7 @@ class NewRecipe extends Component {
       recipe: newRecipe
     }, function(posted) {
       console.log(posted)
-    })
+    });
 
     this.setState({
       recipeName: null,
@@ -96,34 +86,28 @@ class NewRecipe extends Component {
       ingredientArr: [],
       instructionArr: []
     });
-
   }
 
   handleDynamicAdd(option) {
-    //BUG: the text field isn't being updated? it's null on the backend, but not updating
-    var context = this;
+    var string = this.state.amount + ' ' + this.state.units + ' ' + this.state.ingredientName;
 
-    if (option === 'ingredients') {
-      var updateIng = context.state.ingredientArr.slice();
-      updateIng.push(context.state.ingredients);
+    var updateArr = this.state.ingredientArr.slice();
 
-      context.setState({
-        ingredientArr: updateIng,
-        ingredients: ''
-      }, function(){
-        console.log(context.state.ingredients)
-      });
+    var newIngredient = {
+      name: this.state.ingredientName,
+      unit: this.state.units,
+      amount: this.state.amount,
+      originalString: string,
     }
 
-    // if (option === 'instructions') {
-    //   var updateInst = context.state.instructionArr.slice();
-    //   updateInst.push(context.state.instructions);
-    //
-    //   context.setState({
-    //     instructionArr: updateInst,
-    //     instructions: ''
-    //   });
-    // }
+    updateArr.push(newIngredient);
+
+    this.setState({
+      ingredientArr: updateArr,
+      ingredientName: '',
+      units: '',
+      amount: '',
+    });
   }
 
   onImageDrop(files) {
@@ -162,20 +146,15 @@ class NewRecipe extends Component {
             });
           }
         });
-      })
-
-
-
+      });
   }
 
   render() {
     return (
       <div className="NRcontainer">
-        <div className="addRecipe" id="addRecipe">
           <h1>Create a New Recipe</h1>
           <Panel className="addRecipePanel">
             <form ref="formRef">
-            <FormGroup>
               <ControlLabel htmlFor="recipeName" >Recipe Name</ControlLabel>
               <FormControl
                 id="recipeName"
@@ -185,15 +164,39 @@ class NewRecipe extends Component {
                 placeholder="Recipe Name"
               />
 
-              <span onClick={this.handleDynamicAdd.bind(this, 'ingredients')}><FontAwesome name="plus-circle" className="plusSign" /></span>
-              <ControlLabel htmlFor="ingredients" >Ingredients</ControlLabel>
-              <FormControl
-                id="ingredients"
-                type="text"
-                value={this.state.ingredients}
-                onChange={this.handleChange.bind(this, 'ingredients')}
-                placeholder="Ingredients"
-              />
+              <Form inline>
+                <span onClick={this.handleDynamicAdd.bind(this)}><FontAwesome name="plus-circle" className="plusSign" /></span>
+                <FormControl
+                  id="amount"
+                  type="text"
+                  aria-label="Amount"
+                  value={this.state.amount}
+                  onChange={this.handleChange.bind(this, 'amount')}
+                  placeholder="Amount"
+                />
+
+                <FormControl
+                  id="units"
+                  componentClass="select"
+                  aria-label="Units"
+                  placeholder="Units"
+                  onChange={this.handleChange.bind(this, 'units')}
+                  >
+                  {this.state.unitList.map((item, i) => {
+                    return <option value={item} key={i}>{item}</option>
+                  })}
+
+                </FormControl>
+
+                <FormControl
+                  id="ingredientName"
+                  type="text"
+                  aria-label="Ingredient Name"
+                  value={this.state.ingredientName}
+                  onChange={this.handleChange.bind(this, 'ingredientName')}
+                  placeholder="Ingredient"
+                />
+              </Form>
 
               <ControlLabel htmlFor="prepTime" >Prep-Time in Minutes</ControlLabel>
               <FormControl
@@ -231,10 +234,8 @@ class NewRecipe extends Component {
               </Dropzone>
 
               <Button type="submit" onClick={this.handleSubmit.bind(this)}>Submit</Button>
-            </FormGroup>
           </form>
         </Panel>
-        </div>
       </div>
     )
   }
