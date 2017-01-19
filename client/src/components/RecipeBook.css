@@ -106,3 +106,13 @@ input:-webkit-autofill {
   max-width: 388px;
   max-height: 258px;
 }
+
+.btnRL {
+  width: 30%;
+  margin: 5px;
+}
+
+.buttonRow {
+  margin: 0 auto;
+  text-align: center;
+}

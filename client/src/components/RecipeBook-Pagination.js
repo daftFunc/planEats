@@ -19,7 +19,6 @@ class Book extends Component {
       ingredientArr: [],
       instructionArr: [],
       activePage: 1,
-      nextIndex: 0,
       totalPages: 1
     }
   }
@@ -34,10 +33,21 @@ class Book extends Component {
 
     axios.get('/api/recipe')
       .then(function(recipes) {
-      context.setState({
-        recipes: recipes.data[0].Recipes,
-        totalPages: Math.ceil(context.state.recipes.length/10)
-      });
+        //split for pagination
+        var pages = [];
+
+        while (recipes.data[0].Recipes.length >= 10) {
+          pages.push(recipes.data[0].Recipes.splice(0, 10));
+        }
+
+        if (recipes.data[0].Recipes.length) {
+          pages.push(recipes.data[0].Recipes);
+        }
+
+        context.setState({
+          recipes: pages,
+          totalPages: pages.length
+        });
     });
   }
 
@@ -50,28 +60,37 @@ class Book extends Component {
   render() {
     return (
       <div>
-        <h1 id="recipeBook">Recipe Book</h1>
-        <Link to='/new-recipe'>
-          <Button id="createARecipe">Create a Recipe</Button>
-        </Link>
+      <h1 id="recipeBook">Recipe Book</h1>
+      <Link to='/new-recipe'>
+        <Button id="createARecipe">Create a Recipe</Button>
+      </Link>
+      <div className="RBcontainer">
+
         <div>
-          {this.state.recipes.map((recipe, i) =>
-               (<RecipeList
+          {this.state.recipes.map((page, index) => {
+            console.log(page)
+            page.map((recipe, i) => {
+              return
+              (<RecipeList
                 className="item recipe"
                 recipe={recipe}
                 key={i}
-               />)
-            )
+                readyInMinutes={parseInt(recipe.recipe.cookTime) + parseInt(recipe.recipe.cookTime)}
+             />)
+             })
+           })
           }
 
-          {/*
-          TODO: pagination features
-          <Pagination
-              items={this.state.totalPages}
-              activePage={this.state.activePage}
-            /> */}
+
           </div>
+          <Pagination
+            bsSize="medium"
+            items={this.state.totalPages}
+            activePage={this.state.activePage}
+            onSelect={this.handleSelect}
+            />
       </div>
+    </div>
     )
   }
 }

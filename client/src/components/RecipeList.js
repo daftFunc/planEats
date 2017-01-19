@@ -1,5 +1,5 @@
 import React from 'react';
-import { Panel } from 'react-bootstrap';
+import { Panel, Button, Image } from 'react-bootstrap';
 
 const RecipeList = ({recipe}) => {
   return (
@@ -11,7 +11,13 @@ const RecipeList = ({recipe}) => {
         </div>
 
         <div className="recipeImage item">
-          <img src={recipe.recipe.image} alt={recipe.name} className="scaleImg"/>
+          <Image src={recipe.recipe.image} alt={recipe.name} className="scaleImg" responsive/>
+        </div>
+
+        <div className="buttonRow">
+          <Button className="btnRL" bsStyle="info">Ingredients</Button>
+          <Button className="btnRL" >Summary</Button>
+          <Button className="btnRL" bsStyle="info">Full Recipe</Button>
         </div>
       </Panel>
     </div>
