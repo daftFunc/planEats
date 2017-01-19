@@ -100,7 +100,7 @@ class CalendarSettings extends React.Component {
           showCloseButton: true
         })
           .then(function(toDelete) {
-            alert('Remove event from calendar?')
+            alert('Event removed from calendar')
             context.deleteEvent(eventId)
           }, function(toEdit) {
             if (toEdit === 'close') {
@@ -145,7 +145,7 @@ class CalendarSettings extends React.Component {
                   mealTime: result[1], //time selected for the meal
                   selectedMealId: context.state.savedMealIds[result[0]]
                 }, function(){
-                  alert('Change this meal?');
+                  alert('Meal updated');
                   context.editEvent(eventId);
                 });
               });
@@ -281,7 +281,6 @@ class CalendarSettings extends React.Component {
   }
 
   getEventsOnLoad() {
-    console.log('getEventsOnLoad ran!')
     var context = this;
 
     axios.defaults.headers.username = context.state.username;

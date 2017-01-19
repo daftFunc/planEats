@@ -87,8 +87,8 @@ module.exports = {
     }})
   },
 
-  editEvent: function(name, meal_time, meal_id, uniqueKey) {
-    return db.Events.update({title: name, start: meal_time, MealId: meal_id}, {where: {id: uniqueKey}})
+  editEvent: function(name, meal_time, uniqueKey) {
+    return db.Events.update({title: name, start: meal_time}, {where: {id: uniqueKey}})
   },
 
   removeEvent: function(uniqueKey) {
