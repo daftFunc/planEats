@@ -15,14 +15,31 @@ class Home extends Component {
     ...connectProfile.PropTypes
   };
 
+
   render() {
 
+    const newToSite = {
+      textAlign:'center',
+
+    }
 
     return (
-
       <div>
+      <style dangerouslySetInnerHTML={{
+        __html:[
+          'a:link {'+
+          '   color:black;'+
+          '}'+
+          'a:visited {'+
+          '   color:grey;'+
+          '}'+
+          'a:hover {'+
+          '   color:grey;'+
+          '}'
+        ]
+      }} />
         <div className="Home">
-          {/*<img id="Logo-home" src={logo} alt="logo" />*/}
+          <div style={newToSite}><Link to="/aboutus">New to PlanEats? Click here to get started</Link></div>
         </div>
         <div id="menu">
           <div className="menu-item top-left">

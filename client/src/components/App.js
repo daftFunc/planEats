@@ -16,6 +16,7 @@ import RecipeSearchResult from './RecipeSearchResult';
 import NewRecipe from './NewRecipe';
 require('dotenv').config();
 import Delivery from './Delivery';
+import AboutUs from './AboutUs';
 
 class App extends Component {
   render() {
@@ -37,6 +38,7 @@ class App extends Component {
             <Route path="/meals" component={MealPlanner} />
             <Route path="/eat" component={Cook} />
             <Route path="/delivery" component={Delivery}/>
+            <Route path="/aboutus" component={AboutUs}/>
           </Route>
         </Route>
       </Router>
