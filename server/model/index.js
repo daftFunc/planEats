@@ -4,9 +4,10 @@ module.exports = {
 
   user: {
     post: function(req,res) {
+      console.log('USERNAME',req)
       controller.addUser(req.body.username)
         .spread(function(user, created) {
-          res.sendStatus(created ? 201 : 200)
+          res.status(created ? 201 : 404).send(user);
         });
     }
   },
