@@ -100,7 +100,7 @@ class CalendarSettings extends React.Component {
           showCloseButton: true
         })
           .then(function(toDelete) {
-            alert('Remove event from calendar?')
+            alert('Event removed from calendar')
             context.deleteEvent(eventId)
           }, function(toEdit) {
             if (toEdit === 'close') {
@@ -145,7 +145,7 @@ class CalendarSettings extends React.Component {
                   mealTime: result[1], //time selected for the meal
                   selectedMealId: context.state.savedMealIds[result[0]]
                 }, function(){
-                  alert('Change this meal?');
+                  alert('Meal updated');
                   context.editEvent(eventId);
                 });
               });
@@ -350,10 +350,6 @@ class CalendarSettings extends React.Component {
   editEvent(id) {
     var context = this;
 
-    // context.setState({
-    //   date: moment(calEvent._d).add(1, 'day').format('YYYY-MM-DD')
-    // });
-
     var data = {
       'id': id,
       'username': this.state.username,
@@ -364,6 +360,8 @@ class CalendarSettings extends React.Component {
 
     axios.put('/api/events', data)
       .then(function(){
+        const { calendar } = context.refs;
+        $(calendar).fullCalendar('destroy');
         context.getEventsOnLoad();
       });
   }
@@ -375,6 +373,8 @@ class CalendarSettings extends React.Component {
       headers: {'id': id}
     })
       .then(function(){
+        const { calendar } = context.refs;
+        $(calendar).fullCalendar('destroy');
         context.getEventsOnLoad();
       });
   }

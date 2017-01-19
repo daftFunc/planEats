@@ -134,11 +134,10 @@ module.exports = {
       var MealId;
       controller.findUser(req.headers.username)
         .then(function() {
-          EventId = req.body.id;
           Name = req.body.title;
           MealTime = req.body.start;
-          MealId = req.body.meal_id;
-          return controller.editEvent(Name, MealTime, MealId, EventId)
+          EventId = req.body.id;
+          return controller.editEvent(Name, MealTime, EventId)
         })
         .then(function(done) {
           res.sendStatus(201);

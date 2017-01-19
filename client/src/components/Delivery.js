@@ -5,6 +5,8 @@ import './Delivery.css';
 import { /*FieldGroup, FormGroup, HelpBlock, ControlLabel, FormControl, Button, Checkbox, Radio */} from 'react-bootstrap';
 import axios from 'axios';
 import FontAwesome from 'react-fontawesome';
+import 'react-select/dist/react-select.css';
+import { FormControl, Button } from 'react-bootstrap';
 
 class Delivery extends Component {
   constructor(props) {
@@ -49,16 +51,16 @@ class Delivery extends Component {
 
   render() {
     return (
-      <div classname='deliveryContainer'>
+      <div id='deliveryContainer'>
         <div>
-          <div id='delivery'>
+          <div>
             <h1>No time? No worries!</h1>
             <h4>Search for restaurants</h4>
           </div>
         </div>
         <form id='delivery' onSubmit={this.handleSearch.bind(this)}>
           <input id='form' type='text' placeholder='Input address ex. 944 Market Street, San Franciso, CA' onChange={this.handleChange.bind(this)}></input>
-          <input id='button' type='submit' value='Search' onSubmit={this.handleSearch.bind(this)}></input>
+          <Button type='submit' onSubmit={this.handleSearch.bind(this)}>Search</Button>
         </form>
         <div id='delivery'>
           <h4>Near you</h4>
