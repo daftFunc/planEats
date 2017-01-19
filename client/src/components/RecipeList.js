@@ -1,7 +1,7 @@
 import React from 'react';
 import { Panel, Button, Image } from 'react-bootstrap';
 
-const RecipeList = ({recipe}) => {
+const RecipeList = ({recipe, displaySummary}) => {
   return (
     <div>
       <Panel className="recipeBookPanel">
@@ -12,12 +12,12 @@ const RecipeList = ({recipe}) => {
 
         <div className="recipeImage item">
           <Image src={recipe.recipe.image} alt={recipe.name} className="scaleImg" responsive/>
+          <Button className="btnRL" onClick={() => displaySummary(recipe.recipe.id)}>Summary</Button>
+          <Button className="btnRL" bsStyle="info">Full Recipe</Button>
         </div>
 
         <div className="buttonRow">
-          <Button className="btnRL" bsStyle="info">Ingredients</Button>
-          <Button className="btnRL" >Summary</Button>
-          <Button className="btnRL" bsStyle="info">Full Recipe</Button>
+
         </div>
       </Panel>
     </div>

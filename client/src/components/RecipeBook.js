@@ -4,6 +4,7 @@ import { Button, Pagination } from 'react-bootstrap';
 import axios from 'axios';
 import RecipeList from './RecipeList';
 import {Link} from 'react-router';
+import swal from 'sweetalert2';
 
 class Book extends Component {
   constructor() {
@@ -47,6 +48,25 @@ class Book extends Component {
    });
  }
 
+ displayRecipeSummary(recipe) {
+   axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${recipe}/summary`, {
+     headers: {
+       'X-Mashape-Key': process.env.REACT_APP_SPOONACULAR_API_KEY,
+       'Accept': 'application/json'
+     }
+   })
+   .then(res =>
+     swal({
+       imageUrl: `https://spoonacular.com/recipeImages/${res.data.id}-312x231.jpg`,
+       imageWidth: 312,
+       imageHeight: 231,
+       title: res.data.title,
+       html: res.data.summary,
+       showConfirmButton: false,
+       showCancelButton: true,
+       cancelButtonText: 'close',
+     }))
+ }
   render() {
     return (
       <div>
@@ -60,6 +80,7 @@ class Book extends Component {
                 className="item recipe"
                 recipe={recipe}
                 key={i}
+                displaySummary={this.displayRecipeSummary}
                />)
             )
           }
