@@ -1,9 +1,8 @@
-import React, {Component} from 'react';
-import { Panel, Image } from 'react-bootstrap';
+import React from 'react';
+import { Panel, Button, Image } from 'react-bootstrap';
 
-const RecipeList = ({recipe}) => {
+const RecipeList = ({recipe, displaySummary}) => {
   return (
-    // <div className="RBcontainer">
     <div>
       <Panel className="recipeBookPanel">
         <div className="itemHeader item recipeHeader">
@@ -12,10 +11,15 @@ const RecipeList = ({recipe}) => {
         </div>
 
         <div className="recipeImage item">
-          <img src={recipe.recipe.image} alt={recipe.name} className="scaleImg"/>
+          <Image src={recipe.recipe.image} alt={recipe.name} className="scaleImg" responsive/>
+          <Button className="btnRL" onClick={() => displaySummary(recipe.recipe.id)}>Summary</Button>
+          <Button className="btnRL" bsStyle="info">Full Recipe</Button>
+        </div>
+
+        <div className="buttonRow">
+
         </div>
       </Panel>
-
     </div>
   );
 };

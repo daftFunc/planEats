@@ -12,7 +12,8 @@ html::-webkit-scrollbar-thumb {
 }
 
 .RBcontainer {
-  display: flex;
+  width: 80%;
+  margin: 0 auto;
   justify-content: center;
 }
 
@@ -67,9 +68,6 @@ input:-webkit-autofill {
 .plusSign:active{
   color: red;
 }
-.form-control{
-  width: 80%;
-}
 
 #recipeBook {
   text-align: center;
@@ -107,4 +105,14 @@ input:-webkit-autofill {
   display: block;
   max-width: 388px;
   max-height: 258px;
+}
+
+.btnRL {
+  width: 30%;
+  margin: 5px;
+}
+
+.buttonRow {
+  margin: 0 auto;
+  text-align: center;
 }

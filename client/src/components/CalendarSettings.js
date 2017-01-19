@@ -287,7 +287,7 @@ class CalendarSettings extends React.Component {
 
     axios.get('/api/events', {username: context.state.username})
       .then(function(events) {
-        if (events.data[0].Events.length) {
+        if (events.data[0] && events.data[0].Events.length) {
           var holder = [];
 
           events.data[0].Events.forEach((val) => {
@@ -314,7 +314,7 @@ class CalendarSettings extends React.Component {
     axios.get('/api/events', {username: context.state.username})
       .then(function(events) {
         // console.log('events', events.data[0].Events);
-        if (events.data[0].Events.length) {
+        if (events.data[0] && events.data[0].Events.length) {
           var holder = [];
 
           events.data[0].Events.forEach((val) => {
@@ -332,10 +332,10 @@ class CalendarSettings extends React.Component {
 
     axios.get('/api/meals')
       .then(function(meals) {
-        if (meals.data[0].Meals.length) {
+        if (meals.data[0] && meals.data[0].Meals.length) {
           var options = {}
           var ids = {}
-          meals.data[0].Meals.map(function(obj){
+          meals.data[0].Meals.map(function(obj) {
             ids[obj.name] = obj.id
             return options[obj.name] = obj.name
           });
