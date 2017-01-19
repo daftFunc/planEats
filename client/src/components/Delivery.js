@@ -55,7 +55,7 @@ class Delivery extends Component {
         <div>
           <div>
             <h1>No time? No worries!</h1>
-            <h4>Search for restaurants</h4>
+            <h4>Search for restaurants near you</h4>
           </div>
         </div>
         <form id='delivery' onSubmit={this.handleSearch.bind(this)}>
@@ -63,7 +63,6 @@ class Delivery extends Component {
           <Button type='submit' onSubmit={this.handleSearch.bind(this)}>Search</Button>
         </form>
         <div id='delivery'>
-          <h4>Near you</h4>
           {this.state.restaurants.map((restaurant) => {
             return (
               <div>

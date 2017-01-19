@@ -192,6 +192,12 @@ class CalendarSettings extends React.Component {
             '</pre>',
             confirmButtonText: 'Lovely!'
           }).then(function() {
+            var gCal = confirm('Authorize Google Calendar insertion?');
+            if (gCal == true) {
+              context.handleAuthClick();
+            } else {
+              alert('Event not inserted into Google Calendar');
+            }
             //get user-selected data from fields
             context.setState({
               mealName: result[0], //name of the meal
@@ -203,7 +209,7 @@ class CalendarSettings extends React.Component {
             });
           }, function(dismiss) {
             if (dismiss === 'cancel') {
-              context.handleAuthClick();
+              // context.handleAuthClick();
             }
           })
         }, function () {
@@ -253,7 +259,7 @@ class CalendarSettings extends React.Component {
   handleNewEvent() {
     var context = this;
 
-    this.handleAuthClick();
+    // this.handleAuthClick();
 
     axios.defaults.headers.username = this.state.username;
     axios.post('/api/events', {
