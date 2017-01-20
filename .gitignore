@@ -9,3 +9,6 @@ client/stories/
 node_modules/
 client/src/components/images/Thumbs.db
 ../.DS_Store
+
+# Docker
+doc

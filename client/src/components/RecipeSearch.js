@@ -104,16 +104,16 @@ class RecipeSearch extends Component {
 
   render() {
     return (
-      <div className="recipeSearchPage">
+      <div>
+        <h1 id="recipeBook">Search for a recipe.</h1>
         <form onSubmit={this.handleSubmit.bind(this)}>
-          <h1>Search for a recipe.</h1>
           <textarea className="recipeSearchForm" required placeholder="What would you like to search for?" onChange={this.handleChange.bind(this)} />
           <div className="submit-container">
             <input type="submit" value="Submit" />
           </div>
         </form>
-          <h1>Results</h1>
-        <Flexbox flex={'inline-flex'} flexDirection={'column'} flexWrap={'wrap'}>
+        <h1>Results</h1>
+        <div>
           {this.state.recipes ?
             (this.state.recipes.map((recipe, i) => (
                <RecipeSearchResult
@@ -123,19 +123,11 @@ class RecipeSearch extends Component {
                 displayRecipeSummary={this.displayRecipeSummary.bind(this)}
                 key={i}
                />
-            ))) :
-              <FontAwesome
-                className='super-crazy-colors'
-                name='rocket'
-                size='2x'
-                spin
-                style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
-              />
-          }
-        </Flexbox>
+            ))) : null}
+        </div>
       </div>
     )
   }
 }
 
-export default connectProfile(RecipeSearch);
+export default RecipeSearch;
