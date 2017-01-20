@@ -11,7 +11,7 @@ import search from './images/white_search.png';
 import {Navbar} from 'react-bootstrap';
 import {Nav} from 'react-bootstrap';
 import logo from './images/planEats_logo.png';
-import delivery from './images/delivery_button.png';
+import delivery from './images/no_time.png';
 
 
 import './Nav.css';
