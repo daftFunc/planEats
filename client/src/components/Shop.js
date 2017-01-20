@@ -5,10 +5,9 @@ import Convert from 'convert-units';
 import spoonRecipes from '../data/shop.js'
 import moment from 'moment';
 import DateRangePicker from 'react-bootstrap-daterangepicker';
-import {Checkbox} from 'react-bootstrap';
 import './daterangepicker.css';
-import {DropdownButton} from 'react-bootstrap';
-import {Button} from 'react-bootstrap';
+import {DropdownButton, Panel, Button, Checkbox, Form} from 'react-bootstrap';
+
 
 export default class Shop extends Component {
   constructor(props) {
@@ -269,7 +268,8 @@ export default class Shop extends Component {
   }
   render() {
     return (
-      <div>
+      <Panel>
+        <h1 style={{textAlign:'center'}}>Shop</h1>
       <DateRangePicker onApply={this.getEventRecipes} startDate={moment()} endDate={moment()}>
           <DropdownButton title = {`${this.state.startDate.format("dddd, MMMM Do")} - ${this.state.endDate.format("dddd, MMMM Do")}`} />
       </DateRangePicker>
@@ -286,7 +286,7 @@ export default class Shop extends Component {
       <div>
 
 
-        <h1 style={{textAlign:'center'}}>Shop</h1>
+
         <GroceryList  groceryList={this.state.groceryList}
                       freq={this.state.freq}
                       addedItems={this.state.addedItems}
@@ -295,7 +295,7 @@ export default class Shop extends Component {
       <div>
 
         </div>
-      </div>
+      </Panel>
   );
   }
 }
@@ -339,13 +339,12 @@ var GroceryList = ({groceryList, freq, addedItems, parent}) => (
 var AddItemButtonAndPopup = ({modalActive, toggleAdd, handleAddItem,handleInputChange, parent, quant, units, ingredient}) => (
 
   <div>
-    <input  type="button"
-            name="increase"
+    <Button name="increase"
             value="+"
-            onClick={toggleAdd} />
+            onClick={toggleAdd}>+</Button>
               <div>
               {modalActive && (
-                <form onSubmit={handleAddItem}>
+                <Form onSubmit={handleAddItem}>
                 <div>
                   <h3>Add Item</h3>
                   <input  type="text"
@@ -363,9 +362,9 @@ var AddItemButtonAndPopup = ({modalActive, toggleAdd, handleAddItem,handleInputC
                           placeholder="Ingredient"
                           value={ingredient}
                           onChange={handleInputChange.bind(parent,'Ingredient')} />
-                  <input type="submit" value="Add" />
+                  <Button type="submit" value="Add">Add</Button>
                 </div>
-              </form>)}
+              </Form>)}
     </div>
   </div>
 );

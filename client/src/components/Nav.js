@@ -25,7 +25,8 @@ class Site extends Component {
   constructor(){
     super();
     this.state = {
-      width:window.innerWidth
+      width:window.innerWidth,
+      isToggled:false
     }
   }
 
@@ -47,7 +48,7 @@ class Site extends Component {
       </div>
     );
   }
-
+  toggeleDrop
   renderUserControls() {
     const {profile} = this.props;
     var path=this.props.location.pathname;
@@ -66,7 +67,7 @@ class Site extends Component {
             </Link>
           </div>
 
-          {!(path === '/' && this.state.width>767) && (<Navbar className="Site-header"
+          {!(path === '/' && this.state.width>767) && (<Navbar onToggle={()=>{this.setState({isToggled:!this.state.isToggled})}} expanded={this.state.isToggled} id="Site-header-nav"
                                                                inverse collapseOnSelect>
 
             <Navbar.Header className="menu-header">
@@ -81,33 +82,33 @@ class Site extends Component {
             </Navbar.Header>
             <Navbar.Collapse className="contain-menu-drop">
               <Nav >
-                <div className="space-fill left-sideOf"/>
-                <Link to="/calendar">
+                <div  className="space-fill left-sideOf"/>
+                <Link to="/calendar" onClick={()=>{this.setState({isToggled:false})}}>
                   <img className="menu-item-drop" src={calendar} alt="Calendar"/>
-                  <div className="space-fill">Plan</div>
+                  <div className="space-fill"> &nbsp; Plan</div>
 
                 </Link>
-                <Link to="/meals">
+                <Link to="/meals" onClick={()=>{this.setState({isToggled:false})}}>
                   <img className="menu-item-drop" src={meals} alt="Calendar"/>
-                  <div className="space-fill">Meals</div>
+                  <div className="space-fill">&nbsp;Meals</div>
                 </Link>
-                <Link to="/recipe">
+                <Link to="/recipe" onClick={()=>{this.setState({isToggled:false})}}>
                   <img className="menu-item-drop" src={recipe} alt="recipe"/>
-                  <div className="space-fill">Recipes</div>
+                  <div className="space-fill">&nbsp;Recipes</div>
                 </Link>
-                <Link to="/recipeSearch">
+                <Link to="/recipeSearch" onClick={()=>{this.setState({isToggled:false})}}>
                   <img className="menu-item-drop" src={search} alt="Shop"/>
-                  <div className="space-fill">Search</div>
+                  <div className="space-fill">&nbsp;Search</div>
                 </Link>
-                <Link to="/shop">
+                <Link to="/shop" onClick={()=>{this.setState({isToggled:false})}}>
                   <img className="menu-item-drop" src={cart} alt="Shop"/>
-                  <div className="space-fill">Shop</div>
+                  <div className="space-fill">&nbsp;Shop</div>
 
 
                 </Link>
                 <Link to="/eat">
                   <img className="menu-item-drop" src={eat} alt="Eat"/>
-                  <div className="space-fill right-sideOf">Cook</div>
+                  <div className="space-fill right-sideOf">&nbsp;Cook</div>
                 </Link>
               </Nav>
             </Navbar.Collapse>
@@ -119,7 +120,7 @@ class Site extends Component {
           {/*src={profile.picture}*/}
           {/*alt={profile.nickname} />}*/}
           {/*<Link to="/profile/edit">{profile.nickname}</Link> &middot; <Link to="/calendar">Plan</Link> &middot; <Link to="/shop">Shop</Link> &middot; <a onClick={() => logout()}>Log Out</a>*/}
-          <a onClick={() => logout()}>Log Out</a>
+
         </div>
       );
     } else {

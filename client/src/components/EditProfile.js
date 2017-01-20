@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connectProfile} from '../auth';
 import './EditProfile.css';
 import { Panel } from 'react-bootstrap';
-
+import {logout} from '../auth';
 class EditProfile extends Component {
   static propTypes = {
     ...connectProfile.PropTypes
@@ -21,6 +21,7 @@ class EditProfile extends Component {
 
     return (
       <Panel className="EditProfile">
+        <a style={{float:'right'}} onClick={() => logout()}> Log Out</a>
         <div className="EditProfile-heading">Your Profile</div>
         <div className="EditProfile-profile">
           <p><strong>Nickname:</strong> {profile.nickname}</p>
@@ -50,8 +51,10 @@ class EditProfile extends Component {
             </div>
           </fieldset>
         </form>*/}
-        <a target="_blank" href="http://privacypolicies.com/privacy/view/obtS7k">Privacy policy</a>
+        <a target="_blank" href="http://privacypolicies.com/privacy/view/obtS7k">Privacy policy</a><br />
+
       </Panel>
+
     );
   }
 

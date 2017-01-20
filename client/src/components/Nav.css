@@ -7,24 +7,42 @@
 /*animation: Site-logo-spin infinite 20s linear;*/
 /*height: 80px;*/
 /*}*/
-
+.menu-header {
+    padding:10px
+}
 #desktop-header {
     display:none;
 }
-
-.Site-header {
+.navbar-nav {
+    font-size:12px;
+    margin:0;
+}
+.nav:after, .nav:before, .navbar-collapse:after, .navbar-collapse:before, .navbar-header:after, .navbar-header:before, .navbar:after, .navbar:before {
+    display:none;
+}
+.container{
+    padding-right: 20px;
+}
+#Site-header-nav {
     height:10%;
     color: white;
-    padding: 10px;
     width:100% !important;
+}
+.container>.navbar-collapse{
+    margin-right:0;
+    margin-left:0;
+    -webkit-box-sizing:initial;
+    box-sizing:initial;
+    padding-left:0px;
+    padding-right:0px;
 }
 
 #header-logo {
     width:65%;
-
 }
 .left-sideOf {
-    margin:auto;
+    margin-left:0;
+    padding-left:0;
 }
 
 .navbar-inverse {
@@ -37,14 +55,16 @@
     height: 192px;
     margin: 10px auto;
 }
+
 .menu-item-drop {
     display:inline;
     width:7%;
     padding-top:5%;
-    max-width: 3em;
-
+    max-width: 3rem;
 }
+
 .space-fill {
+    font-size:20px;
     display:inline-block;
     visibility:hidden;
     width:9.5%;
@@ -53,11 +73,14 @@
 .contain-menu-drop {
     font-family: Ailerons;
     font-size: 160%;
+    padding-left:0%;
+    padding-right:5%;
 }
 
 .Site-page {
     padding: 10px;
 }
+
 #header-image {
     position:relative;
     float:right;
@@ -65,10 +88,12 @@
     width:15%;
     display:inline;
 }
+
 .icon-bar{
     width:5em;
     height:.45em;
 }
+
 @keyframes Site-logo-spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
@@ -87,11 +112,10 @@
         display:flex-inline;
         visibility:visible;
         color:white;
-        width:10%;
-        margin-left:1em;
+        width:12%;
     }
     .left-sideOf{
-        width: 9%;
+        width: 8%;
     }
     .right-sideOf{
         width:0%;
@@ -139,7 +163,7 @@
     .navbar {
         border-radius:0px;
     }
-    .Site-header {
+    #Site-header-nav {
         height:50px;
         color: white;
         padding:7px;
