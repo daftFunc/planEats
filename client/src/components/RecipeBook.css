@@ -12,7 +12,7 @@ html::-webkit-scrollbar-thumb {
 }
 
 .RBcontainer {
-  width: 80%;
+  width: 90vw;
   margin: 0 auto;
   justify-content: center;
 }
@@ -75,17 +75,29 @@ input:-webkit-autofill {
 }
 
 #createARecipe {
-  float: right;
+  display: block;
   margin: 0 auto;
-  width: 100%;
 }
 
 .recipeBookPanel {
   display: flex;
   width: 30em;
   float: left;
-  margin-right: 20px;
-  height: 40em;
+  margin: 1% 1.5%;
+  height: 35em;
+}
+
+.RBPanelcontainer {
+  position: absolute;
+  text-align: center;
+}
+
+.clear {
+  clear: both;
+}
+
+.recipeBookPanel::after {
+  clear: both;
 }
 
 .resultImg {
@@ -103,8 +115,9 @@ input:-webkit-autofill {
 
 .scaleImg {
   display: block;
-  max-width: 388px;
+  width: 388px;
   max-height: 258px;
+  margin: 40px auto 0 auto;
 }
 
 .btnRL {
@@ -114,5 +127,11 @@ input:-webkit-autofill {
 
 .buttonRow {
   margin: 0 auto;
+  text-align: center;
+}
+
+.recipeTitle {
+  font-family: Ailerons;
+  font-size: 2.5rem;
   text-align: center;
 }

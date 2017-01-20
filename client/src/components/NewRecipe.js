@@ -6,6 +6,9 @@ import FontAwesome from 'react-fontawesome';
 import noImg from '../../public/noImg.jpg';
 import request from 'superagent';
 import Dropzone from 'react-dropzone';
+import swal from 'sweetalert2';
+
+const imgUrl = "https://i.imgsafe.org/180535e7db.png";
 
 class NewRecipe extends Component {
   constructor() {
@@ -60,7 +63,7 @@ class NewRecipe extends Component {
 
     var splitInst = this.state.instructions.split(',');
     var ready = parseInt(this.state.prepTime) + parseInt(this.state.cookTime);
-    
+
     var newRecipe = {
       extendedIngredients: this.state.ingredientArr,
       readyInMinutes: ready,
@@ -108,6 +111,11 @@ class NewRecipe extends Component {
       units: '',
       amount: '',
     });
+
+    swal({
+      title: 'Added Ingredient',
+      html: newIngredient.name + ' is now in your recipe'
+    })
   }
 
   onImageDrop(files) {
@@ -151,8 +159,9 @@ class NewRecipe extends Component {
 
   render() {
     return (
-      <div className="NRcontainer">
-          <h1>Create a New Recipe</h1>
+      <div>
+        <h1 style={{textAlign: 'center'}}>Create a New Recipe</h1>
+        <div className="NRcontainer" style={{display: 'flex', justifyContent: 'center'}}>
           <Panel className="addRecipePanel">
             <form ref="formRef">
               <ControlLabel htmlFor="recipeName" >Recipe Name</ControlLabel>
@@ -165,6 +174,7 @@ class NewRecipe extends Component {
               />
 
               <Form inline>
+                <HelpBlock htmlFor="instructions">Enter an ingredient & click the plus sign to add it to your recipe</HelpBlock>
                 <span onClick={this.handleDynamicAdd.bind(this)}><FontAwesome name="plus-circle" className="plusSign" /></span>
                 <FormControl
                   id="amount"
@@ -217,7 +227,7 @@ class NewRecipe extends Component {
               />
 
               <ControlLabel htmlFor="instructions">Instructions</ControlLabel>
-              <HelpBlock htmlFor="instructions">Enter instructions with each item separated by a comma</HelpBlock>
+              <HelpBlock htmlFor="instructions">Enter instructions for your recipe</HelpBlock>
               <FormControl
                 id="instructions"
                 componentClass="textarea"
@@ -226,17 +236,21 @@ class NewRecipe extends Component {
                 placeholder="Instructions"
               />
 
-              <Dropzone
-                multiple={false}
-                accept="image/*"
-                onDrop={this.onImageDrop.bind(this)}>
-                <p>OPTIONAL: drag or double-click to upload an image of your dish!</p>
-              </Dropzone>
-
+              <div style={{backgroundImage: 'url('+ imgUrl + ')', backgroundRepeat: 'no-repeat', backgroundColor: '#E6E6E6', alignItems: 'center'}}>
+                <Dropzone
+                  multiple={false}
+                  accept="image/*"
+                  onDrop={this.onImageDrop.bind(this)}
+                  style={{margin: '5px auto', padding: '5px', width: '30%', height: '30%'}}
+                >
+                  <p>OPTIONAL: drag or double-click to upload an image of your dish!</p>
+                </Dropzone>
+              </div>
               <Button type="submit" onClick={this.handleSubmit.bind(this)}>Submit</Button>
           </form>
         </Panel>
       </div>
+    </div>
     )
   }
 }

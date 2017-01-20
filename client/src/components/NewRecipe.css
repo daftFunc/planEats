@@ -1,15 +1,13 @@
+/*
+BUG: does not work unless inline?
 .NRcontainer {
-  /*position: absolute;*/
   display: flex;
-}
+  justify-content: center
+}*/
 
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
 } /*needed to prevent the autofill yellow-background when resetting the form fields*/
-
-.addRecipePanel {
-  width: 50rem;
-}
 
 .plusSign{
   font-size: 20px;
@@ -27,6 +25,12 @@ input:-webkit-autofill {
 }
 
 div.addRecipe {
-  width: 50rem;
+  width: 70rem;
   margin: 0 auto;
 }
+
+/*
+BUG: does not work unless inline?
+#createPgTitle {
+  text-align: center;
+}*/
