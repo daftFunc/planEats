@@ -236,7 +236,7 @@ class NewRecipe extends Component {
                 placeholder="Instructions"
               />
 
-              <div style={{backgroundImage: 'url('+ imgUrl + ')', backgroundRepeat: 'no-repeat', backgroundColor: '#E6E6E6', alignItems: 'center'}}>
+              <div style={{ backgroundRepeat: 'no-repeat', backgroundColor: '#E6E6E6', backgroundSize: 'contain', opacity: 0.5}}>
                 <Dropzone
                   multiple={false}
                   accept="image/*"

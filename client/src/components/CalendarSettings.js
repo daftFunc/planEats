@@ -84,7 +84,7 @@ class CalendarSettings extends React.Component {
 
       eventClick: function(calEvent, jsEvent, view){
         var eventId = calEvent.id;
-        var mealDate = moment(calEvent.start._d).add(1, 'day').format('MMMM Do[,] YYYY');
+        var mealDate = moment(calEvent._d).add(1, 'day').format('MMMM Do[,] YYYY');
         context.setState({
           date: calEvent.uniqueId.slice(-19, -9)
         });

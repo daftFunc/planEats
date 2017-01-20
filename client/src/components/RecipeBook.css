@@ -12,7 +12,7 @@ html::-webkit-scrollbar-thumb {
 }
 
 .RBcontainer {
-  width: 90vw;
+  width: 93vw;
   margin: 0 auto;
   justify-content: center;
 }
@@ -81,7 +81,7 @@ input:-webkit-autofill {
 
 .recipeBookPanel {
   display: flex;
-  width: 30em;
+  width: 29em;
   float: left;
   margin: 1% 1.5%;
   height: 35em;

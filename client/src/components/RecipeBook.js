@@ -68,34 +68,47 @@ class Book extends Component {
      }))
   }
 
-  displayFullRecipe(recipe) {
+  displayIngredients(recipe) {
+    var htmlSt = '<div><p style={{font-weight: "bold"; text-align: "center"}}>Ingredients</p><ul style={{text-align: "right"}}>'
     var ing = recipe.recipe.extendedIngredients
-                    // .map((ingredient) => {
-                    //   return <li>{ingredient.originalString}</li>
-                    // })
-    var inst = recipe.recipe.instructions
-                      .replace(/([.?!])\s*(?=[A-Z])/g, "$1|")
-                      .split("|")
-    //                   .map((step,i) => {
-    //     if( step !== '' ) {
-    //       return (<li id='cook-steps' key={i + step}>
-    //         {step}
-    //       </li>);
-    //     }
-    // })
+                    .map((ingredient) => {
+                      console.log(ingredient)
+                        htmlSt = htmlSt.concat(`<li>${ingredient.originalString}</li>`)
+                    })
 
-    // console.log(ing, inst)
-
+    htmlSt = htmlSt.concat('</ol></div><hr style={{border: 0; height: "1px"; background-image: "linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0))"}}/>');
+    console.log(htmlSt)
    swal({
-     imageUrl: `https://spoonacular.com/recipeImages/${recipe.id}-312x231.jpg`,
-     imageWidth: 312,
-     imageHeight: 231,
      title: recipe.name,
-     html: ing + '<br />' + inst,
+     html: htmlSt,
      showConfirmButton: false,
      showCancelButton: true,
      cancelButtonText: 'close',
    })
+  }
+
+  displayInstructions(recipe) {
+    var htmlStr = '<div><p style={{font-weight: "bold"; text-align: "center"}}>Instructions</p><ul style={{text-align: "right"}}>';
+
+    var inst = recipe.recipe.instructions
+                      .replace(/([.?!])\s*(?=[A-Z])/g, "$1|")
+                      .split("|")
+                      .map((step,i) => {
+        if( step !== '' ) {
+          htmlStr = htmlStr.concat(`<li key=${i + step}>
+            ${step}
+          </li>`);
+        }
+    });
+    htmlStr = htmlStr.concat('</ul></div>')
+
+    swal({
+      title: recipe.name,
+      html: htmlStr,
+      showConfirmButton: false,
+      showCancelButton: true,
+      cancelButtonText: 'close',
+    })
   }
 
   render() {
@@ -113,7 +126,8 @@ class Book extends Component {
               recipe={recipe}
               key={i}
               displaySummary={this.displayRecipeSummary}
-              displayFull={this.displayFullRecipe}
+              displayIngredients={this.displayIngredients}
+              displayInstructions={this.displayInstructions}
              />
             ))}
             <div className="clear"></div>

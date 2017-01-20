@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import Axios from 'axios'
 import moment from 'moment';
 import './Cook.css';
+import { Panel } from 'react-bootstrap';
+
 export default class Cook extends Component {
   constructor(props) {
     super(props);
@@ -58,11 +60,10 @@ export default class Cook extends Component {
   }
   render() {
     return  (
-      <div>
+      <div style={{margin: '0 auto'}}>
         <h1 style={{textAlign:'center'}}>Cook</h1>
-        <div id='instruction-box'>
           <CookingInstruction instructions={this.state.cookingInstructions} />
-        </div>
+
       </div>
     );
   }
@@ -75,17 +76,19 @@ var CookingInstruction = ({instructions}) => (
 
     {console.log("instructions",instructions)}
     {instructions.map((element,i) => (
+      <Panel id='instruction-box'>
+
       <p>
-        <li key={element[0]}><div id="title">{element[0]}</div>
+        <li key={element[0]}><div id="title" style={{fontWeight: 'bold', fontSize: '1.5em'}}>{element[0]}</div>
           <div style={{display:'inline'}}>
             <img className="recipe-image" src={element[2]} alt={element[0]} />
-
           <Ingredients style={{display:'inline'}} ingredients={element[3]}/>
             {console.log("next recipe",element)}
           </div>
           <Instructions instructions={element[1]} />
         </li>
       </p>
+      </Panel>
       ))}
 
   </ul>
