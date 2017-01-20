@@ -10,7 +10,7 @@ import meals from './images/white_meals.png';
 import search from './images/white_search.png';
 import {Navbar} from 'react-bootstrap';
 import {Nav} from 'react-bootstrap';
-import logo from './images/planEats_logo.png';
+import logo from './images/planEatsLogo.png';
 import delivery from './images/no_time.png';
 
 
