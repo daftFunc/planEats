@@ -10,16 +10,16 @@ const RecipeSearchResult = ({recipe, addToRecipeBook, displayRecipeSummary}) => 
     <div>
       <Panel className="recipeBookPanel">
         <div className="itemHeader item recipeHeader">
-          <h2>{recipe.title}</h2>
+          <p className="recipeTitle">{recipe.title}</p>
+          <p className="readyIn" style={{textAlign: 'center'}}>Ready in {recipe.readyInMinutes} minutes!</p>
         </div>
         <div className="recipeImage item">
-          <Image src={`https://spoonacular.com/recipeImages/${recipe.id}-312x231.jpg`} responsive alt={recipe.title}></Image>
+          <Image src={`https://spoonacular.com/recipeImages/${recipe.id}-636x393.jpg`} alt={recipe.title} className="scaleImg" responsive/>
         </div>
-        <h4>Ready in {recipe.readyInMinutes} minutes!</h4>
-        <ButtonToolbar bsSize="large" className="buttonRow">
-          <Button bsStyle="primary" active onClick={() => addToRecipeBook(recipe.id)}>Add To Recipe Book</Button>
-          <Button bsStyle="primary" active onClick={() => displayRecipeSummary(recipe.id)}>More Info</Button>
-        </ButtonToolbar>
+        <div className="buttonRow">
+          <Button className="btnRS" bsStyle="success" onClick={() => addToRecipeBook(recipe.id)}>Add To Recipe Book</Button>
+          <Button className="btnRS" bsStyle="primary" onClick={() => displayRecipeSummary(recipe.id)}>More Info</Button>
+        </div>
       </Panel>
     </div>
   )

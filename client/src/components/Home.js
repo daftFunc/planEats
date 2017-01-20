@@ -70,7 +70,7 @@ class Home extends Component {
             <div className="menu-text eatA">Cook</div>
           </div>
         </div>
-        <div className="Login">
+        <div className="Login intro">
           {!this.props.profile ? <a className="Login-loginButton" onClick={() => login()}>Log In with Auth0</a> : <h3>Hello {this.props.profile.name}!</h3>}
         </div>
       </div>

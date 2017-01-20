@@ -1,54 +1,14 @@
-
-
-.recipeList {
-  padding-left: 0px;
+.RScontainer {
+    width: 90vw;
+    margin: 0 auto;
+    justify-content: center;
 }
 
-.recipeItem {
-  list-style: none;
-  padding: 5px;
-  font-weight: bold;
-  text-decoration: underline;
-  color: #5e79a5;
+.recipeSearchSubmit {
+    display: block;
+    margin: 0 auto;
 }
 
-.recipes, .addNew {
-  display: inline-block;
-  text-align: left;
+.btnRS {
+    margin: 5px;
 }
-
-.addNew {
-  float: right;
-}
-
-.recipes {
-  float: left;
-  overflow: auto; /*show scroll bar whe*/
-}
-
-input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px white inset;
-} /*needed to prevent the autofill yellow-background when resetting the form fields*/
-
-.swal2-show{
-  margin: 0 auto;
-  z-index: 1;
-}
-
-/*#ingredients{
-  float: left;
-}*/
-
-.plusSign{
-  font-size: 20px;
-  margin: 5px;
-  padding: 0px;
-  /*float: right;*/
-}
-
-.plusSign:active{
-  color: red;
-}
-/*.form-control{
-  width: 80%;
-}*/
