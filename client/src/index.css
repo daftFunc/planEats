@@ -1,3 +1,11 @@
+@font-face { font-family: Ailerons; src: url('components/font/Ailerons-Typeface.otf'); }
+
+h1, h2 {
+  font-family: Ailerons;
+  text-align: center;
+  padding-bottom: 5px;
+}
+
 body {
   margin: 0;
   padding: 0;

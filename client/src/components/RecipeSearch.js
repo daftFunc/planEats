@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
-import {connectProfile} from '../auth';
 import swal from 'sweetalert2';
 import {Link} from 'react-router';
 import './RecipeSearch.css';
 import axios from 'axios';
-import FontAwesome from 'react-fontawesome';
 import RecipeSearchResult from './RecipeSearchResult';
-import Visible from 'visible-react';
-import Flexbox from 'flexbox-react';
+import { Form, FieldGroup, ControlLabel, FormControl, Button, HelpBlock, Panel } from 'react-bootstrap';
+
 
 class RecipeSearch extends Component {
   constructor(props) {
@@ -35,7 +33,7 @@ class RecipeSearch extends Component {
     });
   };
 
-  handleChange(event) {
+  handleChange(ignore, event) {
     this.setState({searchValue: event.target.value});
   };
 
@@ -104,13 +102,19 @@ class RecipeSearch extends Component {
 
   render() {
     return (
-      <div>
+      <div className="RScontainer">
         <h1 id="recipeBook">Search for a recipe.</h1>
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <textarea className="recipeSearchForm" required placeholder="What would you like to search for?" onChange={this.handleChange.bind(this)} />
-          <div className="submit-container">
-            <input type="submit" value="Submit" />
-          </div>
+        <form>
+          <FormControl
+            id="recipeSearchBox"
+            type="text"
+            onChange={this.handleChange.bind(this, 'searchValue')}
+            label="Recipe Seach"
+            placeholder="Natural language search. (ex: Gluten and dairy free brownies)"
+          />
+          <Button className="recipeSearchSubmit btnRS" type="submit" bsStyle="info" onClick={this.handleSubmit.bind(this)}>
+            Submit
+          </Button>
         </form>
         <h1>Results</h1>
         <div>

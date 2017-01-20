@@ -132,32 +132,35 @@ class MealPlanner extends Component {
 
   render() {
     return (
-      <div className="MPcontainer">
-        <Panel className="recipeBookML">
-          <div className="headerMP">
-            <text className="MPHeaderText">Click a recipe to add it to your book and write a name for your creation below!</text>
-            <form id="newMealForm">
-              <FormControl
-                id="recipeName"
-                type="text"
-                value={this.state.mealName}
-                onChange={this.handleChange.bind(this)}
-                placeholder="Meal Name"
+      <div>
+        <h1>Meals</h1>
+        <div className="MPcontainer">
+          <Panel className="recipeBookML">
+            <div className="headerMP">
+              <text className="MPHeaderText">Click a recipe to add it to your book and write a name for your creation below!</text>
+              <form id="newMealForm">
+                <FormControl
+                  id="recipeName"
+                  type="text"
+                  value={this.state.mealName}
+                  onChange={this.handleChange.bind(this)}
+                  placeholder="Meal Name"
+                />
+              </form>
+              <text>Search or select from your saved recipes</text>
+              <Select
+                name="recipeDropDown"
+                value={this.state.clickedName}
+                options={this.state.list}
+                multi={true}
+                onChange={this.handleAddRemove.bind(this)}
+                searchable={true}
+                placeholder="Search and select from your saved recipes..."
               />
-            </form>
-            <text>Search or select from your saved recipes</text>
-            <Select
-              name="recipeDropDown"
-              value={this.state.clickedName}
-              options={this.state.list}
-              multi={true}
-              onChange={this.handleAddRemove.bind(this)}
-              searchable={true}
-              placeholder="Search and select from your saved recipes..."
-            />
-          </div>
-          <Button type="submit" onClick={this.handleSubmit.bind(this)}>Save Meal</Button>
-        </Panel>
+            </div>
+            <Button type="submit" onClick={this.handleSubmit.bind(this)}>Save Meal</Button>
+          </Panel>
+        </div>
       </div>
     )
   }
