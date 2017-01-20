@@ -60,7 +60,7 @@ export default class Cook extends Component {
   }
   render() {
     return  (
-      <div>
+      <div style={{margin: '0 auto'}}>
         <h1 style={{textAlign:'center'}}>Cook</h1>
           <CookingInstruction instructions={this.state.cookingInstructions} />
 

@@ -12,6 +12,8 @@
 }
 #instruction-box {
     height:200px;
+    width: 60em;
+    margin: 5px auto;
 }
 .recipe-image {
     max-height:20em;
@@ -22,7 +24,7 @@
 @media screen and (min-width: 768px) {
     #instruction-box {
         height:100%;
-        margin:3%;
+        /*margin:3%;*/
 
     }
     #cook-steps {
