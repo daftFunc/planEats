@@ -112,7 +112,7 @@ class RecipeSearch extends Component {
             label="Recipe Seach"
             placeholder="Natural language search. (ex: Gluten and dairy free brownies)"
           />
-          <Button className="recipeSearchSubmit btnRS" type="submit" bsStyle="info" onClick={this.handleSubmit.bind(this)}>
+          <Button className="recipeSearchSubmitButton" type="submit" bsStyle="info" onClick={this.handleSubmit.bind(this)}>
             Submit
           </Button>
         </form>
