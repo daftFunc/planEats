@@ -275,7 +275,7 @@ export default class Shop extends Component {
           <DropdownButton title = {`${this.state.startDate.format("dddd, MMMM Do")} - ${this.state.endDate.format("dddd, MMMM Do")}`} />
       </DateRangePicker>
 
-      <Button onClick={()=>{this.setState({groceryList:{}}, this.pushUpList);}}>Clear List</Button>
+      <Button style={{float:'right'}} onClick={()=>{this.setState({groceryList:{}}, this.pushUpList);}}>Clear List</Button>
       <AddItemButtonAndPopup  modalActive={this.state.modalActive}
                               toggleAdd={this.toggleAdd.bind(this)}
                               handleAddItem={this.handleAddItem.bind(this)}
@@ -306,7 +306,7 @@ export default class Shop extends Component {
 var GroceryList = ({groceryList, freq, addedItems, parent}) => (
 
   <div>
-
+    <Panel id="listPanel">
     <ul style={{listStyleType:'none'}} className="checkbox-par">
       {Object.keys(groceryList).map((key) => {
         var amount = '';
@@ -334,6 +334,7 @@ var GroceryList = ({groceryList, freq, addedItems, parent}) => (
         );
         })}
     </ul>
+    </Panel>
   </div>
 
 );
@@ -341,14 +342,14 @@ var GroceryList = ({groceryList, freq, addedItems, parent}) => (
 var AddItemButtonAndPopup = ({modalActive, toggleAdd, handleAddItem,handleInputChange, parent, quant, units, ingredient}) => (
 
   <div>
-    <Button name="increase"
+    <Button  name="increase"
             value="+"
             onClick={toggleAdd}>+</Button>
               <div>
               {modalActive && (
-                <Form onSubmit={handleAddItem}>
+                <Form style={{textAlign:'center'}} onSubmit={handleAddItem}>
                 <div>
-                  <h3>Add Item</h3>
+                  <h1>Add Item</h1>
                   <input  type="text"
                           name="item"
                           placeholder="Quantity"
