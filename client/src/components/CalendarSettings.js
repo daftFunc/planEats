@@ -32,9 +32,6 @@ class CalendarSettings extends React.Component {
     // handleAuthClick();
   }
 
-  // var CLIENT_ID = '998213442315-36am84caphfp5kve49oom63murreksr4.apps.googleusercontent.com';
-  // var SCOPES = ["https://www.googleapis.com/auth/calendar"];
-
   checkAuth() {
     window.gapi.auth.authorize(
       {
@@ -100,7 +97,7 @@ class CalendarSettings extends React.Component {
           showCloseButton: true
         })
           .then(function(toDelete) {
-            alert('Event removed from calendar')
+            console.log('Event removed from calendar')
             context.deleteEvent(eventId)
           }, function(toEdit) {
             if (toEdit === 'close') {
@@ -145,7 +142,7 @@ class CalendarSettings extends React.Component {
                   mealTime: result[1], //time selected for the meal
                   selectedMealId: context.state.savedMealIds[result[0]]
                 }, function(){
-                  alert('Meal updated');
+                  console.log('Meal updated');
                   context.editEvent(eventId);
                 });
               });
@@ -190,20 +187,28 @@ class CalendarSettings extends React.Component {
             '<pre> You want to have: ' +
             result[0] + ' at ' + time[result[1]] +
             '</pre>',
-            confirmButtonText: 'Lovely!'
-          }).then(function() {
-            //get user-selected data from fields
+            confirmButtonText: 'Lovely!',
+            showCancelButton: true,
+            cancelButtonText: 'Add to Google Calendar'
+          })
+          .then(function() {
             context.setState({
               mealName: result[0], //name of the meal
               mealTime: result[1], //time selected for the meal
               selectedMealId: context.state.savedMealIds[result[0]]
             }, function(){
-              // console.log(context.state);
               this.handleNewEvent();
             });
           }, function(dismiss) {
             if (dismiss === 'cancel') {
+              context.setState({
+              mealName: result[0], //name of the meal
+              mealTime: result[1], //time selected for the meal
+              selectedMealId: context.state.savedMealIds[result[0]]
+            }, function() {
+              context.handleNewEvent();
               context.handleAuthClick();
+            });
             }
           })
         }, function () {
@@ -228,7 +233,7 @@ class CalendarSettings extends React.Component {
      } else {
        hours++;
      }
-     return hours + time.slice(2);
+     return hours++ + time.slice(2);
    }
    var defaultEnd = endTime(this.state.mealTime);
    var request = window.gapi.client.calendar.events.insert({
@@ -246,14 +251,11 @@ class CalendarSettings extends React.Component {
 
    request.execute(function(event) {
      console.log('Event created: ' + event.htmlLink);
-     // appendPre('Event created: ' + event.htmlLink);
    });
   }
 
   handleNewEvent() {
     var context = this;
-
-    this.handleAuthClick();
 
     axios.defaults.headers.username = this.state.username;
     axios.post('/api/events', {
@@ -296,7 +298,6 @@ class CalendarSettings extends React.Component {
           context.setState({
             events: holder
           }, function(){
-            // console.log('state set to: ', context.state.events);
             context.calendarSettings();
           })
         }
