@@ -169,9 +169,9 @@
     }
     #delivery-button {
         position: absolute;
-        top:7px;
+        top:3px;
         left:10px;
-        height:55px;
+        height:70px;
         width:auto;
     }
     #header-logo {
