@@ -1,6 +1,10 @@
 #cook-steps {
     list-style: decimal;
 }
+
+.cookPanel {
+    background-color: #3BC48F;
+}
 .ingredients-cook {
     list-style:disc;
     margin-left:2em;

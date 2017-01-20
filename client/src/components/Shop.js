@@ -268,8 +268,9 @@ export default class Shop extends Component {
   }
   render() {
     return (
-      <Panel>
+      <div>
         <h1 style={{textAlign:'center'}}>Shop</h1>
+        <Panel className="shoppingPanel">
       <DateRangePicker onApply={this.getEventRecipes} startDate={moment()} endDate={moment()}>
           <DropdownButton title = {`${this.state.startDate.format("dddd, MMMM Do")} - ${this.state.endDate.format("dddd, MMMM Do")}`} />
       </DateRangePicker>
@@ -296,6 +297,7 @@ export default class Shop extends Component {
 
         </div>
       </Panel>
+      </div>
   );
   }
 }

@@ -57,7 +57,6 @@ class Book extends Component {
    })
    .then(res =>
      swal({
-       imageUrl: `https://spoonacular.com/recipeImages/${res.data.id}-312x231.jpg`,
        imageWidth: 312,
        imageHeight: 231,
        title: res.data.title,

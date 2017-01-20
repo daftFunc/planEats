@@ -85,6 +85,7 @@ input:-webkit-autofill {
   float: left;
   margin: 1% 1.5%;
   height: 35em;
+  background-color: #3BC48F;
 }
 
 .RBPanelcontainer {
