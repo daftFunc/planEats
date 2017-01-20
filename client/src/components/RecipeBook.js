@@ -48,7 +48,7 @@ class Book extends Component {
    });
  }
 
- displayRecipeSummary(recipe) {
+  displayRecipeSummary(recipe) {
    axios.get(`https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/${recipe}/summary`, {
      headers: {
        'X-Mashape-Key': process.env.REACT_APP_SPOONACULAR_API_KEY,
@@ -66,32 +66,58 @@ class Book extends Component {
        showCancelButton: true,
        cancelButtonText: 'close',
      }))
- }
+  }
+
+  displayFullRecipe(recipe) {
+    var ing = recipe.recipe.extendedIngredients
+                    // .map((ingredient) => {
+                    //   return <li>{ingredient.originalString}</li>
+                    // })
+    var inst = recipe.recipe.instructions
+                      .replace(/([.?!])\s*(?=[A-Z])/g, "$1|")
+                      .split("|")
+    //                   .map((step,i) => {
+    //     if( step !== '' ) {
+    //       return (<li id='cook-steps' key={i + step}>
+    //         {step}
+    //       </li>);
+    //     }
+    // })
+
+    // console.log(ing, inst)
+
+   swal({
+     imageUrl: `https://spoonacular.com/recipeImages/${recipe.id}-312x231.jpg`,
+     imageWidth: 312,
+     imageHeight: 231,
+     title: recipe.name,
+     html: ing + '<br />' + inst,
+     showConfirmButton: false,
+     showCancelButton: true,
+     cancelButtonText: 'close',
+   })
+  }
+
   render() {
     return (
-      <div>
+      <div className="RBcontainer">
         <h1 id="recipeBook">Recipe Book</h1>
-        <Link to='/new-recipe'>
-          <Button id="createARecipe">Create a Recipe</Button>
-        </Link>
-        <div>
-          {this.state.recipes.map((recipe, i) =>
-               (<RecipeList
-                className="item recipe"
-                recipe={recipe}
-                key={i}
-                displaySummary={this.displayRecipeSummary}
-               />)
-            )
-          }
+            <Link to='/new-recipe'>
+              <Button id="createARecipe" bsStyle="info">Create a Recipe</Button>
+            </Link>
 
-          {/*
-          TODO: pagination features
-          <Pagination
-              items={this.state.totalPages}
-              activePage={this.state.activePage}
-            /> */}
-          </div>
+        <div>
+          {this.state.recipes.map((recipe, i) =>(
+            <RecipeList
+              className="item recipe"
+              recipe={recipe}
+              key={i}
+              displaySummary={this.displayRecipeSummary}
+              displayFull={this.displayFullRecipe}
+             />
+            ))}
+            <div className="clear"></div>
+        </div>
       </div>
     )
   }
