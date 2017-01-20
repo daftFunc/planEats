@@ -11,3 +11,7 @@
   z-index: -1;
   position: absolute;
 }
+
+.calendarPanel {
+    background-color: #3BC48F;
+}

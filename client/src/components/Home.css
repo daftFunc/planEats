@@ -22,16 +22,20 @@
   border-radius: 1.7em;
 }
 .top-left {
-  background-color: 0375B4;
+  background-color: #025481;
+    border: 2px solid black;
 }
 .top-right{
   background-color: #262228;
+    border: 2px solid black;
 }
 .bottom-left {
   background-color:#FC4A1A;
+    border: 2px solid black;
 }
 .bottom-right {
   background-color: #007849;
+    border: 2px solid black;
 }
 .Login-loginButton {
     display: inline-block;

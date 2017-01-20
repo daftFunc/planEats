@@ -158,7 +158,7 @@ class MealPlanner extends Component {
                 placeholder="Search and select from your saved recipes..."
               />
             </div>
-            <Button type="submit" onClick={this.handleSubmit.bind(this)}>Save Meal</Button>
+            <Button bsStyle="primary" type="submit" onClick={this.handleSubmit.bind(this)}>Save Meal</Button>
           </Panel>
         </div>
       </div>

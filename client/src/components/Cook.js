@@ -62,8 +62,10 @@ export default class Cook extends Component {
     return  (
       <div style={{margin: '0 auto'}}>
         <h1 style={{textAlign:'center'}}>Cook</h1>
+        <Panel className="cookPanel">
           <CookingInstruction instructions={this.state.cookingInstructions} />
 
+        </Panel>
       </div>
     );
   }
