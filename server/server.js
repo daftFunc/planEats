@@ -3,14 +3,16 @@ var express = require('express'),
     cors = require('express-cors'),
     parser = require('body-parser'),
     helmet = require('helmet'),
-    router = require('./config/routes');
-    bodyParse = require('body-parser');
+    router = require('./config/routes'),
+    bodyParse = require('body-parser'),
     path = require('path');
 
 // Create new app
 var app = express();
+
 // Set port to process.env.PORT or 3001
 app.set('port', (process.env.PORT || 3001));
+
 // logging, security, parsing data, allowing cors for dev and prod
 app.use(morgan());
 app.use(helmet());
@@ -24,10 +26,12 @@ app.use(express.static('../client/build'));
 
 // API route
 app.use('/api', router);
-//remember to change back
-app.get('*', function(request, response){
+
+//Adress bar navigation
+app.get('*', (request, response) => {
   response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'))
 });
+
 // Confirm server is running
 app.listen(app.get('port'), () => {
   console.log(`Find the server at: http://localhost:${app.get('port')}/`);
