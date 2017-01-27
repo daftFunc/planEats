@@ -19,17 +19,17 @@
   "devDependencies": {
     "@kadira/storybook": "^2.21.0",
     "auth0-react-scripts": "0.6.20",
+    "babel-watch": "^2.0.5",
     "chai": "^3.5.0",
+    "concurrently": "^3.1.0",
     "enzyme": "^2.7.0",
     "jsdom": "^9.9.1",
     "mocha": "^3.2.0",
+    "morgan": "^1.7.0",
     "react-addons-test-utils": "^15.4.1",
     "sinon": "^1.17.6",
-    "visible-react": "0.0.8",
-    "babel-watch": "^2.0.5",
-    "morgan": "^1.7.0",
-    "concurrently": "^3.1.0",
-    "supertest": "^2.0.1"
+    "supertest": "^2.0.1",
+    "visible-react": "0.0.8"
   },
   "dependencies": {
     "auth0-lock": "^10.7.3",

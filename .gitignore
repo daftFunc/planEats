@@ -2,7 +2,7 @@
 *.log
 
 server/node_modules/
-
+lets-learn-vagrant
 .idea/
 client/.storybook/
 client/stories/

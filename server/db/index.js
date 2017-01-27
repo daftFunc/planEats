@@ -1,5 +1,5 @@
 var Sequelize = require('sequelize');
-var db = new Sequelize('planeats', 'postgres', 'thesisEats', {
+var db = new Sequelize('planeats', 'postgres', 'sorry1', {
   dialect: 'postgres'
 });
 
@@ -65,7 +65,6 @@ Api.sync()
 .then(()=>Events.belongsToMany(Users, {through: UsersEvents, foreignkey: 'EventId'}))
 .then(()=>Users.belongsToMany(Events, {through: UsersEvents, foreignkey: 'UserId'}))
 .then(()=>UsersEvents.sync())
-// on delete cascade - when user is deleted it deletes all relations
 
 exports.Recipe = Recipe;
 exports.Meals = Meals;

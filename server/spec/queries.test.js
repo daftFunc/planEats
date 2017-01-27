@@ -1,7 +1,7 @@
 var database = require('../DatabaseName');
 var db = require('./database');
 database.pathName = '../spec/database';
-var controller = require('../controllers/index')
+var controller = require('./index')
 var expect = require('chai').expect;
 
 var columns = {

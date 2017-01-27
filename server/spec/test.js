@@ -187,5 +187,5 @@ describe('Server routes',function() {
 });
 
 // router.route('/getEventMeal')
-//   .get(model.meals.getEventMeal);
+//   .get(controllers.meals.getEventMeal);
 
