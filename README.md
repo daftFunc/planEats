@@ -105,9 +105,8 @@ To search delivery options:
 To run in development mode:
 - Navigate to client directory
 - Run `npm install`
-- Navigate to server directory
-- Run `npm install`
 - Navigate to root directory
+- Run `npm install`
 - Run `node server/server.js`
 In this mode, Webpack runs the client and server scripts concurrently. Changes to client-side files trigger a browser refresh while changes to server-side files trigger a Webpack refresh.
 
