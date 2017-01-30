@@ -8,12 +8,9 @@ import eat from './images/white_cook.png';
 import prof from './images/white_prof.png';
 import meals from './images/white_meals.png';
 import search from './images/white_search.png';
-import {Navbar} from 'react-bootstrap';
-import {Nav} from 'react-bootstrap';
+import {Navbar, Nav, Row, Col, Image} from 'react-bootstrap';
 import logo from './images/planEatsLogo.png';
 import delivery from './images/no_time.png';
-
-
 import './Nav.css';
 
 
@@ -55,20 +52,26 @@ class Site extends Component {
     if (profile) {
       return (
         <div>
-          <div id="desktop-header">
-            <Link to ='/delivery'>
-              <img src={delivery} id='delivery-button' alt='delivery'/>
-            </Link>
-            <Link to='/'>
-              <img src={logo} id="desktop-header-logo" alt="logo" />
-            </Link>
+         <Row>
+            <Col xs={1} md={1}>
+              <Link to ='/delivery'>
+                <img src={delivery} id='delivery-button' alt='delivery'/>
+              </Link>
+            </Col>
+            <Col xs={10} md={10}>
+              <Link to='/'>
+                <img src={logo} id="desktop-header-logo" alt="logo" />
+              </Link>
+           </Col>
+           <Col xs={1} md={1}>
             <Link to="/profile/edit">
               <img id="header-image" src={prof} alt="prof"/>
             </Link>
-          </div>
+           </Col>
+         </Row>
 
           {!(path === '/' && this.state.width>767) && (<Navbar onToggle={()=>{this.setState({isToggled:!this.state.isToggled})}} expanded={this.state.isToggled} id="Site-header-nav"
-                                                               inverse collapseOnSelect>
+                                                               inverse >
 
             <Navbar.Header className="menu-header">
               &nbsp;
@@ -80,36 +83,46 @@ class Site extends Component {
               </Link>
               <Navbar.Toggle />
             </Navbar.Header>
-            <Navbar.Collapse className="contain-menu-drop">
-              <Nav >
-                <div  className="space-fill left-sideOf"/>
-                <Link to="/calendar" onClick={()=>{this.setState({isToggled:false})}}>
-                  <img className="menu-item-drop" src={calendar} alt="Calendar"/>
-                  <div className="space-fill"> &nbsp; Plan</div>
-
-                </Link>
-                <Link to="/meals" onClick={()=>{this.setState({isToggled:false})}}>
-                  <img className="menu-item-drop" src={meals} alt="Calendar"/>
-                  <div className="space-fill">&nbsp;Meals</div>
-                </Link>
-                <Link to="/recipe" onClick={()=>{this.setState({isToggled:false})}}>
-                  <img className="menu-item-drop" src={recipe} alt="recipe"/>
-                  <div className="space-fill">&nbsp;Recipes</div>
-                </Link>
-                <Link to="/recipeSearch" onClick={()=>{this.setState({isToggled:false})}}>
-                  <img className="menu-item-drop" src={search} alt="Shop"/>
-                  <div className="space-fill">&nbsp;Search</div>
-                </Link>
-                <Link to="/shop" onClick={()=>{this.setState({isToggled:false})}}>
-                  <img className="menu-item-drop" src={cart} alt="Shop"/>
-                  <div className="space-fill">&nbsp;Shop</div>
-
-
-                </Link>
-                <Link to="/eat">
-                  <img className="menu-item-drop" src={eat} alt="Eat"/>
-                  <div className="space-fill right-sideOf">&nbsp;Cook</div>
-                </Link>
+            <Navbar.Collapse >
+              <Nav>
+                <Row style={{display:"flex",justifyContent:"space-around"}}>
+                  <Col className="contain-menu-drop" xs={2} md={2}>
+                    <Link to="/calendar" onClick={()=>{this.setState({isToggled:false})}}>
+                      <Image responsive className="menu-item-drop" src={calendar} alt="Calendar"/>
+                      <div className="menu-head">&nbsp;Plan</div>
+                    </Link>
+                  </Col>
+                  <Col className="contain-menu-drop" xs={2} md={2}>
+                    <Link to="/meals" onClick={()=>{this.setState({isToggled:false})}}>
+                      <Image responsive  className="menu-item-drop" src={meals} alt="Meals"/>
+                      <div className="menu-head">&nbsp;Meals</div>
+                    </Link>
+                  </Col>
+                  <Col className="contain-menu-drop" xs={2} md={2}>
+                    <Link to="/recipe" onClick={()=>{this.setState({isToggled:false})}}>
+                      <Image className="menu-item-drop" src={recipe} alt="recipe"/>
+                      <div className="menu-head">&nbsp;Recipes</div>
+                    </Link>
+                  </Col>
+                  <Col className="contain-menu-drop" xs={2} md={2}>
+                    <Link to="/recipeSearch" onClick={()=>{this.setState({isToggled:false})}}>
+                      <Image responsive   className="menu-item-drop" src={search} alt="Recipe Search"/>
+                      <div className="menu-head">&nbsp;Search</div>
+                    </Link>
+                  </Col>
+                  <Col className="contain-menu-drop" xs={2} md={2}>
+                    <Link to="/shop" onClick={()=>{this.setState({isToggled:false})}}>
+                      <Image responsive   className="menu-item-drop" src={cart} alt="Shop"/>
+                      <div className="menu-head">&nbsp;Shop</div>
+                    </Link>
+                  </Col>
+                  <Col className="contain-menu-drop" xs={2} md={2}>
+                    <Link to="/eat" onClick={()=>{this.setState({isToggled:false})}}>
+                      <Image responsive   className="menu-item-drop" src={eat} alt="Eat"/>
+                      <div className="menu-head">&nbsp;Cook</div>
+                    </Link>
+                  </Col>
+                </Row>
               </Nav>
             </Navbar.Collapse>
           </Navbar>)}
