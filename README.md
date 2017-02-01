@@ -96,7 +96,6 @@ To search delivery options:
 - React-Tap-Event-Plugin: 2.0.1
 - Sequelize: 3.28.0
 - Superagent: 3.3.2
-- SweetAlert-React: 0.4.6
 - SweetAlert2: 6.3.0
 - Unirest: 0.5.1
 - Visible-React: 0.0.8
