@@ -9,7 +9,7 @@
     "intent": "SearchRecipeBook"
   },
   {
-    "intent": "Ingredient"
+    "intent": "Ingredients"
   },
   {
     "intent": "CookingSteps"
