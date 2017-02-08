@@ -4,9 +4,9 @@ WhatsNextMeal what is the next recipe
 WhatsNextMeal what do I need to get ready for
 WhatsNextMeal can you tell me my next meal
 
-SearchRecipeDB
-SearchRecipeDB
-SearchRecipeDB
+SearchRecipeDB can you find a recipe for
+SearchRecipeDB what recipes are there for
+SearchRecipeDB I need a recipe for
 SearchRecipeDB
 SearchRecipeDB
 
