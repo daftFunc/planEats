@@ -24,7 +24,7 @@
 #Site-header-nav {
     height:10%;
     color: white;
-    width:100% !important;
+    width:100%;
 }
 /*.container>.navbar-collapse{*/
     /*margin-right:0;*/
@@ -88,7 +88,7 @@
 }
 
 .navbar-toggle {
-    float:left !important;
+    float:left;
 }
 .menu-head {
     display:none;
@@ -150,34 +150,28 @@
         height:50px;
         color: white;
         padding:7px;
-        width:100% !important;
+        width:100%;
     }
     #desktop-header {
         display:block;
         height:70px;
+        text-align:center;
         background-color:#262228;
-        width:100%;
     }
     #desktop-header-logo {
-        height: 100%;
-        margin-left:auto;
-        margin-right:auto;
-        display:block;
+        height: 70px;
+        display:inline-block;
     }
     .menu-header {
         display:none;
     }
     #header-image {
-        position:absolute;
-        top:2px;
-        right:5.5px;
+
         height:70px;
         width:auto;
     }
     #delivery-button {
-        position: absolute;
-        top:3px;
-        left:10px;
+
         height:70px;
         width:auto;
     }

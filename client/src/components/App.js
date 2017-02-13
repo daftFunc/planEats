@@ -21,11 +21,15 @@ require('dotenv').config();
 class App extends Component {
   render() {
     return (
+
       <Router history={browserHistory}>
         <Route component={Nav}>
+        <div id ='hihihi'>
           <Route path="/" component={Home} />
+        </div>
           <Route path="/login" component={Login} />
           <Route onEnter={requireAuth}>
+          
             {/* Place all authenticated routes here */}
             <Route path="/shop" component={Shop}/>
             <Route path="/profile/edit" component={EditProfile} />
@@ -42,6 +46,7 @@ class App extends Component {
           </Route>
         </Route>
       </Router>
+
 
     );
   }

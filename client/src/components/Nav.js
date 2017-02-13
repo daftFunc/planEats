@@ -29,7 +29,7 @@ class Site extends Component {
 
   componentDidMount () {
     var app = this;
-    window.addEventListener("resize", function(event) {
+    window.addEventListener("resize", (event) => {
       app.setState({
         width:window.innerWidth
       })
@@ -45,14 +45,13 @@ class Site extends Component {
       </div>
     );
   }
-  toggeleDrop
   renderUserControls() {
     const {profile} = this.props;
     var path=this.props.location.pathname;
     if (profile) {
       return (
         <div>
-         <Row>
+         <Row id="desktop-header">
             <Col xs={1} md={1}>
               <Link to ='/delivery'>
                 <img src={delivery} id='delivery-button' alt='delivery'/>
