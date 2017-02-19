@@ -23,7 +23,7 @@ Ingredient
 Ingredient
 Ingredient
 
-CookingSteps what\'s my next step
+CookingSteps next step please
 CookingSteps what is my next step
 CookingSteps
 CookingSteps
