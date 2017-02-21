@@ -17,7 +17,7 @@ Login:
 - Users must first login by creating an account or with Google or Facebook
 
 First time:
-- First-time users can follow the first-time link to navigate to the `About Us` page, which explains each page of the website 
+- First-time users can follow the first-time link to navigate to the `About Us` page, which explains each page of the website    
 
 Creating a recipe:
 - Users can create a recipe by navigating to the `Recipes` page and clicking `Create a Recipe`
