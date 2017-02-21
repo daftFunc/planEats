@@ -5,7 +5,7 @@ Planning meals with your family and friends
 - __Product Owner__: Tre Ammatuna
 - __Scrum Master__: Brittany Starr
 - __Development Team Members__: Andrew Chung, Jordan Mason
-
+ 
 ## Table of Contents
 1. [Team](#team)
 1. [Usage](#Usage)
