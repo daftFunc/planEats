@@ -51,7 +51,7 @@ Planning a shopping list:
 - To add additional items to your list, enter the item in the input below and click the `+` button to add to your shopping list
 
 Cooking a meal:
-- To view cooking instructions for your next meal, navigate to the `Cook` page, where you'll see the step by step directions for how to cook the next planned meal on your calendar
+- To view cooking instructions for your next meal, navigate to the `Cook` page, where you'll see the step by step directions for how to cook the next planned meal on your calendar 
 
 To search delivery options:
 - To search takeout options, click the `No Time?` button in the navigation bar on any page
