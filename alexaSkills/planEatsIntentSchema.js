@@ -13,5 +13,8 @@
   },
   {
     "intent": "CookingSteps"
+  },
+  {
+    "intent": "NutritionalValue
   }
 }
