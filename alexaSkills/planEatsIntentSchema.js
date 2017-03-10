@@ -15,6 +15,6 @@
     "intent": "CookingSteps"
   },
   {
-    "intent": "NutritionalValue
+    "intent": "NutritionalValue"
   }
 }
