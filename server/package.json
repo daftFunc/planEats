@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha --compilers js:babel-core/register ./spec/*test.js",
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "babel-watch server.js",
+    "server": "nodemon -L server.js",
     "client": "babel-node start-client.js"
   },
   "author": "daftFunc",
