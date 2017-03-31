@@ -1,6 +1,7 @@
 var Sequelize = require('sequelize');
-var db = new Sequelize('planeats', 'postgres', 'sorry1', {
-  dialect: 'postgres'
+var db = new Sequelize('planeats', 'postgres', 'thesisEats', {
+  dialect: 'postgres',
+  host: process.env.DBHOST
 });
 
 // Model definitions

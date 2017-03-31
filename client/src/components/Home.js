@@ -39,7 +39,7 @@ class Home extends Component {
         ]
       }} />
         <div className="Home">
-          <div style={newToSite}><Link to="/aboutus">New to PlanEats? Click here to get started</Link></div>
+          <div style={newToSite}><Link to="/aboutus">New to PlanEats? Click here to get started.</Link></div>
         </div>
         <div id="menu">
           <div className="menu-item top-left">

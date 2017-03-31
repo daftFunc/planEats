@@ -7,10 +7,10 @@ var express = require('express'),
     bodyParse = require('body-parser'),
     path = require('path');
 
-// Create new app
+// create new app
 var app = express();
 
-// Set port to process.env.PORT or 3001
+// set port to process.env.PORT or 3001
 app.set('port', (process.env.PORT || 3001));
 
 // logging, security, parsing data, allowing cors for dev and prod
@@ -22,7 +22,7 @@ app.use(cors({
 app.use(parser.urlencoded({ extended: true }));
 app.use(parser.json());
 
-app.use(express.static('../client/build'));
+app.use(express.static('../client'));
 
 // API route
 app.use('/api', router);
