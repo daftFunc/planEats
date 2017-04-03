@@ -12,6 +12,8 @@ class App extends Component {
         <Route component={Nav} />
       </BrowserRouter>
 
+
+
     );
   }
 }

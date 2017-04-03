@@ -48,6 +48,7 @@ class Site extends Component {
     var app = this;
     console.log('console',this);
     window.addEventListener("resize", function(event) {
+
       app.setState({
         width:window.innerWidth
       })
@@ -82,20 +83,26 @@ class Site extends Component {
     if (profile) {
       return (
         <div>
-          <div id="desktop-header">
-            <Link to ='/delivery'>
-              <img src={delivery} id='delivery-button' alt='delivery'/>
-            </Link>
-            <Link to='/'>
-              <img src={logo} id="desktop-header-logo" alt="logo" />
-            </Link>
+         <Row id="desktop-header">
+            <Col xs={1} md={1}>
+              <Link to ='/delivery'>
+                <img src={delivery} id='delivery-button' alt='delivery'/>
+              </Link>
+            </Col>
+            <Col xs={10} md={10}>
+              <Link to='/'>
+                <img src={logo} id="desktop-header-logo" alt="logo" />
+              </Link>
+           </Col>
+           <Col xs={1} md={1}>
             <Link to="/profile/edit">
               <img id="header-image" src={prof} alt="prof"/>
             </Link>
-          </div>
+           </Col>
+         </Row>
 
           {!(path === '/' && this.state.width>767) && (<Navbar onToggle={()=>{this.setState({isToggled:!this.state.isToggled})}} expanded={this.state.isToggled} id="Site-header-nav"
-                                                               inverse collapseOnSelect>
+                                                               inverse >
 
             <Navbar.Header className="menu-header">
               &nbsp;
@@ -137,6 +144,7 @@ class Site extends Component {
                   <img className="menu-item-drop" src={eat} alt="Eat"/>
                   <div className="space-fill right-sideOf">&nbsp;Cook</div>
                 </Link>
+
               </Nav>
             </Navbar.Collapse>
           </Navbar>)}
