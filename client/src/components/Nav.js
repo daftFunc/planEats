@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {Route, Link} from 'react-router-dom';
+import {Route, Link, Switch} from 'react-router-dom';
 import {connectProfile, logout} from '../auth';
 import recipe from './images/white_notebook.png';
 import calendar from './images/white_calendar.png';
@@ -58,20 +58,20 @@ class Site extends Component {
       <div className="Site">
         {this.renderUserControls()}
         <div className="Site-page">
-          <Route path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/shop" render={passCmptToRequireAuth(Shop)}  />
-          <Route path="/profile/edit" render={passCmptToRequireAuth(EditProfile)} />
-          <Route path="/calendar" render={passCmptToRequireAuth(Calendar)}  />
-          <Route path="/schedule" render={passCmptToRequireAuth(Schedule)}  />
-          <Route path="/recipe" render={passCmptToRequireAuth(Book)}  />
-          <Route path="/new-recipe" render={passCmptToRequireAuth(NewRecipe)}  />
-          <Route path="/recipeSearch" render={passCmptToRequireAuth(RecipeSearch)}  />
-          <Route path="/recipeSearchResult" render={passCmptToRequireAuth(RecipeSearchResult)} />
-          <Route path="/meals" render={passCmptToRequireAuth(MealPlanner)}  />
-          <Route path="/eat" render={passCmptToRequireAuth(Cook)}  />
-          <Route path="/delivery" render={passCmptToRequireAuth(Delivery)} />
-          <Route path="/aboutus" render={passCmptToRequireAuth(AboutUs)} />
+            <Route path="/" exact component={Home} />
+            <Route path="/login" component={Login} />
+            <Route path="/shop" render={passCmptToRequireAuth(Shop)}  />
+            <Route path="/profile/edit" render={passCmptToRequireAuth(EditProfile)} />
+            <Route path="/calendar" render={passCmptToRequireAuth(Calendar)}  />
+            <Route path="/schedule" render={passCmptToRequireAuth(Schedule)}  />
+            <Route path="/recipe" render={passCmptToRequireAuth(Book)}  />
+            <Route path="/new-recipe" render={passCmptToRequireAuth(NewRecipe)}  />
+            <Route path="/recipeSearch" render={passCmptToRequireAuth(RecipeSearch)}  />
+            <Route path="/recipeSearchResult" render={passCmptToRequireAuth(RecipeSearchResult)} />
+            <Route path="/meals" render={passCmptToRequireAuth(MealPlanner)}  />
+            <Route path="/eat" render={passCmptToRequireAuth(Cook)}  />
+            <Route path="/delivery" render={passCmptToRequireAuth(Delivery)} />
+            <Route path="/aboutus" render={passCmptToRequireAuth(AboutUs)} />
         </div>
       </div>
     );

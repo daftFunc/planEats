@@ -33,7 +33,7 @@ lock.on('authenticated', authResult => {
   lock.getUserInfo(authResult.accessToken, (error, profile) => {
     if (error) { return setProfile({error}); }
     setProfile(profile);
-    history.push(getNextPath());
+    this.context.router.push(getNextPath());
     clearNextPath();
     axios.post('/api/users', {username: JSON.parse(localStorage.profile).email});
   });
@@ -53,11 +53,12 @@ export function logout() {
   clearNextPath();
   clearIdToken();
   clearProfile();
-  history.push(ROOT_ROUTE);
+  this.context.router.push(ROOT_ROUTE);
 }
 
 export function requireAuth(props, Cmpt) {
-  console.log(props,Cmpt);
+  console.log('hihi',props);
+  // console.log(props,Cmpt, this.context.router);
   if (!isLoggedIn()) {
     setNextPath(props.location.pathname);
     // replace({pathname: LOGIN_ROUTE});
