@@ -76,7 +76,6 @@ class Site extends Component {
       </div>
     );
   }
-  toggeleDrop
   renderUserControls() {
     const {profile} = this.props;
     var path= this.props.location.pathname;
@@ -117,7 +116,7 @@ class Site extends Component {
 
                 </Link>
                 <Link to="/meals" onClick={()=>{this.setState({isToggled:false})}}>
-                  <img className="menu-item-drop" src={meals} alt="Calendar"/>
+                  <img className="menu-item-drop" src={meals} alt="Meals"/>
                   <div className="space-fill">&nbsp;Meals</div>
                 </Link>
                 <Link to="/recipe" onClick={()=>{this.setState({isToggled:false})}}>
