@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {Link} from 'react-router';
+import {Route, Link} from 'react-router-dom';
 import {connectProfile, logout} from '../auth';
 import recipe from './images/white_notebook.png';
 import calendar from './images/white_calendar.png';
@@ -10,9 +10,23 @@ import meals from './images/white_meals.png';
 import search from './images/white_search.png';
 import {Navbar} from 'react-bootstrap';
 import {Nav} from 'react-bootstrap';
+import Home from './Home';
+import Login from './Login';
+import Shop from './Shop';
+import EditProfile from './EditProfile';
+import Calendar from './Calendar';
+import Schedule from './ScheduleMeal';
+import Book from './RecipeBook';
+import Cook from './Cook';
+import MealPlanner from './MealPlanner';
+import RecipeSearch from './RecipeSearch';
+import RecipeSearchResult from './RecipeSearchResult';
+import NewRecipe from './NewRecipe';
+import Delivery from './Delivery';
+import AboutUs from './AboutUs';
 import logo from './images/planEatsLogo.png';
 import delivery from './images/no_time.png';
-
+import {requireAuth} from '../auth';
 
 import './Nav.css';
 
@@ -22,8 +36,8 @@ class Site extends Component {
     ...connectProfile.PropTypes,
     children: PropTypes.any
   };
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       width:window.innerWidth,
       isToggled:false
@@ -32,6 +46,7 @@ class Site extends Component {
 
   componentDidMount () {
     var app = this;
+    console.log('console',this);
     window.addEventListener("resize", function(event) {
       app.setState({
         width:window.innerWidth
@@ -43,7 +58,20 @@ class Site extends Component {
       <div className="Site">
         {this.renderUserControls()}
         <div className="Site-page">
-          {this.props.children}
+          <Route path="/" component={Home} />
+          <Route path="/login" component={Login} />
+          <Route path="/shop" render={passCmptToRequireAuth(Shop)}  />
+          <Route path="/profile/edit" render={passCmptToRequireAuth(EditProfile)} />
+          <Route path="/calendar" render={passCmptToRequireAuth(Calendar)}  />
+          <Route path="/schedule" render={passCmptToRequireAuth(Schedule)}  />
+          <Route path="/recipe" render={passCmptToRequireAuth(Book)}  />
+          <Route path="/new-recipe" render={passCmptToRequireAuth(NewRecipe)}  />
+          <Route path="/recipeSearch" render={passCmptToRequireAuth(RecipeSearch)}  />
+          <Route path="/recipeSearchResult" render={passCmptToRequireAuth(RecipeSearchResult)} />
+          <Route path="/meals" render={passCmptToRequireAuth(MealPlanner)}  />
+          <Route path="/eat" render={passCmptToRequireAuth(Cook)}  />
+          <Route path="/delivery" render={passCmptToRequireAuth(Delivery)} />
+          <Route path="/aboutus" render={passCmptToRequireAuth(AboutUs)} />
         </div>
       </div>
     );
@@ -51,7 +79,7 @@ class Site extends Component {
   toggeleDrop
   renderUserControls() {
     const {profile} = this.props;
-    var path=this.props.location.pathname;
+    var path= this.props.location.pathname;
     if (profile) {
       return (
         <div>
@@ -143,5 +171,9 @@ class Site extends Component {
     }
   }
 }
-
+var passCmptToRequireAuth = ( cmpt ) =>{
+  return ( props ) => {
+    return requireAuth( props, cmpt )
+  }
+}
 export default connectProfile(Site);

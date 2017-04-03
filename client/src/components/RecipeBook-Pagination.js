@@ -3,7 +3,7 @@ import './RecipeBook.css';
 import { Button, Pagination } from 'react-bootstrap';
 import axios from 'axios';
 import RecipeList from './RecipeList';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 
 class Book extends Component {
   constructor() {

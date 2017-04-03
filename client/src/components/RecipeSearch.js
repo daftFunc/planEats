@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import swal from 'sweetalert2';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 import './RecipeSearch.css';
 import axios from 'axios';
 import RecipeSearchResult from './RecipeSearchResult';

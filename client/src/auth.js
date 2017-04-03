@@ -1,10 +1,9 @@
 import decode from 'jwt-decode';
 import {EventEmitter} from 'events';
 import React, {Component, PropTypes} from 'react';
-import {browserHistory} from 'react-router';
+import { BrowserRouter, Redirect, history } from 'react-router-dom';
 import Auth0Lock from 'auth0-lock';
 import axios from 'axios';
-
 const NEXT_PATH_KEY = 'next_path';
 const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
@@ -34,7 +33,7 @@ lock.on('authenticated', authResult => {
   lock.getUserInfo(authResult.accessToken, (error, profile) => {
     if (error) { return setProfile({error}); }
     setProfile(profile);
-    browserHistory.push(getNextPath());
+    history.push(getNextPath());
     clearNextPath();
     axios.post('/api/users', {username: JSON.parse(localStorage.profile).email});
   });
@@ -54,13 +53,17 @@ export function logout() {
   clearNextPath();
   clearIdToken();
   clearProfile();
-  browserHistory.push(ROOT_ROUTE);
+  history.push(ROOT_ROUTE);
 }
 
-export function requireAuth(nextState, replace) {
+export function requireAuth(props, Cmpt) {
+  console.log(props,Cmpt);
   if (!isLoggedIn()) {
-    setNextPath(nextState.location.pathname);
-    replace({pathname: LOGIN_ROUTE});
+    setNextPath(props.location.pathname);
+    // replace({pathname: LOGIN_ROUTE});
+    return <Redirect to={LOGIN_ROUTE} />
+  } else {
+    return <Cmpt {...props}/>
   }
 }
 
@@ -153,6 +156,7 @@ async function updateProfile(userId, newProfile) {
 
 function setProfile(profile) {
   localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+
   events.emit('profile_updated', profile);
 }
 
