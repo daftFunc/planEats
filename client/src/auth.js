@@ -57,7 +57,6 @@ export function logout() {
 }
 
 export function requireAuth(props, Cmpt) {
-  console.log('hihi',props);
   // console.log(props,Cmpt, this.context.router);
   if (!isLoggedIn()) {
     setNextPath(props.location.pathname);

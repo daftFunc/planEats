@@ -10,10 +10,15 @@
 .menu-header {
     padding:10px
 }
+.space-fill {
+    display:inline;
+}
 #desktop-header {
     display:none;
 }
 .navbar-nav {
+    display:flex;
+    justify-content: space-around;
     font-size:12px;
     margin:0;
 }
@@ -145,6 +150,10 @@
     }
     .navbar {
         border-radius:0px;
+    }
+    .nav {
+        display:flex;
+        justify-content: space-around;
     }
     #Site-header-nav {
         height:50px;

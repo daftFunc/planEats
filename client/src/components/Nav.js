@@ -9,7 +9,7 @@ import prof from './images/white_prof.png';
 import meals from './images/white_meals.png';
 import search from './images/white_search.png';
 import {Navbar} from 'react-bootstrap';
-import {Nav} from 'react-bootstrap';
+import {Nav,Row,Col} from 'react-bootstrap';
 import Home from './Home';
 import Login from './Login';
 import Shop from './Shop';
@@ -116,7 +116,6 @@ class Site extends Component {
             </Navbar.Header>
             <Navbar.Collapse className="contain-menu-drop">
               <Nav >
-                <div  className="space-fill left-sideOf"/>
                 <Link to="/calendar" onClick={()=>{this.setState({isToggled:false})}}>
                   <img className="menu-item-drop" src={calendar} alt="Calendar"/>
                   <div className="space-fill"> &nbsp; Plan</div>
