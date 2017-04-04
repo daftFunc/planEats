@@ -30,7 +30,7 @@ import {requireAuth} from '../auth';
 
 import './Nav.css';
 
-
+var history;
 class Site extends Component {
   static propTypes = {
     ...connectProfile.PropTypes,
@@ -38,12 +38,13 @@ class Site extends Component {
   };
   constructor(props){
     super(props);
+    history = this.props.history;
     this.state = {
       width:window.innerWidth,
       isToggled:false
     }
   }
-
+  
   componentDidMount () {
     var app = this;
     console.log('console',this);
@@ -118,7 +119,7 @@ class Site extends Component {
               <Nav >
                 <Link to="/calendar" onClick={()=>{this.setState({isToggled:false})}}>
                   <img className="menu-item-drop" src={calendar} alt="Calendar"/>
-                  <div className="space-fill"> &nbsp; Plan</div>
+                  <div className="space-fill">&nbsp;Plan</div>
 
                 </Link>
                 <Link to="/meals" onClick={()=>{this.setState({isToggled:false})}}>
@@ -176,6 +177,9 @@ class Site extends Component {
       );
     }
   }
+}
+export function getHistory() {
+  return history;
 }
 var passCmptToRequireAuth = ( cmpt ) =>{
   return ( props ) => {

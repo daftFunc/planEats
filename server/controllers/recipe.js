@@ -4,10 +4,11 @@ module.exports = {
 
     var UserId;
     var RecipeId;
-
+    console.log('username',req.body.username);
     model.findUser(req.body.username)
 
       .then((user) => {
+        console.log('user',user)
         UserId        = user.dataValues.id;
         var uniqueKey = req.body.username + req.body.name;
         return model.addRecipe(req.body.name, req.body.recipe, uniqueKey);

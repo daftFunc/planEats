@@ -12,6 +12,8 @@
 }
 .space-fill {
     display:inline;
+    text-decoration:none;
+    font-size:17px;
 }
 #desktop-header {
     display:none;
@@ -98,7 +100,11 @@
 .menu-head {
     display:none;
 }
-
+a {
+    text-decoration:none;
+    -webkit-text-decoration:none;
+    color:white;
+}
 @media screen and (min-width: 768px) {
 
     .menu-head {
@@ -111,10 +117,7 @@
     .contain-menu-drop {
         margin:auto;
     }
-    a {
-        text-decoration:none;
-        -webkit-text-decoration:none;
-    }
+
 
     .menu-item-drop {
         display:flex-inline;
@@ -189,5 +192,9 @@
         margin-left:auto;
         margin-right:auto;
     }
-
+    a {
+        text-decoration:none;
+        -webkit-text-decoration:none;
+        color:white;
+    }
 }

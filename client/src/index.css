@@ -14,12 +14,6 @@ body {
   background: #0375B4;
 }
 
-a {
-  cursor: pointer;
-  color: #44c7f4;
-  text-decoration: underline;
-}
-
 button {
   cursor: pointer;
 }

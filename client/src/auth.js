@@ -1,9 +1,10 @@
 import decode from 'jwt-decode';
 import {EventEmitter} from 'events';
 import React, {Component, PropTypes} from 'react';
-import { BrowserRouter, Redirect, history } from 'react-router-dom';
+import { BrowserRouter, Redirect, history, withRouter } from 'react-router-dom';
 import Auth0Lock from 'auth0-lock';
 import axios from 'axios';
+import { getHistory } from './components/Nav.js'
 const NEXT_PATH_KEY = 'next_path';
 const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
@@ -14,7 +15,6 @@ const ROOT_ROUTE = '/';
 if (!process.env.REACT_APP_AUTH0_CLIENT_ID || !process.env.REACT_APP_AUTH0_DOMAIN) {
   throw new Error('Please define `REACT_APP_AUTH0_CLIENT_ID` and `REACT_APP_AUTH0_DOMAIN` in your .env file');
 }
-
 const lock = new Auth0Lock(
   process.env.REACT_APP_AUTH0_CLIENT_ID,
   process.env.REACT_APP_AUTH0_DOMAIN, {
@@ -33,11 +33,12 @@ lock.on('authenticated', authResult => {
   lock.getUserInfo(authResult.accessToken, (error, profile) => {
     if (error) { return setProfile({error}); }
     setProfile(profile);
-    this.context.router.push(getNextPath());
+    getHistory().push(getNextPath());
     clearNextPath();
     axios.post('/api/users', {username: JSON.parse(localStorage.profile).email});
   });
 });
+
 
 export function login(options) {
   lock.show(options);
@@ -48,12 +49,11 @@ export function login(options) {
     }
   }
 }
-
 export function logout() {
   clearNextPath();
   clearIdToken();
   clearProfile();
-  this.context.router.push(ROOT_ROUTE);
+  getHistory.push(ROOT_ROUTE);
 }
 
 export function requireAuth(props, Cmpt) {
