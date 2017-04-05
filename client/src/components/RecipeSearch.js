@@ -70,7 +70,8 @@ class RecipeSearch extends Component {
       swal(
         'Added to your recipe book!',
         'We can taste it already. Yum!'
-    ))});
+    )
+    )});
     event.preventDefault();
   };
 

@@ -13,7 +13,9 @@ body {
   height:100%;
   background: #0375B4;
 }
-
+.swal2-modal, .swal2-styled {
+  pointer-events:initial;
+}
 button {
   cursor: pointer;
 }
