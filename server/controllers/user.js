@@ -4,7 +4,7 @@ module.exports = {
 
   post: (req, res) => {
     //debugging
-    //console.log('Username', req.body.username);
+    console.log('Username', req.body.username);
 
     model.addUser(req.body.username)
 

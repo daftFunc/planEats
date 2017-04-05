@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connectProfile} from '../auth';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 
 import './Home.css';
 
