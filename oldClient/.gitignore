@@ -3,7 +3,7 @@
 # dependencies
 node_modules
 
-# testing
+# tests
 coverage
 
 # production
