@@ -1,12 +1,12 @@
-import React from 'react'
-import { shallow } from 'enzyme'
-import { expect } from 'chai'
-import App from '../src/components/App'
+import React from "react";
+import { shallow } from "enzyme";
+import { expect } from "chai";
+import App from "../src/components/App";
 
 const wrapper = shallow(<App />);
 
-describe('(Component) App', () => {
-  it('renders...', () => {
+describe("(Component) App", () => {
+  it("renders...", () => {
     expect(wrapper).to.have.length(1);
   });
 });

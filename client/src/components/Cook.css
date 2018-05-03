@@ -1,37 +1,36 @@
 #cook-steps {
-    list-style: decimal;
+  list-style: decimal;
 }
 
 .cookPanel {
-    background-color: #3BC48F;
+  background-color: #3bc48f;
 }
 .ingredients-cook {
-    list-style:disc;
-    margin-left:2em;
+  list-style: disc;
+  margin-left: 2em;
 }
 #ing-ul {
-    display:inline-block;
-    height:20em;
-    overflow:auto;
+  display: inline-block;
+  height: 20em;
+  overflow: auto;
 }
 #instruction-box {
-    height:200px;
-    width: 60em;
-    margin: 5px auto;
+  height: 200px;
+  width: 60em;
+  margin: 5px auto;
 }
 .recipe-image {
-    max-height:20em;
-    display:inline;
-    width:auto;
-    vertical-align:top;
+  max-height: 20em;
+  display: inline;
+  width: auto;
+  vertical-align: top;
 }
 @media screen and (min-width: 768px) {
-    #instruction-box {
-        height:100%;
-        /*margin:3%;*/
-
-    }
-    #cook-steps {
-        list-style-type:decimal;
-    }
+  #instruction-box {
+    height: 100%;
+    /*margin:3%;*/
+  }
+  #cook-steps {
+    list-style-type: decimal;
+  }
 }

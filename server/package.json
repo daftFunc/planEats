@@ -1,7 +1,8 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "planEats server developement package not to be used in conjunction with root package",
+  "description":
+    "planEats server developement package not to be used in conjunction with root package",
   "main": "server.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register ./spec/*test.js",

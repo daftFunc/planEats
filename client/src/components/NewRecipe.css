@@ -6,16 +6,16 @@ BUG: does not work unless inline?
 }*/
 
 input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px white inset;
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
 } /*needed to prevent the autofill yellow-background when resetting the form fields*/
 
-.plusSign{
+.plusSign {
   font-size: 20px;
   margin: 5px;
   padding: 0px;
 }
 
-.plusSign:active{
+.plusSign:active {
   color: red;
 }
 

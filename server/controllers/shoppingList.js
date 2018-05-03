@@ -1,48 +1,47 @@
-var model = require('../models');
+var model = require("../models");
 module.exports = {
   get: (req, res) => {
+    model
+      .findUser(req.headers.username)
 
-    model.findUser(req.headers.username)
-
-      .then((user) => {
-
+      .then(user => {
         if (user) {
           //debugging
           //console.log("Users", user);
           var UserId = user.dataValues.id;
-          return model.getShoppingList ( UserId);
-
+          return model.getShoppingList(UserId);
         } else {
           res.status(400).send("Can not find User");
         }
       })
 
-      .then((list) => {
+      .then(list => {
         res.status(201).send(list);
       })
 
-      .catch((error)  => {
+      .catch(error => {
         console.error(error);
         res.sendStatus(304);
-      })
+      });
   },
   put: (req, res) => {
     //debugging
     //console.log("body", req.body)
 
-    model.findUser(req.body.username)
+    model
+      .findUser(req.body.username)
 
-      .then((user) => {
+      .then(user => {
         var UserId = user.dataValues.id;
-        return model.updateShoppingList (req.body.list, UserId);
+        return model.updateShoppingList(req.body.list, UserId);
       })
 
-      .then((list) => {
+      .then(list => {
         res.sendStatus(201);
       })
 
-      .catch((error) => {
+      .catch(error => {
         res.status(304).send(error);
-      })
+      });
   }
-}
+};

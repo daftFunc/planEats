@@ -1,6 +1,10 @@
-@font-face { font-family: Ailerons; src: url('components/font/Ailerons-Typeface.otf'); }
+@font-face {
+  font-family: Ailerons;
+  src: url("components/font/Ailerons-Typeface.otf");
+}
 
-h1, h2 {
+h1,
+h2 {
   font-family: Ailerons;
   text-align: center;
   padding-bottom: 5px;
@@ -10,19 +14,19 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  height:100%;
-  background: #0375B4;
+  height: 100%;
+  background: #0375b4;
 }
-.swal2-modal, .swal2-styled {
-  pointer-events:initial;
+.swal2-modal,
+.swal2-styled {
+  pointer-events: initial;
 }
 button {
   cursor: pointer;
 }
 .container-fluid {
-  padding-right:0;
-  padding-left:0;
-  margin-right:auto;
-  margin-left:auto
+  padding-right: 0;
+  padding-left: 0;
+  margin-right: auto;
+  margin-left: auto;
 }
-

@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import {connectProfile} from '../auth';
-import './EditProfile.css';
-import { Panel } from 'react-bootstrap';
-import {logout} from '../auth';
+import React, { Component } from "react";
+import { connectProfile } from "../auth";
+import "./EditProfile.css";
+import { Panel } from "react-bootstrap";
+import { logout } from "../auth";
 class EditProfile extends Component {
   static propTypes = {
     ...connectProfile.PropTypes
@@ -12,24 +12,33 @@ class EditProfile extends Component {
     error: null,
     saved: false,
     saving: false
-  }
+  };
 
   render() {
-    const {profile} = this.props;
+    const { profile } = this.props;
     // const {saving, saved} = this.state;
     // const user_metadata = profile.user_metadata || {};
 
     return (
       <Panel className="EditProfile">
-        <a style={{float:'right'}} onClick={() => logout()}> Log Out</a>
+        <a style={{ float: "right" }} onClick={() => logout()}>
+          {" "}
+          Log Out
+        </a>
         <div className="EditProfile-heading">Your Profile</div>
         <div className="EditProfile-profile">
-          <p><strong>Nickname:</strong> {profile.nickname}</p>
-          <p><strong>Name:</strong> {profile.name}</p>
-          <p><strong>Email:</strong> {profile.email}</p>
+          <p>
+            <strong>Nickname:</strong> {profile.nickname}
+          </p>
+          <p>
+            <strong>Name:</strong> {profile.name}
+          </p>
+          <p>
+            <strong>Email:</strong> {profile.email}
+          </p>
           {/*<p><strong>Location:</strong> {user_metadata.location || 'unknown'}</p>*/}
         </div>
-{/*        <div className="EditProfile-heading">Edit Profile</div>
+        {/*        <div className="EditProfile-heading">Edit Profile</div>
         <form className="EditProfile-form" onSubmit={this.onSubmit} onChange={this.onClearSaved}>
           <fieldset className="EditProfile-fieldset" disabled={saving}>
             <label className="EditProfile-locationLabel" htmlFor="location">Location</label>
@@ -51,14 +60,18 @@ class EditProfile extends Component {
             </div>
           </fieldset>
         </form>*/}
-        <a target="_blank" href="http://privacypolicies.com/privacy/view/obtS7k">Privacy policy</a><br />
-
+        <a
+          target="_blank"
+          href="http://privacypolicies.com/privacy/view/obtS7k"
+        >
+          Privacy policy
+        </a>
+        <br />
       </Panel>
-
     );
   }
 
-/*  onSubmit = (event) => {
+  /*  onSubmit = (event) => {
     event.preventDefault();
 
     this.setState({saving: true}, async () => {

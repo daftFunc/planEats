@@ -1,2 +1,2 @@
-var database = {pathName:'../db'};
+var database = { pathName: "../db" };
 module.exports = database;
