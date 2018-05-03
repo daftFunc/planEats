@@ -1,9 +1,9 @@
 html::-webkit-scrollbar {
-    width: 1em; /*BUG: not showing up with scroll overflow...*/
+  width: 1em; /*BUG: not showing up with scroll overflow...*/
 }
 
 html::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
 html::-webkit-scrollbar-thumb {
@@ -28,11 +28,10 @@ html::-webkit-scrollbar-thumb {
   color: #5e79a5;
 }
 
-.recipeList>li:nth-child(odd){
-  background: #F5F6F4;
-}​
-
-.recipeBook {
+.recipeList > li:nth-child(odd) {
+  background: #f5f6f4;
+}
+​ .recipeBook {
   overflow: auto;
   background: white;
   border-radius: 10px;
@@ -43,10 +42,10 @@ html::-webkit-scrollbar-thumb {
 }
 
 input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px white inset;
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
 } /*needed to prevent the autofill yellow-background when resetting the form fields*/
 
-.swal2-show{
+.swal2-show {
   margin: 0 auto;
   z-index: 1;
 }
@@ -58,14 +57,14 @@ input:-webkit-autofill {
   width: 70em;
 }
 
-.plusSign{
+.plusSign {
   font-size: 20px;
   margin: 5px;
   padding: 0px;
   /*float: right;*/
 }
 
-.plusSign:active{
+.plusSign:active {
   color: red;
 }
 
@@ -85,7 +84,7 @@ input:-webkit-autofill {
   float: left;
   margin: 1% 1.5%;
   height: 35em;
-  background-color: #3BC48F;
+  background-color: #3bc48f;
 }
 
 .RBPanelcontainer {

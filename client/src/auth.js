@@ -1,44 +1,53 @@
-import decode from 'jwt-decode';
-import {EventEmitter} from 'events';
-import React, {Component, PropTypes} from 'react';
-import { BrowserRouter, Redirect, history, withRouter } from 'react-router-dom';
-import Auth0Lock from 'auth0-lock';
-import axios from 'axios';
-import { getHistory } from './components/Nav.js'
-const NEXT_PATH_KEY = 'next_path';
-const ID_TOKEN_KEY = 'id_token';
-const ACCESS_TOKEN_KEY = 'access_token';
-const PROFILE_KEY = 'profile';
-const LOGIN_ROUTE = '/login';
-const ROOT_ROUTE = '/';
+import decode from "jwt-decode";
+import { EventEmitter } from "events";
+import React, { Component, PropTypes } from "react";
+import { BrowserRouter, Redirect, history, withRouter } from "react-router-dom";
+import Auth0Lock from "auth0-lock";
+import axios from "axios";
+import { getHistory } from "./components/Nav.js";
+const NEXT_PATH_KEY = "next_path";
+const ID_TOKEN_KEY = "id_token";
+const ACCESS_TOKEN_KEY = "access_token";
+const PROFILE_KEY = "profile";
+const LOGIN_ROUTE = "/login";
+const ROOT_ROUTE = "/";
 
-if (!process.env.REACT_APP_AUTH0_CLIENT_ID || !process.env.REACT_APP_AUTH0_DOMAIN) {
-  throw new Error('Please define `REACT_APP_AUTH0_CLIENT_ID` and `REACT_APP_AUTH0_DOMAIN` in your .env file');
+if (
+  !process.env.REACT_APP_AUTH0_CLIENT_ID ||
+  !process.env.REACT_APP_AUTH0_DOMAIN
+) {
+  throw new Error(
+    "Please define `REACT_APP_AUTH0_CLIENT_ID` and `REACT_APP_AUTH0_DOMAIN` in your .env file"
+  );
 }
 const lock = new Auth0Lock(
   process.env.REACT_APP_AUTH0_CLIENT_ID,
-  process.env.REACT_APP_AUTH0_DOMAIN, {
+  process.env.REACT_APP_AUTH0_DOMAIN,
+  {
     auth: {
       redirectUrl: `${window.location.origin}${ROOT_ROUTE}`,
-      responseType: 'token'
+      responseType: "token"
     }
   }
 );
 
 const events = new EventEmitter();
 
-lock.on('authenticated', authResult => {
+lock.on("authenticated", authResult => {
   setIdToken(authResult.idToken);
   setAccessToken(authResult.accessToken);
   lock.getUserInfo(authResult.accessToken, (error, profile) => {
-    if (error) { return setProfile({error}); }
+    if (error) {
+      return setProfile({ error });
+    }
     setProfile(profile);
     getHistory().push(getNextPath());
     clearNextPath();
-    axios.post('/api/users', {username: JSON.parse(localStorage.profile).email});
+    axios.post("/api/users", {
+      username: JSON.parse(localStorage.profile).email
+    });
   });
 });
-
 
 export function login(options) {
   lock.show(options);
@@ -47,7 +56,7 @@ export function login(options) {
     hide() {
       lock.hide();
     }
-  }
+  };
 }
 export function logout() {
   clearNextPath();
@@ -61,9 +70,9 @@ export function requireAuth(props, Cmpt) {
   if (!isLoggedIn()) {
     setNextPath(props.location.pathname);
     // replace({pathname: LOGIN_ROUTE});
-    return <Redirect to={LOGIN_ROUTE} />
+    return <Redirect to={LOGIN_ROUTE} />;
   } else {
-    return <Cmpt {...props}/>
+    return <Cmpt {...props} />;
   }
 }
 
@@ -74,8 +83,8 @@ export function connectProfile(WrappedComponent) {
     };
 
     componentWillMount() {
-      this.profileSubscription = subscribeToProfile((profile) => {
-        this.setState({profile});
+      this.profileSubscription = subscribeToProfile(profile => {
+        this.setState({ profile });
       });
     }
 
@@ -93,9 +102,9 @@ export function connectProfile(WrappedComponent) {
       );
     }
 
-    onUpdateProfile = (newProfile) => {
+    onUpdateProfile = newProfile => {
       return updateProfile(this.state.profile.user_id, newProfile);
-    }
+    };
   };
 }
 
@@ -104,48 +113,55 @@ connectProfile.PropTypes = {
   onUpdateProfile: PropTypes.func
 };
 
-export function fetchAsUser(input, init={}) {
+export function fetchAsUser(input, init = {}) {
   const headers = init.headers || {};
 
   return fetch(input, {
     ...init,
     headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${getIdToken()}`,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getIdToken()}`,
       ...headers
     }
-  }).then((response) => {
-    if (!response.ok) { throw new Error(response); }
+  }).then(response => {
+    if (!response.ok) {
+      throw new Error(response);
+    }
     return response;
   });
 }
 
 function subscribeToProfile(subscription) {
-  events.on('profile_updated', subscription);
+  events.on("profile_updated", subscription);
 
   if (isLoggedIn()) {
     subscription(getProfile());
 
     lock.getUserInfo(getAccessToken(), (error, profile) => {
-      if (error) { return setProfile({error}); }
+      if (error) {
+        return setProfile({ error });
+      }
       setProfile(profile);
     });
   }
 
   return {
     close() {
-      events.removeListener('profile_updated', subscription);
+      events.removeListener("profile_updated", subscription);
     }
   };
 }
 
 async function updateProfile(userId, newProfile) {
   try {
-    const response = await fetchAsUser(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/api/v2/users/${userId}`, {
-      method: 'PATCH',
-      body: JSON.stringify(newProfile)
-    });
+    const response = await fetchAsUser(
+      `https://${process.env.REACT_APP_AUTH0_DOMAIN}/api/v2/users/${userId}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify(newProfile)
+      }
+    );
 
     const profile = await response.json();
     setProfile(profile);
@@ -157,7 +173,7 @@ async function updateProfile(userId, newProfile) {
 function setProfile(profile) {
   localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
 
-  events.emit('profile_updated', profile);
+  events.emit("profile_updated", profile);
 }
 
 function getProfile() {
@@ -166,7 +182,7 @@ function getProfile() {
 
 function clearProfile() {
   localStorage.removeItem(PROFILE_KEY);
-  events.emit('profile_updated', null);
+  events.emit("profile_updated", null);
 }
 
 function setIdToken(idToken) {
@@ -208,7 +224,9 @@ function isLoggedIn() {
 
 function getTokenExpirationDate(encodedToken) {
   const token = decode(encodedToken);
-  if (!token.exp) { return null; }
+  if (!token.exp) {
+    return null;
+  }
 
   const date = new Date(0);
   date.setUTCSeconds(token.exp);

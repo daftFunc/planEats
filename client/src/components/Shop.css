@@ -1,41 +1,36 @@
-
 /*input[type="checkbox"] {*/
-    /*display:none;*/
+/*display:none;*/
 /*}*/
 #grocerylist-box {
-    overflow:auto;
-    height:100%;
-    width: 40%;
-    margin-left:auto;
-    margin-right:auto;
-    background:white;
-    border-radius: 10px;
-
+  overflow: auto;
+  height: 100%;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  background: white;
+  border-radius: 10px;
 }
 
 .shoppingPanel {
-    background-color: #3BC48F;
+  background-color: #3bc48f;
 }
 #listPanel {
- background-color: white;
+  background-color: white;
 }
 .shop-list {
-
-    padding-left: 5%;
-
+  padding-left: 5%;
 }
 .checkbox-par {
-    padding-left: 0px;
+  padding-left: 0px;
 }
 
-
 @media screen and (min-width: 768px) {
-    #grocerylist-box{
-        height:100%;
-        display:flex;
-        margin-left:35%;
-        margin-right:auto;
-        text-align:left;
-        line-height: 2;
-    }
+  #grocerylist-box {
+    height: 100%;
+    display: flex;
+    margin-left: 35%;
+    margin-right: auto;
+    text-align: left;
+    line-height: 2;
+  }
 }

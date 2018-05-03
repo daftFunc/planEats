@@ -1,7 +1,8 @@
 {
   "name": "planeats",
   "version": "0.1.0",
-  "description": "planEats client developement package not to be used in conjunction with root package",
+  "description":
+    "planEats client developement package not to be used in conjunction with root package",
   "private": true,
   "devDependencies": {
     "@kadira/storybook": "^2.21.0",
@@ -52,7 +53,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "unitTest": "mocha --require ./testSetup.js --compilers babel-core/register ./test/*test.js",
+    "unitTest":
+      "mocha --require ./testSetup.js --compilers babel-core/register ./test/*test.js",
     "test:watch": "npm test -- -w",
     "testBasic": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",

@@ -1,14 +1,14 @@
 .RScontainer {
-    width: 90vw;
-    margin: 0 auto;
-    justify-content: center;
+  width: 90vw;
+  margin: 0 auto;
+  justify-content: center;
 }
 
 .recipeSearchSubmitButton {
-    display: block;
-    margin: 5px auto;
+  display: block;
+  margin: 5px auto;
 }
 
 .btnRS {
-    margin: 5px;
+  margin: 5px;
 }

@@ -1,20 +1,20 @@
 .Home {
-  height:100%;
+  height: 100%;
 }
 
 #menu-text-span {
-  display:none;
+  display: none;
 }
 #menu {
-  margin-top:20%;
-  margin-left:auto;
-  margin-right:auto;
-  width:17em;
-  height:17em;
+  margin-top: 20%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 17em;
+  height: 17em;
 }
 
 .menu-item {
-  background: #0375B4;
+  background: #0375b4;
   width: 46%;
   height: 46%;
   margin: 2%;
@@ -23,63 +23,62 @@
 }
 .top-left {
   background-color: #025481;
-    border: 2px solid black;
+  border: 2px solid black;
 }
-.top-right{
+.top-right {
   background-color: #262228;
-    border: 2px solid black;
+  border: 2px solid black;
 }
 .bottom-left {
-  background-color:#FC4A1A;
-    border: 2px solid black;
+  background-color: #fc4a1a;
+  border: 2px solid black;
 }
 .bottom-right {
   background-color: #007849;
-    border: 2px solid black;
+  border: 2px solid black;
 }
 .Login-loginButton {
-    display: inline-block;
-    margin: 0px auto;
-    padding: 10px 40px;
-    border-radius: 5px;
-    background-color: #eb5424;
-    color: #fff;
-    text-decoration: none;
-    font-size: 16px;
+  display: inline-block;
+  margin: 0px auto;
+  padding: 10px 40px;
+  border-radius: 5px;
+  background-color: #eb5424;
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
 }
 
 #Logo-home {
-  margin-left:auto;
-  margin-right:auto;
-  display:block;
-  text-align:center;
-  width:80%;
-  height:auto;
-  margin-top:10%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  text-align: center;
+  width: 80%;
+  height: auto;
+  margin-top: 10%;
 }
 
 .intro {
-  margin-left:auto;
-  margin-right:auto;
-  display:block;
-  text-align:center;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  text-align: center;
 }
 
 .menu-image {
-  width:50%;
-  height:50%;
+  width: 50%;
+  height: 50%;
   transform: translate(50%, 50%);
 }
 
 @media screen and (min-width: 768px) {
-
   #menu {
-    text-align:center;
-    margin-top:5%;
-    margin-left:auto;
-    margin-right:auto;
-    width:100%;
-    height:17em;
+    text-align: center;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 17em;
   }
 
   .menu-item {
@@ -88,11 +87,11 @@
     margin: 2%;
     display: inline-block;
     border-radius: 1.7em;
-    margin-bottom:0%;
+    margin-bottom: 0%;
   }
   .menu-image {
-    width:50%;
-    height:50%;
+    width: 50%;
+    height: 50%;
     transform: translate(-1%, 53%);
   }
   .cook-pic {
@@ -100,22 +99,20 @@
   }
 
   br {
-    display:none;
-    content:' ';
+    display: none;
+    content: " ";
   }
-  #menu-text-span{
-    text-align:center;
-    width:100%;
-    display:inherit;
+  #menu-text-span {
+    text-align: center;
+    width: 100%;
+    display: inherit;
   }
   .menu-text {
     display: inline-block;
     width: 140px;
-    font-size:170%;
-    text-align:center;
-    font-family:Ailerons;
+    font-size: 170%;
+    text-align: center;
+    font-family: Ailerons;
     margin: 2%;
-
   }
-
 }

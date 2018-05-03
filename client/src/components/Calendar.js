@@ -1,10 +1,8 @@
-import React from 'react';
-import CalendarSettings from './CalendarSettings';
+import React from "react";
+import CalendarSettings from "./CalendarSettings";
 
 const Calendar = () => {
-    return (
-      <CalendarSettings />
-    );
+  return <CalendarSettings />;
 };
 
 export default Calendar;

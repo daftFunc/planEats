@@ -1,27 +1,27 @@
-import React, {Component} from 'react';
-import './MealPlanner.css';
-import { FormControl, Button, Panel } from 'react-bootstrap';
-import Select from 'react-select';
-import 'react-select/dist/react-select.css';
+import React, { Component } from "react";
+import "./MealPlanner.css";
+import { FormControl, Button, Panel } from "react-bootstrap";
+import Select from "react-select";
+import "react-select/dist/react-select.css";
 
-import axios from 'axios'
+import axios from "axios";
 class MealPlanner extends Component {
   constructor() {
     super();
     this.state = {
       username: JSON.parse(localStorage.profile).email, //TODO: update to get user's ID in location
-      mealName: '',
+      mealName: "",
       recipes: [],
       clicked: [],
-      recipeName: '',
-      ingredients: '',
-      prepTime: '',
-      cookTime: '',
-      instructions: '',
-      mealTime: '',
+      recipeName: "",
+      ingredients: "",
+      prepTime: "",
+      cookTime: "",
+      instructions: "",
+      mealTime: "",
       clickedName: [],
-      list: ''
-    }
+      list: ""
+    };
   }
 
   componentDidMount() {
@@ -29,18 +29,18 @@ class MealPlanner extends Component {
   }
 
   handleChange(meal, index) {
-    if (meal.target) { //meal name has been entered
+    if (meal.target) {
+      //meal name has been entered
       this.setState({
         mealName: meal.target.value
       });
-
     }
   }
 
   handleAddRemove(name) {
     this.setState({
       clickedName: name
-    })
+    });
   }
 
   handleRemove(item) {
@@ -51,13 +51,15 @@ class MealPlanner extends Component {
     var updatedName = this.state.clickedName.slice();
     updatedName.splice(item, 1);
 
-    this.setState({
-      clicked: updateIds,
-      clickedName: updatedName
-    }, function() {
-      context.forceUpdate();
-    })
-
+    this.setState(
+      {
+        clicked: updateIds,
+        clickedName: updatedName
+      },
+      function() {
+        context.forceUpdate();
+      }
+    );
   }
 
   handleSubmit(event) {
@@ -80,14 +82,16 @@ class MealPlanner extends Component {
     var context = this;
     axios.defaults.headers.username = this.state.username;
 
-    axios.get('/api/recipe')
-      .then(function(recipes) {
+    axios.get("/api/recipe").then(function(recipes) {
       //recipes.data[0] is an object holding a Recipes array. Recipes array has all of the user's recipe objects
-      context.setState({
-        recipes: recipes.data[0].Recipes
-      }, function() {
-        context.listRecipes();
-      })
+      context.setState(
+        {
+          recipes: recipes.data[0].Recipes
+        },
+        function() {
+          context.listRecipes();
+        }
+      );
     });
   }
 
@@ -95,13 +99,12 @@ class MealPlanner extends Component {
     var context = this;
     axios.defaults.headers.username = this.state.username;
 
-    axios.post('/api/meals', newMeal)
-      .then(function(event){
-      console.log("posted", event)
+    axios.post("/api/meals", newMeal).then(function(event) {
+      console.log("posted", event);
       context.setState({
-        mealName: '',
+        mealName: "",
         clicked: [],
-        mealTime: '',
+        mealTime: "",
         clickedName: []
       });
     });
@@ -119,15 +122,18 @@ class MealPlanner extends Component {
       var obj = {
         value: recipe.id,
         label: recipe.name
-      }
+      };
       arr.push(obj);
     });
 
-    this.setState({
-      list: arr
-    }, function() {
-      console.log('state', context.state.list)
-    });
+    this.setState(
+      {
+        list: arr
+      },
+      function() {
+        console.log("state", context.state.list);
+      }
+    );
   }
 
   render() {
@@ -137,7 +143,10 @@ class MealPlanner extends Component {
         <div className="MPcontainer">
           <Panel className="recipeBookML">
             <div className="headerMP">
-              <text className="MPHeaderText">Click a recipe to add it to your book and write a name for your creation below!</text>
+              <text className="MPHeaderText">
+                Click a recipe to add it to your book and write a name for your
+                creation below!
+              </text>
               <form id="newMealForm">
                 <FormControl
                   id="recipeName"
@@ -158,11 +167,17 @@ class MealPlanner extends Component {
                 placeholder="Search and select from your saved recipes..."
               />
             </div>
-            <Button bsStyle="primary" type="submit" onClick={this.handleSubmit.bind(this)}>Save Meal</Button>
+            <Button
+              bsStyle="primary"
+              type="submit"
+              onClick={this.handleSubmit.bind(this)}
+            >
+              Save Meal
+            </Button>
           </Panel>
         </div>
       </div>
-    )
+    );
   }
 }
 
